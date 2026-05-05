@@ -50,7 +50,9 @@ module.exports = async (req, res) => {
         timestamp: v.timestamp || null,
         stopId: v.stopId || null,
         label: vehicle.label || null,
-        occupancy: v.occupancyStatus
+        occupancy: v.occupancyStatus,
+        speed: pos.speed !== undefined ? pos.speed : null,
+        bearing: pos.bearing !== undefined ? pos.bearing : null
       });
     }
 
