@@ -219,16 +219,13 @@ function selectStation(n) {
 }
 
 async function fetchDepartures(n) {
-  const today = new Date();
-  const date = today.toISOString().slice(0, 10).replace(/-/g, '');
-  const time = today.toTimeString().slice(0, 5).replace(':', '');
-  const url = `/api/v1/tp/departure_mon?outputFormat=rapidJSON&coordOutputFormat=EPSG%3A4326&mode=direct&type_dm=stop&name_dm=${encodeURIComponent(n.id)}&itdDate=${date}&itdTime=${time}&TfNSWDM=true&version=10.2.1.42`;
+  const url = `/api/departure_mon?stopId=${encodeURIComponent(n.id)}`;
   try {
     const res = await fetch(url);
     const data = await res.json();
     renderDepartures(data);
   } catch (err) {
-    document.getElementById('pDepartures').innerHTML = '<div class="departure"><span>Live data unavailable (CORS/API). Try local run or proxy.</span></div>';
+    document.getElementById('pDepartures').innerHTML = '<div class="departure"><span>Live data unavailable. Check console.</span></div>';
   }
 }
 
