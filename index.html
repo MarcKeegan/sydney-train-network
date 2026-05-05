@@ -146,6 +146,9 @@ LINKS.forEach(l => {
     lineMeshes[l.line]
   );
   tube.userData.line = l.line;
+  tube.userData.curve = curve;
+  tube.userData.source = l.source;
+  tube.userData.target = l.target;
   linkGroup.add(tube);
 });
 scene.add(linkGroup);
@@ -297,6 +300,7 @@ document.getElementById('btnLive').addEventListener('click', () => {
   liveOn = !liveOn;
   document.getElementById('btnLive').textContent = liveOn ? 'Live: On' : 'Live: Off';
   document.getElementById('btnLive').classList.toggle('active', liveOn);
+  setLiveMode(liveOn);
   if (liveOn && selectedNode) fetchDepartures(selectedNode);
   if (liveOn) {
     liveInterval = setInterval(() => { if (selectedNode) fetchDepartures(selectedNode); }, 30000);
@@ -317,10 +321,211 @@ window.addEventListener('resize', () => {
   renderer.setSize(innerWidth, innerHeight);
 });
 
+// ---- Simulated Train Dots ----
+const trains = [];
+const lineLinkMap = {}; // line -> array of link objects
+LINKS.forEach((l, idx) => {
+  if (!lineLinkMap[l.line]) lineLinkMap[l.line] = [];
+  lineLinkMap[l.line].push({
+    mesh: linkGroup.children[idx],
+    curve: linkGroup.children[idx].userData.curve,
+    source: l.source,
+    target: l.target,
+    length: linkGroup.children[idx].userData.curve ? linkGroup.children[idx].userData.curve.getLength() : 1
+  });
+});
+
+// Build simple station adjacency for routing
+const adjacency = {};      // stationId -> { line: [linkIndex, ...] }
+LINKS.forEach((l, idx) => {
+  [l.source, l.target].forEach(sid => {
+    if (!adjacency[sid]) adjacency[sid] = {};
+    if (!adjacency[sid][l.line]) adjacency[sid][l.line] = [];
+    const linkMesh = linkGroup.children[idx];
+    adjacency[sid][l.line].push({
+      mesh: linkMesh,
+      curve: linkMesh.userData.curve,
+      source: l.source,
+      target: l.target,
+      length: linkMesh.userData.curve ? linkMesh.userData.curve.getLength() : 1
+    });
+  });
+});
+const TRAIN_SPEED_BASE = 6.0; // world units per second at scale 1
+
+// ---- Lat/Lon -> XYZ mapping (fitted from network_data.json) ----
+function latLonToXYZ(lat, lon) {
+  const x = 92.163844 * lon + 0.000031 * lat - 13936.093820;
+  const z = 0.000003 * lon - 111.000036 * lat - 3759.571735;
+  return new THREE.Vector3(x, 0.35, z);
+}
+
+// Map GTFS route_id prefixes to our line codes
+const GTFS_ROUTE_MAP = {
+  "APS": "t8", "ESI": "t4", "NSN": "t1", "CCN": "ccn", "BMT": "bmt",
+  "SCO": "sco", "WST": "wst", "NTH": "t9", "CMB": "t5", "OLY": "t7",
+  "SHL": "shl", "T3": "t3", "T6": "t6", "IWL": "t2"
+};
+function routeToLine(routeId) {
+  if (!routeId) return null;
+  for (const [prefix, line] of Object.entries(GTFS_ROUTE_MAP)) {
+    if (routeId.startsWith(prefix)) return line;
+  }
+  return null;
+}
+
+// ---- Live train markers (separate from simulated trains) ----
+const liveMarkers = [];
+const GTFS_PROXY_URL = "http://localhost:8766/api/gtfs_vehiclepos";
+
+async function fetchLiveTrains() {
+  try {
+    const res = await fetch(GTFS_PROXY_URL, { method: "POST", headers: { "Content-Type": "application/json" } });
+    if (!res.ok) return;
+    const data = await res.json();
+    if (!data.trains) return;
+    updateLiveMarkers(data.trains);
+  } catch (e) {
+    console.warn("Live trains fetch failed:", e);
+  }
+}
+
+function updateLiveMarkers(trainData) {
+  liveMarkers.forEach(m => { m.mesh.visible = false; });
+  const visibleIds = new Set();
+  trainData.forEach(t => {
+    if (t.lat == null || t.lon == null) return;
+    const line = routeToLine(t.route);
+    const pos = latLonToXYZ(t.lat, t.lon);
+    let marker = liveMarkers.find(m => m.id === t.id);
+    if (!marker) {
+      const col = new THREE.Color(LINE_COLORS[line] || '#ffffff');
+      const geo = new THREE.SphereGeometry(0.28, 16, 16);
+      const mat = new THREE.MeshStandardMaterial({ color: col, emissive: col, emissiveIntensity: 2.2, transparent: true, opacity: 0.95 });
+      const mesh = new THREE.Mesh(geo, mat);
+      const light = new THREE.PointLight(col, 1.4, 6.0);
+      mesh.add(light);
+      scene.add(mesh);
+      marker = { mesh, id: t.id, line };
+      liveMarkers.push(marker);
+    }
+    marker.mesh.visible = true;
+    marker.mesh.position.copy(pos);
+    visibleIds.add(t.id);
+  });
+  for (let i = liveMarkers.length - 1; i >= 0; i--) {
+    if (!visibleIds.has(liveMarkers[i].id)) {
+      scene.remove(liveMarkers[i].mesh);
+      liveMarkers.splice(i, 1);
+    }
+  }
+}
+
+let liveFetchInterval = null;
+
+function setLiveMode(enabled) {
+  if (enabled) {
+    fetchLiveTrains();
+    if (!liveFetchInterval) liveFetchInterval = setInterval(fetchLiveTrains, 15000);
+  } else {
+    if (liveFetchInterval) { clearInterval(liveFetchInterval); liveFetchInterval = null; }
+    liveMarkers.forEach(m => { m.mesh.visible = false; });
+  }
+}
+
+// ---- Simulated Train Dots ----
+
+function spawnTrain(line) {
+  const links = lineLinkMap[line];
+  if (!links || links.length === 0) return;
+  const link = links[Math.floor(Math.random() * links.length)];
+  const geo = new THREE.SphereGeometry(0.24, 16, 16);
+  const col = new THREE.Color(LINE_COLORS[line] || '#fff');
+  const mat = new THREE.MeshStandardMaterial({ color: col, emissive: col, emissiveIntensity: 2.0, transparent: true, opacity: 0.95 });
+  const mesh = new THREE.Mesh(geo, mat);
+  const light = new THREE.PointLight(col, 1.2, 5.0);
+  mesh.add(light);
+  scene.add(mesh);
+  if (trains.length >= 200) {
+    const old = trains.shift();
+    scene.remove(old.mesh);
+    old.mesh.geometry.dispose();
+    old.mesh.material.dispose();
+  }
+  trains.push({
+    mesh,
+    line,
+    link,
+    t: 0,
+    direction: Math.random() > 0.5 ? 1 : -1,
+    speed: TRAIN_SPEED_BASE * (0.75 + Math.random() * 0.5),
+    hidden: false
+  });
+}
+
+// Initial burst + interval spawners
+ALL_LINES.forEach(line => {
+  for (let i = 0; i < 3; i++) setTimeout(() => spawnTrain(line), i * 1200);
+});
+setInterval(() => {
+  ALL_LINES.forEach(line => {
+    if (!hiddenLines.has(line)) spawnTrain(line);
+  });
+}, 4000);
+
+function pickNextLink(train) {
+  const currentNodeId = train.direction > 0 ? train.link.target : train.link.source;
+  const candidates = (adjacency[currentNodeId] || {})[train.line];
+  if (!candidates || candidates.length === 0) return null;
+  // Exclude immediate reverse
+  const rev = candidates.filter(c => !(c.source === train.link.target && c.target === train.link.source))
+    .filter(c => !(c.source === train.link.source && c.target === train.link.target));
+  const pool = rev.length ? rev : candidates;
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+
+function updateTrains(dt) {
+  for (let i = trains.length - 1; i >= 0; i--) {
+    const tr = trains[i];
+    const lineHidden = hiddenLines.has(tr.line);
+    if (lineHidden) {
+      tr.mesh.visible = false;
+      continue;
+    }
+    tr.mesh.visible = true;
+    const len = tr.link.length || 1;
+    tr.t += (tr.speed / len) * dt * tr.direction;
+    if (tr.t >= 1) {
+      const next = pickNextLink(tr);
+      if (next) {
+        tr.link = next;
+        tr.t = 0;
+      } else {
+        tr.direction = -1;
+        tr.t = 1;
+      }
+    } else if (tr.t <= 0) {
+      const next = pickNextLink(tr);
+      if (next) {
+        tr.link = next;
+        tr.t = 1;
+      } else {
+        tr.direction = 1;
+        tr.t = 0;
+      }
+    }
+    const pt = tr.link.curve.getPoint(Math.max(0, Math.min(1, tr.t)));
+    tr.mesh.position.copy(pt);
+    tr.mesh.position.y = Math.max(pt.y, 0.3); // keep slightly above rail
+  }
+}
+// ---- End train dots ----
+
 function animate() {
   requestAnimationFrame(animate);
   controls.update();
   updateLabels();
+  updateTrains(0.0167);
   renderer.render(scene, camera);
 }
 animate();
