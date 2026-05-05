@@ -376,11 +376,14 @@ function routeToLine(routeId) {
 
 // ---- Live train markers (separate from simulated trains) ----
 const liveMarkers = [];
-const GTFS_PROXY_URL = "http://localhost:8766/api/gtfs_vehiclepos";
+const GTFS_API = (() => {
+  const isLocal = window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  return isLocal ? "http://localhost:8766/api/gtfs_vehiclepos" : "/api/gtfs_vehiclepos";
+})();
 
 async function fetchLiveTrains() {
   try {
-    const res = await fetch(GTFS_PROXY_URL, { method: "POST", headers: { "Content-Type": "application/json" } });
+    const res = await fetch(GTFS_API, { method: "GET", headers: { "Accept": "application/json" } });
     if (!res.ok) return;
     const data = await res.json();
     if (!data.trains) return;
