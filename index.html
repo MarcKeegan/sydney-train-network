@@ -220,12 +220,19 @@ function selectStation(n) {
 
 async function fetchDepartures(n) {
   const url = `/api/departure_mon?stopId=${encodeURIComponent(n.id)}`;
+  const container = document.getElementById('pDepartures');
   try {
     const res = await fetch(url);
+    if (!res.ok) {
+      const text = await res.text().catch(() => '');
+      container.innerHTML = `<div class="departure"><span>API error ${res.status}${text ? ': ' + text.slice(0,200) : ''}</span></div>`;
+      return;
+    }
     const data = await res.json();
     renderDepartures(data);
   } catch (err) {
-    document.getElementById('pDepartures').innerHTML = '<div class="departure"><span>Live data unavailable. Check console.</span></div>';
+    container.innerHTML = `<div class="departure"><span>Network error: ${err.message || err}. Check internet / console.</span></div>`;
+    console.error('fetchDepartures failed:', err);
   }
 }
 
