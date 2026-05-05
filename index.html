@@ -290,9 +290,9 @@ function updateVisibility() {
   trains.forEach(obj => {
     obj.mesh.visible = !hiddenLines.has(obj.line) && !obj.hidden;
   });
-  // Hide live markers on hidden lines
+  // Hide live markers on hidden lines OR when live mode is off
   liveMarkers.forEach(obj => {
-    obj.mesh.visible = !hiddenLines.has(obj.line);
+    obj.mesh.visible = liveOn && !hiddenLines.has(obj.line);
   });
   // Hide station labels on hidden lines
   nodeGroup.children.forEach(mesh => {
