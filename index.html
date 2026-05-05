@@ -137,36 +137,6 @@ async function loadNetwork() {
 
 /* =====================  Build GeoJSON & Layers  ===================== */
 function buildMapLayers() {
-  // --- Line polylines ---
-  const lineFeatures = {};
-  LINKS.forEach(lk => {
-    const s = NODES.find(n => n.id === lk.source);
-    const t = NODES.find(n => n.id === lk.target);
-    if (!s || !t) return;
-    if (!lineFeatures[lk.line]) lineFeatures[lk.line] = [];
-    lineFeatures[lk.line].push({
-      type: 'Feature',
-      properties: { line: lk.line, color: LINE_COLORS[lk.line] || '#ff00ff' },
-      geometry: { type: 'LineString', coordinates: [[s.lon, s.lat], [t.lon, t.lat]] }
-    });
-  });
-
-  Object.entries(lineFeatures).forEach(([line, features]) => {
-    const sourceId = `source-line-${line}`;
-    const layerId = `layer-line-${line}`;
-    map.addSource(sourceId, { type: 'geojson', data: { type: 'FeatureCollection', features } });
-    map.addLayer({
-      id: layerId,
-      type: 'line',
-      source: sourceId,
-      paint: {
-        'line-color': ['get', 'color'],
-        'line-width': 3,
-        'line-opacity': 0.85
-      }
-    });
-  });
-
   // --- Stations (circles) ---
   const stationFeatures = NODES.map(n => ({
     type: 'Feature',
@@ -247,15 +217,12 @@ function toggleLine(line, rowEl) {
   if (hiddenLines.has(line)) {
     hiddenLines.delete(line);
     rowEl.classList.remove('hidden-line');
-    const layerId = `layer-line-${line}`;
-    if (map.getLayer(layerId)) map.setLayoutProperty(layerId, 'visibility', 'visible');
   } else {
     hiddenLines.add(line);
     rowEl.classList.add('hidden-line');
-    const layerId = `layer-line-${line}`;
-    if (map.getLayer(layerId)) map.setLayoutProperty(layerId, 'visibility', 'none');
   }
   updateStationVisibility();
+  updateLiveVisibility();
 }
 
 function updateStationVisibility() {
@@ -420,9 +387,33 @@ function animateLiveMarkers() {
     m.currentLngLat = [lng, lat];
     m.marker.setLngLat([lng, lat]);
   });
-  requestAnimationFrame(animateLiveMarkers);
 }
-animateLiveMarkers();
+
+function updateLiveVisibility() {
+  liveMarkers.forEach(m => {
+    const el = m.marker.getElement();
+    if (!el) return;
+    if (m.line && hiddenLines.has(m.line)) {
+      el.style.display = 'none';
+    } else {
+      el.style.display = '';
+    }
+  });
+}
+
+function runAnimation() {
+  liveMarkers.forEach(m => {
+    if (!m.targetLngLat || !m.currentLngLat) return;
+    const [cLng, cLat] = m.currentLngLat;
+    const [tLng, tLat] = m.targetLngLat;
+    const lng = cLng + (tLng - cLng) * 0.12;
+    const lat = cLat + (tLat - cLat) * 0.12;
+    m.currentLngLat = [lng, lat];
+    m.marker.setLngLat([lng, lat]);
+  });
+  requestAnimationFrame(runAnimation);
+}
+requestAnimationFrame(runAnimation);
 
 /* =====================  Live Toggle  ===================== */
 document.getElementById('btnLive').addEventListener('click', () => {
@@ -448,11 +439,8 @@ document.getElementById('btnLive').addEventListener('click', () => {
 document.getElementById('btnAll').addEventListener('click', () => {
   hiddenLines.clear();
   document.querySelectorAll('.legend-row').forEach(r => r.classList.remove('hidden-line'));
-  Object.keys(LINE_COLORS).forEach(line => {
-    const layerId = `layer-line-${line}`;
-    if (map.getLayer(layerId)) map.setLayoutProperty(layerId, 'visibility', 'visible');
-  });
   updateStationVisibility();
+  updateLiveVisibility();
   showToast('All lines visible');
 });
 
