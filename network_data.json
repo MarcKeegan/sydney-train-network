@@ -1,0 +1,6701 @@
+{
+  "nodes": [
+    {
+      "id": "222020",
+      "label": "Allawah",
+      "type": "interchange",
+      "pos": [
+        1.941,
+        1.166
+      ],
+      "desc": "Lines: SCO, T4",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO",
+        "T4"
+      ],
+      "lat": -33.9695839058,
+      "lon": 151.11432998
+    },
+    {
+      "id": "220520",
+      "label": "Arncliffe",
+      "type": "interchange",
+      "pos": [
+        2.33,
+        0.695
+      ],
+      "desc": "Lines: SCO, T4",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO",
+        "T4"
+      ],
+      "lat": -33.9364561946,
+      "lon": 151.147299468
+    },
+    {
+      "id": "206410",
+      "label": "Artarmon",
+      "type": "interchange",
+      "pos": [
+        2.778,
+        -1.117
+      ],
+      "desc": "Lines: CCN, T1, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "T1",
+        "T9"
+      ],
+      "lat": -33.8089026435,
+      "lon": 151.185293878
+    },
+    {
+      "id": "213110",
+      "label": "Ashfield",
+      "type": "interchange",
+      "pos": [
+        2.073,
+        0.0
+      ],
+      "desc": "Lines: BMT, CCN, NRC, T1, T2, T3, T9, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "CCN",
+        "NRC",
+        "T1",
+        "T2",
+        "T3",
+        "T9",
+        "WST"
+      ],
+      "lat": -33.8875506079,
+      "lon": 151.125504163
+    },
+    {
+      "id": "207730",
+      "label": "Asquith",
+      "type": "interchange",
+      "pos": [
+        1.867,
+        -2.824
+      ],
+      "desc": "Lines: CCN, NRC, NRW, T1, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW",
+        "T1",
+        "T9"
+      ],
+      "lat": -33.6887699577,
+      "lon": 151.108025195
+    },
+    {
+      "id": "214410",
+      "label": "Auburn",
+      "type": "interchange",
+      "pos": [
+        0.98,
+        -0.544
+      ],
+      "desc": "Lines: BMT, CCN, T1, T2, T5, T7, T9, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "CCN",
+        "T1",
+        "T2",
+        "T5",
+        "T7",
+        "T9",
+        "WST"
+      ],
+      "lat": -33.8492696009,
+      "lon": 151.032866977
+    },
+    {
+      "id": "251540",
+      "label": "Austinmer",
+      "type": "station",
+      "pos": [
+        -0.241,
+        5.951
+      ],
+      "desc": "Lines: SCO",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO"
+      ],
+      "lat": -34.3064104571,
+      "lon": 150.929312771
+    },
+    {
+      "id": "211910",
+      "label": "Beecroft",
+      "type": "interchange",
+      "pos": [
+        1.374,
+        -1.955
+      ],
+      "desc": "Lines: CCN, NRC, NRW, T1, T2, T7, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW",
+        "T1",
+        "T2",
+        "T7",
+        "T9"
+      ],
+      "lat": -33.7499541654,
+      "lon": 151.066298171
+    },
+    {
+      "id": "220710",
+      "label": "Bardwell Park",
+      "type": "interchange",
+      "pos": [
+        2.065,
+        0.626
+      ],
+      "desc": "Lines: T2, T8",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T8"
+      ],
+      "lat": -33.9316166619,
+      "lon": 151.1248574
+    },
+    {
+      "id": "208110",
+      "label": "Berowra",
+      "type": "interchange",
+      "pos": [
+        2.397,
+        -3.749
+      ],
+      "desc": "Lines: CCN, NRC, NRW, T1, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW",
+        "T1",
+        "T9"
+      ],
+      "lat": -33.6236572023,
+      "lon": 151.152971085
+    },
+    {
+      "id": "257420",
+      "label": "Bargo",
+      "type": "interchange",
+      "pos": [
+        -4.359,
+        5.737
+      ],
+      "desc": "Lines: SHL, STH",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SHL",
+        "STH"
+      ],
+      "lat": -34.2913649332,
+      "lon": 150.580209109
+    },
+    {
+      "id": "278510",
+      "label": "Blackheath",
+      "type": "interchange",
+      "pos": [
+        -7.848,
+        -3.618
+      ],
+      "desc": "Lines: BMT, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "WST"
+      ],
+      "lat": -33.6328810405,
+      "lon": 150.284344986
+    },
+    {
+      "id": "214320",
+      "label": "Birrong",
+      "type": "interchange",
+      "pos": [
+        0.876,
+        0.082
+      ],
+      "desc": "Lines: T2, T3, T6",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T3",
+        "T6"
+      ],
+      "lat": -33.8932786044,
+      "lon": 151.024041348
+    },
+    {
+      "id": "202210",
+      "label": "Bondi Junction",
+      "type": "interchange",
+      "pos": [
+        3.522,
+        0.052
+      ],
+      "desc": "Lines: SCO, T4",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO",
+        "T4"
+      ],
+      "lat": -33.8912022841,
+      "lon": 151.2483843
+    },
+    {
+      "id": "221610",
+      "label": "Banksia",
+      "type": "interchange",
+      "pos": [
+        2.249,
+        0.82
+      ],
+      "desc": "Lines: SCO, T4",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO",
+        "T4"
+      ],
+      "lat": -33.9452864513,
+      "lon": 151.140431561
+    },
+    {
+      "id": "278410",
+      "label": "Bullaburra",
+      "type": "interchange",
+      "pos": [
+        -6.312,
+        -2.329
+      ],
+      "desc": "Lines: BMT, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "WST"
+      ],
+      "lat": -33.7236061568,
+      "lon": 150.414607373
+    },
+    {
+      "id": "251610",
+      "label": "Bulli",
+      "type": "station",
+      "pos": [
+        -0.413,
+        6.35
+      ],
+      "desc": "Lines: SCO",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO"
+      ],
+      "lat": -34.3344809753,
+      "lon": 150.914743941
+    },
+    {
+      "id": "278620",
+      "label": "Bell",
+      "type": "interchange",
+      "pos": [
+        -7.912,
+        -5.425
+      ],
+      "desc": "Lines: BMT, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "WST"
+      ],
+      "lat": -33.5056855444,
+      "lon": 150.278886098
+    },
+    {
+      "id": "251810",
+      "label": "Bellambi",
+      "type": "station",
+      "pos": [
+        -0.47,
+        6.76
+      ],
+      "desc": "Lines: SCO",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO"
+      ],
+      "lat": -34.363318415,
+      "lon": 150.909902501
+    },
+    {
+      "id": "219210",
+      "label": "Belmore",
+      "type": "station",
+      "pos": [
+        1.639,
+        0.422
+      ],
+      "desc": "Sydney Trains station",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [],
+      "lat": -33.9172179801,
+      "lon": 151.088733212
+    },
+    {
+      "id": "220010",
+      "label": "Bankstown",
+      "type": "interchange",
+      "pos": [
+        1.002,
+        0.431
+      ],
+      "desc": "Lines: T2, T3, T6",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T3",
+        "T6"
+      ],
+      "lat": -33.9178645357,
+      "lon": 151.034686895
+    },
+    {
+      "id": "257620",
+      "label": "Burradoo",
+      "type": "interchange",
+      "pos": [
+        -6.504,
+        8.617
+      ],
+      "desc": "Lines: SHL, STH",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SHL",
+        "STH"
+      ],
+      "lat": -34.4940191886,
+      "lon": 150.398338765
+    },
+    {
+      "id": "257610",
+      "label": "Bowral",
+      "type": "interchange",
+      "pos": [
+        -6.287,
+        8.391
+      ],
+      "desc": "Lines: SHL, STH",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SHL",
+        "STH"
+      ],
+      "lat": -34.4781231702,
+      "lon": 150.416658534
+    },
+    {
+      "id": "214120",
+      "label": "Berala",
+      "type": "interchange",
+      "pos": [
+        0.975,
+        -0.223
+      ],
+      "desc": "Lines: T2, T3, T5, T6",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T3",
+        "T5",
+        "T6"
+      ],
+      "lat": -33.8718356716,
+      "lon": 151.032441754
+    },
+    {
+      "id": "279538",
+      "label": "Bathurst",
+      "type": "interchange",
+      "pos": [
+        -16.117,
+        -6.563
+      ],
+      "desc": "Lines: BMT, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "WST"
+      ],
+      "lat": -33.4256270264,
+      "lon": 149.58321606
+    },
+    {
+      "id": "214810",
+      "label": "Blacktown",
+      "type": "interchange",
+      "pos": [
+        -0.498,
+        -1.695
+      ],
+      "desc": "Lines: BMT, CCN, T1, T2, T5, T7, T9, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "CCN",
+        "T1",
+        "T2",
+        "T5",
+        "T7",
+        "T9",
+        "WST"
+      ],
+      "lat": -33.768229034,
+      "lon": 150.907510545
+    },
+    {
+      "id": "257129",
+      "label": "Buxton Bus",
+      "type": "station",
+      "pos": [
+        -4.9,
+        5.218
+      ],
+      "desc": "Sydney Trains station",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [],
+      "lat": -34.254807,
+      "lon": 150.534265
+    },
+    {
+      "id": "220910",
+      "label": "Beverly Hills",
+      "type": "interchange",
+      "pos": [
+        1.556,
+        0.871
+      ],
+      "desc": "Lines: T2, T8",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T8"
+      ],
+      "lat": -33.9488485689,
+      "lon": 151.081692204
+    },
+    {
+      "id": "213410",
+      "label": "Burwood",
+      "type": "interchange",
+      "pos": [
+        1.828,
+        -0.145
+      ],
+      "desc": "Lines: BMT, CCN, NRC, NRW, T1, T2, T3, T7, T9, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "CCN",
+        "NRC",
+        "NRW",
+        "T1",
+        "T2",
+        "T3",
+        "T7",
+        "T9",
+        "WST"
+      ],
+      "lat": -33.8773146456,
+      "lon": 151.104762238
+    },
+    {
+      "id": "277410",
+      "label": "Blaxland",
+      "type": "interchange",
+      "pos": [
+        -4.012,
+        -2.045
+      ],
+      "desc": "Lines: BMT, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "WST"
+      ],
+      "lat": -33.7435765927,
+      "lon": 150.609595708
+    },
+    {
+      "id": "220720",
+      "label": "Bexley North",
+      "type": "interchange",
+      "pos": [
+        1.93,
+        0.711
+      ],
+      "desc": "Lines: T2, T8",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T8"
+      ],
+      "lat": -33.9375660086,
+      "lon": 151.113397321
+    },
+    {
+      "id": "216620",
+      "label": "Cabramatta",
+      "type": "interchange",
+      "pos": [
+        -0.129,
+        0.104
+      ],
+      "desc": "Lines: T2, T3, T5, T7",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T3",
+        "T5",
+        "T7"
+      ],
+      "lat": -33.8948665527,
+      "lon": 150.938820645
+    },
+    {
+      "id": "217030",
+      "label": "Casula",
+      "type": "interchange",
+      "pos": [
+        -0.446,
+        0.885
+      ],
+      "desc": "Lines: T2, T3, T5",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T3",
+        "T5"
+      ],
+      "lat": -33.9498183823,
+      "lon": 150.911946019
+    },
+    {
+      "id": "219320",
+      "label": "Canterbury",
+      "type": "station",
+      "pos": [
+        1.987,
+        0.343
+      ],
+      "desc": "Sydney Trains station",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [],
+      "lat": -33.9116721396,
+      "lon": 151.118213253
+    },
+    {
+      "id": "250850",
+      "label": "Coalcliff",
+      "type": "station",
+      "pos": [
+        0.324,
+        5.04
+      ],
+      "desc": "Lines: SCO",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO"
+      ],
+      "lat": -34.2422504333,
+      "lon": 150.977242743
+    },
+    {
+      "id": "200020",
+      "label": "Circular Quay",
+      "type": "interchange",
+      "pos": [
+        3.074,
+        -0.372
+      ],
+      "desc": "Lines: SCO, T1, T2, T3, T4, T8",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO",
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T8"
+      ],
+      "lat": -33.861323585,
+      "lon": 151.210389837
+    },
+    {
+      "id": "275630",
+      "label": "Clarendon",
+      "type": "interchange",
+      "pos": [
+        -1.901,
+        -3.958
+      ],
+      "desc": "Lines: T1, T5",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T1",
+        "T5"
+      ],
+      "lat": -33.6089524546,
+      "lon": 150.788562752
+    },
+    {
+      "id": "200060",
+      "label": "Central",
+      "type": "interchange",
+      "pos": [
+        3.02,
+        -0.052
+      ],
+      "desc": "Lines: BMT, CCN, NRC, NRW, SCO, SHL, STH, T1, T2, T3, T4, T5, T7, T8, T9, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "CCN",
+        "NRC",
+        "NRW",
+        "SCO",
+        "SHL",
+        "STH",
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T7",
+        "T8",
+        "T9",
+        "WST"
+      ],
+      "lat": -33.883881632,
+      "lon": 151.205829312
+    },
+    {
+      "id": "216220",
+      "label": "Chester Hill",
+      "type": "interchange",
+      "pos": [
+        0.586,
+        -0.057
+      ],
+      "desc": "Lines: T2, T3, T5",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T3",
+        "T5"
+      ],
+      "lat": -33.8835434986,
+      "lon": 150.999445637
+    },
+    {
+      "id": "211920",
+      "label": "Cheltenham",
+      "type": "interchange",
+      "pos": [
+        1.522,
+        -1.871
+      ],
+      "desc": "Lines: CCN, NRC, NRW, T1, T2, T7, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW",
+        "T1",
+        "T2",
+        "T7",
+        "T9"
+      ],
+      "lat": -33.7558683656,
+      "lon": 151.078851325
+    },
+    {
+      "id": "251530",
+      "label": "Coledale",
+      "type": "station",
+      "pos": [
+        -0.076,
+        5.709
+      ],
+      "desc": "Lines: SCO",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO"
+      ],
+      "lat": -34.2893891323,
+      "lon": 150.943335304
+    },
+    {
+      "id": "214230",
+      "label": "Clyde",
+      "type": "interchange",
+      "pos": [
+        0.799,
+        -0.728
+      ],
+      "desc": "Lines: BMT, CCN, T1, T2, T5, T7, T9, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "CCN",
+        "T1",
+        "T2",
+        "T5",
+        "T7",
+        "T9",
+        "WST"
+      ],
+      "lat": -33.8362817636,
+      "lon": 151.01748954
+    },
+    {
+      "id": "221810",
+      "label": "Carlton",
+      "type": "interchange",
+      "pos": [
+        2.059,
+        1.147
+      ],
+      "desc": "Lines: SCO, T4",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO",
+        "T4"
+      ],
+      "lat": -33.9682663189,
+      "lon": 151.124336923
+    },
+    {
+      "id": "251820",
+      "label": "Corrimal",
+      "type": "station",
+      "pos": [
+        -0.528,
+        6.936
+      ],
+      "desc": "Lines: SCO",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO"
+      ],
+      "lat": -34.3757269238,
+      "lon": 150.90497163
+    },
+    {
+      "id": "222610",
+      "label": "Como",
+      "type": "interchange",
+      "pos": [
+        1.394,
+        1.658
+      ],
+      "desc": "Lines: SCO, T4",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO",
+        "T4"
+      ],
+      "lat": -34.0042661601,
+      "lon": 151.067998839
+    },
+    {
+      "id": "219410",
+      "label": "Campsie",
+      "type": "station",
+      "pos": [
+        1.803,
+        0.326
+      ],
+      "desc": "Sydney Trains station",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [],
+      "lat": -33.9104811565,
+      "lon": 151.102630825
+    },
+    {
+      "id": "222910",
+      "label": "Caringbah",
+      "type": "station",
+      "pos": [
+        2.04,
+        2.189
+      ],
+      "desc": "Lines: T4",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T4"
+      ],
+      "lat": -34.0416103913,
+      "lon": 151.122747575
+    },
+    {
+      "id": "223020",
+      "label": "Cronulla",
+      "type": "station",
+      "pos": [
+        2.38,
+        2.397
+      ],
+      "desc": "Lines: T4",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T4"
+      ],
+      "lat": -34.0562517119,
+      "lon": 151.151542409
+    },
+    {
+      "id": "250030",
+      "label": "Coniston",
+      "type": "station",
+      "pos": [
+        -0.758,
+        7.813
+      ],
+      "desc": "Lines: SCO",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO"
+      ],
+      "lat": -34.4374548931,
+      "lon": 150.885529169
+    },
+    {
+      "id": "216610",
+      "label": "Canley Vale",
+      "type": "interchange",
+      "pos": [
+        -0.068,
+        -0.011
+      ],
+      "desc": "Lines: T2, T5, T7",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T5",
+        "T7"
+      ],
+      "lat": -33.8867979256,
+      "lon": 150.943987038
+    },
+    {
+      "id": "213810",
+      "label": "Concord West",
+      "type": "interchange",
+      "pos": [
+        1.602,
+        -0.551
+      ],
+      "desc": "Lines: CCN, NRC, NRW, T1, T2, T7, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW",
+        "T1",
+        "T2",
+        "T7",
+        "T9"
+      ],
+      "lat": -33.8487399849,
+      "lon": 151.085626247
+    },
+    {
+      "id": "250520",
+      "label": "Cringila",
+      "type": "station",
+      "pos": [
+        -0.841,
+        8.235
+      ],
+      "desc": "Lines: SCO",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO"
+      ],
+      "lat": -34.4671755384,
+      "lon": 150.878422822
+    },
+    {
+      "id": "257165",
+      "label": "Couridjah Bus",
+      "type": "station",
+      "pos": [
+        -4.732,
+        4.906
+      ],
+      "desc": "Sydney Trains station",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [],
+      "lat": -34.232824,
+      "lon": 150.548507
+    },
+    {
+      "id": "216330",
+      "label": "Carramar",
+      "type": "interchange",
+      "pos": [
+        0.139,
+        -0.046
+      ],
+      "desc": "Lines: T2, T3, T5",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T3",
+        "T5"
+      ],
+      "lat": -33.8843177862,
+      "lon": 150.961548622
+    },
+    {
+      "id": "256020",
+      "label": "Campbelltown",
+      "type": "interchange",
+      "pos": [
+        -1.602,
+        2.505
+      ],
+      "desc": "Lines: SHL, STH, T2, T3, T5, T8",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SHL",
+        "STH",
+        "T2",
+        "T3",
+        "T5",
+        "T8"
+      ],
+      "lat": -34.0638354867,
+      "lon": 150.813928964
+    },
+    {
+      "id": "206710",
+      "label": "Chatswood",
+      "type": "interchange",
+      "pos": [
+        2.725,
+        -1.284
+      ],
+      "desc": "Lines: CCN, T1, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "T1",
+        "T9"
+      ],
+      "lat": -33.7971340586,
+      "lon": 151.180820713
+    },
+    {
+      "id": "208120",
+      "label": "Cowan",
+      "type": "interchange",
+      "pos": [
+        2.618,
+        -4.183
+      ],
+      "desc": "Lines: CCN, NRC, NRW",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW"
+      ],
+      "lat": -33.5931076339,
+      "lon": 151.171717694
+    },
+    {
+      "id": "213210",
+      "label": "Croydon",
+      "type": "interchange",
+      "pos": [
+        1.955,
+        -0.061
+      ],
+      "desc": "Lines: BMT, CCN, NRC, NRW, T1, T2, T3, T7, T9, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "CCN",
+        "NRC",
+        "NRW",
+        "T1",
+        "T2",
+        "T3",
+        "T7",
+        "T9",
+        "WST"
+      ],
+      "lat": -33.8832342462,
+      "lon": 151.115488246
+    },
+    {
+      "id": "253020",
+      "label": "Dapto",
+      "type": "station",
+      "pos": [
+        -1.857,
+        8.589
+      ],
+      "desc": "Lines: SCO",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO"
+      ],
+      "lat": -34.4920904371,
+      "lon": 150.792328257
+    },
+    {
+      "id": "220310",
+      "label": "Dulwich Hill",
+      "type": "station",
+      "pos": [
+        2.255,
+        0.335
+      ],
+      "desc": "Sydney Trains station",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [],
+      "lat": -33.9111022345,
+      "lon": 151.140989389
+    },
+    {
+      "id": "211410",
+      "label": "Denistone",
+      "type": "interchange",
+      "pos": [
+        1.625,
+        -1.245
+      ],
+      "desc": "Lines: CCN, NRC, NRW, T1, T2, T7, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW",
+        "T1",
+        "T2",
+        "T7",
+        "T9"
+      ],
+      "lat": -33.7999061767,
+      "lon": 151.087550272
+    },
+    {
+      "id": "276710",
+      "label": "Doonside",
+      "type": "interchange",
+      "pos": [
+        -0.96,
+        -1.755
+      ],
+      "desc": "Lines: BMT, T1, T2, T5, T7, T9, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "T1",
+        "T2",
+        "T5",
+        "T7",
+        "T9",
+        "WST"
+      ],
+      "lat": -33.7639850225,
+      "lon": 150.868352057
+    },
+    {
+      "id": "256910",
+      "label": "Douglas Park",
+      "type": "interchange",
+      "pos": [
+        -2.829,
+        4.201
+      ],
+      "desc": "Lines: SHL, STH",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SHL",
+        "STH"
+      ],
+      "lat": -34.1832266515,
+      "lon": 150.709937814
+    },
+    {
+      "id": "202710",
+      "label": "Edgecliff",
+      "type": "interchange",
+      "pos": [
+        3.378,
+        -0.118
+      ],
+      "desc": "Lines: SCO, T4",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO",
+        "T4"
+      ],
+      "lat": -33.8792514754,
+      "lon": 151.23616135
+    },
+    {
+      "id": "217426",
+      "label": "Edmondson Park",
+      "type": "interchange",
+      "pos": [
+        -1.074,
+        1.162
+      ],
+      "desc": "Lines: T2, T3, T5, T8, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T3",
+        "T5",
+        "T8",
+        "T9"
+      ],
+      "lat": -33.9693,
+      "lon": 150.8587
+    },
+    {
+      "id": "223310",
+      "label": "Engadine",
+      "type": "interchange",
+      "pos": [
+        0.765,
+        2.562
+      ],
+      "desc": "Lines: SCO, T4",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO",
+        "T4"
+      ],
+      "lat": -34.0678990057,
+      "lon": 151.014652906
+    },
+    {
+      "id": "221320",
+      "label": "East Hills",
+      "type": "interchange",
+      "pos": [
+        0.414,
+        1.052
+      ],
+      "desc": "Lines: SHL, STH, T2, T5, T8, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SHL",
+        "STH",
+        "T2",
+        "T5",
+        "T8",
+        "T9"
+      ],
+      "lat": -33.9616067679,
+      "lon": 150.98489728
+    },
+    {
+      "id": "212110",
+      "label": "Epping",
+      "type": "interchange",
+      "pos": [
+        1.562,
+        -1.63
+      ],
+      "desc": "Lines: CCN, NRC, NRW, T1, T2, T7, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW",
+        "T1",
+        "T2",
+        "T7",
+        "T9"
+      ],
+      "lat": -33.7728414535,
+      "lon": 151.082176647
+    },
+    {
+      "id": "275020",
+      "label": "Emu Plains",
+      "type": "interchange",
+      "pos": [
+        -3.273,
+        -2.017
+      ],
+      "desc": "Lines: BMT, T1, T2, T5, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "T1",
+        "T2",
+        "T5",
+        "WST"
+      ],
+      "lat": -33.7455677802,
+      "lon": 150.672286674
+    },
+    {
+      "id": "275310",
+      "label": "East Richmond",
+      "type": "interchange",
+      "pos": [
+        -2.247,
+        -4.06
+      ],
+      "desc": "Lines: T1, T5",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T1",
+        "T5"
+      ],
+      "lat": -33.6017961363,
+      "lon": 150.759234021
+    },
+    {
+      "id": "204310",
+      "label": "Erskineville",
+      "type": "interchange",
+      "pos": [
+        2.778,
+        0.189
+      ],
+      "desc": "Lines: SCO, SHL, STH, T2, T3, T4, T8, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO",
+        "SHL",
+        "STH",
+        "T2",
+        "T3",
+        "T4",
+        "T8",
+        "T9"
+      ],
+      "lat": -33.9008580996,
+      "lon": 151.185307617
+    },
+    {
+      "id": "212210",
+      "label": "Eastwood",
+      "type": "interchange",
+      "pos": [
+        1.562,
+        -1.385
+      ],
+      "desc": "Lines: CCN, NRC, NRW, T1, T2, T7, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW",
+        "T1",
+        "T2",
+        "T7",
+        "T9"
+      ],
+      "lat": -33.7900214046,
+      "lon": 151.08223345
+    },
+    {
+      "id": "277610",
+      "label": "Faulconbridge",
+      "type": "interchange",
+      "pos": [
+        -4.891,
+        -2.714
+      ],
+      "desc": "Lines: BMT, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "WST"
+      ],
+      "lat": -33.6964883499,
+      "lon": 150.535033881
+    },
+    {
+      "id": "216510",
+      "label": "Fairfield",
+      "type": "interchange",
+      "pos": [
+        0.086,
+        -0.216
+      ],
+      "desc": "Lines: T2, T5, T7",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T5",
+        "T7"
+      ],
+      "lat": -33.8723306485,
+      "lon": 150.957071112
+    },
+    {
+      "id": "214020",
+      "label": "Flemington",
+      "type": "interchange",
+      "pos": [
+        1.415,
+        -0.323
+      ],
+      "desc": "Lines: BMT, CCN, T1, T2, T3, T6, T7, T9, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "CCN",
+        "T1",
+        "T2",
+        "T3",
+        "T6",
+        "T7",
+        "T9",
+        "WST"
+      ],
+      "lat": -33.8648222877,
+      "lon": 151.069766513
+    },
+    {
+      "id": "251910",
+      "label": "Fairy Meadow",
+      "type": "station",
+      "pos": [
+        -0.632,
+        7.222
+      ],
+      "desc": "Lines: SCO",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO"
+      ],
+      "lat": -34.3958341062,
+      "lon": 150.896170208
+    },
+    {
+      "id": "277310",
+      "label": "Glenbrook",
+      "type": "interchange",
+      "pos": [
+        -3.879,
+        -1.684
+      ],
+      "desc": "Lines: BMT, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "WST"
+      ],
+      "lat": -33.7690043711,
+      "lon": 150.620834198
+    },
+    {
+      "id": "216710",
+      "label": "Glenfield",
+      "type": "interchange",
+      "pos": [
+        -0.672,
+        1.205
+      ],
+      "desc": "Lines: SHL, STH, T2, T3, T5, T8, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SHL",
+        "STH",
+        "T2",
+        "T3",
+        "T5",
+        "T8",
+        "T9"
+      ],
+      "lat": -33.9723682746,
+      "lon": 150.89280722
+    },
+    {
+      "id": "216110",
+      "label": "Guildford",
+      "type": "interchange",
+      "pos": [
+        0.408,
+        -0.469
+      ],
+      "desc": "Lines: T2, T5, T7",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T5",
+        "T7"
+      ],
+      "lat": -33.8545056996,
+      "lon": 150.984361016
+    },
+    {
+      "id": "225040",
+      "label": "Gosford",
+      "type": "interchange",
+      "pos": [
+        4.623,
+        -6.587
+      ],
+      "desc": "Lines: CCN, NRC, NRW",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW"
+      ],
+      "lat": -33.423882608,
+      "lon": 151.341710916
+    },
+    {
+      "id": "201710",
+      "label": "Green Square",
+      "type": "interchange",
+      "pos": [
+        2.981,
+        0.263
+      ],
+      "desc": "Lines: T2, T5, T8",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T5",
+        "T8"
+      ],
+      "lat": -33.9060625915,
+      "lon": 151.202474466
+    },
+    {
+      "id": "207210",
+      "label": "Gordon",
+      "type": "interchange",
+      "pos": [
+        2.415,
+        -1.869
+      ],
+      "desc": "Lines: CCN, T1, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "T1",
+        "T9"
+      ],
+      "lat": -33.7560086417,
+      "lon": 151.154528026
+    },
+    {
+      "id": "214240",
+      "label": "Granville",
+      "type": "interchange",
+      "pos": [
+        0.74,
+        -0.772
+      ],
+      "desc": "Lines: BMT, CCN, T1, T2, T5, T7, T9, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "CCN",
+        "T1",
+        "T2",
+        "T5",
+        "T7",
+        "T9",
+        "WST"
+      ],
+      "lat": -33.833175985,
+      "lon": 151.012494676
+    },
+    {
+      "id": "222710",
+      "label": "Gymea",
+      "type": "station",
+      "pos": [
+        1.601,
+        2.094
+      ],
+      "desc": "Lines: T4",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T4"
+      ],
+      "lat": -34.0348929402,
+      "lon": 151.085476628
+    },
+    {
+      "id": "207720",
+      "label": "Hornsby",
+      "type": "interchange",
+      "pos": [
+        1.754,
+        -2.625
+      ],
+      "desc": "Lines: CCN, NRC, NRW, T1, T2, T7, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW",
+        "T1",
+        "T2",
+        "T7",
+        "T9"
+      ],
+      "lat": -33.7028012445,
+      "lon": 151.098494013
+    },
+    {
+      "id": "223320",
+      "label": "Heathcote",
+      "type": "interchange",
+      "pos": [
+        0.687,
+        2.851
+      ],
+      "desc": "Lines: SCO, T4",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO",
+        "T4"
+      ],
+      "lat": -34.0882366141,
+      "lon": 151.008002409
+    },
+    {
+      "id": "250810",
+      "label": "Helensburgh",
+      "type": "interchange",
+      "pos": [
+        0.531,
+        4.111
+      ],
+      "desc": "Lines: SCO, T4",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO",
+        "T4"
+      ],
+      "lat": -34.1768698817,
+      "lon": 150.994824856
+    },
+    {
+      "id": "217310",
+      "label": "Holsworthy",
+      "type": "interchange",
+      "pos": [
+        0.084,
+        1.075
+      ],
+      "desc": "Lines: SHL, STH, T2, T5, T8, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SHL",
+        "STH",
+        "T2",
+        "T5",
+        "T8",
+        "T9"
+      ],
+      "lat": -33.9632095726,
+      "lon": 150.956894588
+    },
+    {
+      "id": "214010",
+      "label": "Homebush",
+      "type": "interchange",
+      "pos": [
+        1.612,
+        -0.296
+      ],
+      "desc": "Lines: BMT, CCN, T1, T2, T3, T6, T7, T9, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "CCN",
+        "T1",
+        "T2",
+        "T3",
+        "T6",
+        "T7",
+        "T9",
+        "WST"
+      ],
+      "lat": -33.8667398779,
+      "lon": 151.086441327
+    },
+    {
+      "id": "215010",
+      "label": "Harris Park",
+      "type": "interchange",
+      "pos": [
+        0.683,
+        -0.913
+      ],
+      "desc": "Lines: BMT, CCN, T1, T2, T5, T7, T9, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "CCN",
+        "T1",
+        "T2",
+        "T5",
+        "T7",
+        "T9",
+        "WST"
+      ],
+      "lat": -33.8232600239,
+      "lon": 151.007638745
+    },
+    {
+      "id": "219310",
+      "label": "Hurlstone Park",
+      "type": "station",
+      "pos": [
+        2.15,
+        0.325
+      ],
+      "desc": "Sydney Trains station",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [],
+      "lat": -33.9104222503,
+      "lon": 151.132092512
+    },
+    {
+      "id": "208310",
+      "label": "Hawkesbury River",
+      "type": "interchange",
+      "pos": [
+        3.264,
+        -4.841
+      ],
+      "desc": "Lines: CCN, NRC, NRW",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW"
+      ],
+      "lat": -33.5467883528,
+      "lon": 151.226510364
+    },
+    {
+      "id": "222010",
+      "label": "Hurstville",
+      "type": "interchange",
+      "pos": [
+        1.804,
+        1.135
+      ],
+      "desc": "Lines: SCO, T4",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO",
+        "T4"
+      ],
+      "lat": -33.9674535563,
+      "lon": 151.102757149
+    },
+    {
+      "id": "277910",
+      "label": "Hazelbrook",
+      "type": "interchange",
+      "pos": [
+        -5.84,
+        -2.324
+      ],
+      "desc": "Lines: BMT, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "WST"
+      ],
+      "lat": -33.7239735131,
+      "lon": 150.454603767
+    },
+    {
+      "id": "256510",
+      "label": "Ingleburn",
+      "type": "interchange",
+      "pos": [
+        -1.001,
+        1.556
+      ],
+      "desc": "Lines: SHL, STH, T2, T3, T5, T8",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SHL",
+        "STH",
+        "T2",
+        "T3",
+        "T5",
+        "T8"
+      ],
+      "lat": -33.9970796954,
+      "lon": 150.864920489
+    },
+    {
+      "id": "222620",
+      "label": "Jannali",
+      "type": "interchange",
+      "pos": [
+        1.355,
+        1.827
+      ],
+      "desc": "Lines: SCO, T4",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO",
+        "T4"
+      ],
+      "lat": -34.0161286564,
+      "lon": 151.064664482
+    },
+    {
+      "id": "278020",
+      "label": "Katoomba",
+      "type": "interchange",
+      "pos": [
+        -7.532,
+        -2.5
+      ],
+      "desc": "Lines: BMT, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "WST"
+      ],
+      "lat": -33.7115734375,
+      "lon": 150.311160201
+    },
+    {
+      "id": "220810",
+      "label": "Kingsgrove",
+      "type": "interchange",
+      "pos": [
+        1.778,
+        0.754
+      ],
+      "desc": "Lines: T2, T8",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T8"
+      ],
+      "lat": -33.9406360222,
+      "lon": 151.100483923
+    },
+    {
+      "id": "201110",
+      "label": "Kings Cross",
+      "type": "interchange",
+      "pos": [
+        3.215,
+        -0.185
+      ],
+      "desc": "Lines: SCO, T4",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO",
+        "T4"
+      ],
+      "lat": -33.8745409123,
+      "lon": 151.222334239
+    },
+    {
+      "id": "207110",
+      "label": "Killara",
+      "type": "interchange",
+      "pos": [
+        2.499,
+        -1.735
+      ],
+      "desc": "Lines: CCN, T1, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "T1",
+        "T9"
+      ],
+      "lat": -33.7654089903,
+      "lon": 151.161647368
+    },
+    {
+      "id": "253010",
+      "label": "Kembla Grange",
+      "type": "station",
+      "pos": [
+        -1.562,
+        8.278
+      ],
+      "desc": "Lines: SCO",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO"
+      ],
+      "lat": -34.4702183585,
+      "lon": 150.817340679
+    },
+    {
+      "id": "221710",
+      "label": "Kogarah",
+      "type": "interchange",
+      "pos": [
+        2.157,
+        1.06
+      ],
+      "desc": "Lines: SCO, T4",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO",
+        "T4"
+      ],
+      "lat": -33.9621493059,
+      "lon": 151.132641462
+    },
+    {
+      "id": "223230",
+      "label": "Kirrawee",
+      "type": "station",
+      "pos": [
+        1.434,
+        2.095
+      ],
+      "desc": "Lines: T4",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T4"
+      ],
+      "lat": -34.0350153507,
+      "lon": 151.071315329
+    },
+    {
+      "id": "274720",
+      "label": "Kingswood",
+      "type": "interchange",
+      "pos": [
+        -2.712,
+        -1.837
+      ],
+      "desc": "Lines: BMT, T1, T2, T5, T7, T9, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "T1",
+        "T2",
+        "T5",
+        "T7",
+        "T9",
+        "WST"
+      ],
+      "lat": -33.7582512003,
+      "lon": 150.719823595
+    },
+    {
+      "id": "225620",
+      "label": "Koolewong",
+      "type": "interchange",
+      "pos": [
+        4.351,
+        -5.975
+      ],
+      "desc": "Lines: CCN, NRC, NRW",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW"
+      ],
+      "lat": -33.4669744157,
+      "lon": 151.318655022
+    },
+    {
+      "id": "219510",
+      "label": "Lakemba",
+      "type": "station",
+      "pos": [
+        1.488,
+        0.463
+      ],
+      "desc": "Sydney Trains station",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [],
+      "lat": -33.9201269921,
+      "lon": 151.075955497
+    },
+    {
+      "id": "275030",
+      "label": "Lapstone",
+      "type": "interchange",
+      "pos": [
+        -3.62,
+        -1.617
+      ],
+      "desc": "Lines: BMT, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "WST"
+      ],
+      "lat": -33.773697882,
+      "lon": 150.642796628
+    },
+    {
+      "id": "278310",
+      "label": "Lawson",
+      "type": "interchange",
+      "pos": [
+        -6.132,
+        -2.392
+      ],
+      "desc": "Lines: BMT, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "WST"
+      ],
+      "lat": -33.7191448467,
+      "lon": 150.429824445
+    },
+    {
+      "id": "214110",
+      "label": "Lidcombe",
+      "type": "interchange",
+      "pos": [
+        1.128,
+        -0.336
+      ],
+      "desc": "Lines: BMT, CCN, T1, T2, T3, T5, T6, T7, T9, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "CCN",
+        "T1",
+        "T2",
+        "T3",
+        "T5",
+        "T6",
+        "T7",
+        "T9",
+        "WST"
+      ],
+      "lat": -33.8638893463,
+      "lon": 151.045389501
+    },
+    {
+      "id": "207010",
+      "label": "Lindfield",
+      "type": "interchange",
+      "pos": [
+        2.587,
+        -1.596
+      ],
+      "desc": "Lines: CCN, T1, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "T1",
+        "T9"
+      ],
+      "lat": -33.7751854637,
+      "lon": 151.16911057
+    },
+    {
+      "id": "217933",
+      "label": "Leppington",
+      "type": "interchange",
+      "pos": [
+        -1.671,
+        0.95
+      ],
+      "desc": "Lines: T2, T3, T5, T8, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T3",
+        "T5",
+        "T8",
+        "T9"
+      ],
+      "lat": -33.9544,
+      "lon": 150.8081
+    },
+    {
+      "id": "204920",
+      "label": "Lewisham",
+      "type": "interchange",
+      "pos": [
+        2.329,
+        0.082
+      ],
+      "desc": "Lines: BMT, CCN, T1, T2, T3, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "CCN",
+        "T1",
+        "T2",
+        "T3",
+        "T9"
+      ],
+      "lat": -33.8932785316,
+      "lon": 151.147272514
+    },
+    {
+      "id": "223220",
+      "label": "Loftus",
+      "type": "interchange",
+      "pos": [
+        1.198,
+        2.239
+      ],
+      "desc": "Lines: SCO, T4",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO",
+        "T4"
+      ],
+      "lat": -34.0451383359,
+      "lon": 151.051320009
+    },
+    {
+      "id": "277820",
+      "label": "Linden",
+      "type": "interchange",
+      "pos": [
+        -5.242,
+        -2.451
+      ],
+      "desc": "Lines: BMT, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "WST"
+      ],
+      "lat": -33.7150023114,
+      "lon": 150.505264058
+    },
+    {
+      "id": "217020",
+      "label": "Liverpool",
+      "type": "interchange",
+      "pos": [
+        -0.268,
+        0.534
+      ],
+      "desc": "Lines: T2, T3, T5, T7",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T3",
+        "T5",
+        "T7"
+      ],
+      "lat": -33.9251096928,
+      "lon": 150.927054186
+    },
+    {
+      "id": "278010",
+      "label": "Leura",
+      "type": "interchange",
+      "pos": [
+        -7.306,
+        -2.498
+      ],
+      "desc": "Lines: BMT, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "WST"
+      ],
+      "lat": -33.7117218479,
+      "lon": 150.33027039
+    },
+    {
+      "id": "225070",
+      "label": "Lisarow",
+      "type": "interchange",
+      "pos": [
+        4.954,
+        -7.178
+      ],
+      "desc": "Lines: CCN, NRC, NRW",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW"
+      ],
+      "lat": -33.3823109858,
+      "lon": 151.369817112
+    },
+    {
+      "id": "250510",
+      "label": "Lysaghts",
+      "type": "station",
+      "pos": [
+        -0.869,
+        8.06
+      ],
+      "desc": "Lines: SCO",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO"
+      ],
+      "lat": -34.4548431655,
+      "lon": 150.876094365
+    },
+    {
+      "id": "279010",
+      "label": "Lithgow",
+      "type": "interchange",
+      "pos": [
+        -9.345,
+        -5.783
+      ],
+      "desc": "Lines: BMT, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "WST"
+      ],
+      "lat": -33.4805009929,
+      "lon": 150.15744944
+    },
+    {
+      "id": "216310",
+      "label": "Leightonfield",
+      "type": "interchange",
+      "pos": [
+        0.415,
+        -0.086
+      ],
+      "desc": "Lines: T2, T3, T5",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T3",
+        "T5"
+      ],
+      "lat": -33.8815017005,
+      "lon": 150.98496709
+    },
+    {
+      "id": "256010",
+      "label": "Leumeah",
+      "type": "interchange",
+      "pos": [
+        -1.412,
+        2.325
+      ],
+      "desc": "Lines: SHL, STH, T2, T3, T5, T8",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SHL",
+        "STH",
+        "T2",
+        "T3",
+        "T5",
+        "T8"
+      ],
+      "lat": -34.0511704958,
+      "lon": 150.830050748
+    },
+    {
+      "id": "256030",
+      "label": "Macarthur",
+      "type": "interchange",
+      "pos": [
+        -1.805,
+        2.622
+      ],
+      "desc": "Lines: SHL, STH, T2, T3, T5, T8",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SHL",
+        "STH",
+        "T2",
+        "T3",
+        "T5",
+        "T8"
+      ],
+      "lat": -34.0720733184,
+      "lon": 150.796737103
+    },
+    {
+      "id": "202010",
+      "label": "Mascot",
+      "type": "interchange",
+      "pos": [
+        2.801,
+        0.506
+      ],
+      "desc": "Lines: T2, T5, T8",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T5",
+        "T8"
+      ],
+      "lat": -33.9231879691,
+      "lon": 151.187253059
+    },
+    {
+      "id": "201520",
+      "label": "Macdonaldtown",
+      "type": "interchange",
+      "pos": [
+        2.79,
+        0.13
+      ],
+      "desc": "Lines: BMT, CCN, T1, T2, T3, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "CCN",
+        "T1",
+        "T2",
+        "T3",
+        "T9"
+      ],
+      "lat": -33.8966600168,
+      "lon": 151.186291644
+    },
+    {
+      "id": "211430",
+      "label": "Meadowbank",
+      "type": "interchange",
+      "pos": [
+        1.655,
+        -1.013
+      ],
+      "desc": "Lines: CCN, NRC, NRW, T1, T2, T7, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW",
+        "T1",
+        "T2",
+        "T7",
+        "T9"
+      ],
+      "lat": -33.8162381451,
+      "lon": 151.090060862
+    },
+    {
+      "id": "277010",
+      "label": "Mount Druitt",
+      "type": "interchange",
+      "pos": [
+        -1.533,
+        -1.676
+      ],
+      "desc": "Lines: BMT, T1, T2, T5, T7, T9, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "T1",
+        "T2",
+        "T5",
+        "T7",
+        "T9",
+        "WST"
+      ],
+      "lat": -33.7695423347,
+      "lon": 150.819798807
+    },
+    {
+      "id": "278030",
+      "label": "Medlow Bath",
+      "type": "interchange",
+      "pos": [
+        -7.89,
+        -3.036
+      ],
+      "desc": "Lines: BMT, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "WST"
+      ],
+      "lat": -33.6738761213,
+      "lon": 150.280785924
+    },
+    {
+      "id": "256810",
+      "label": "Menangle",
+      "type": "interchange",
+      "pos": [
+        -2.422,
+        3.377
+      ],
+      "desc": "Lines: SHL, STH",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SHL",
+        "STH"
+      ],
+      "lat": -34.125201371,
+      "lon": 150.744430658
+    },
+    {
+      "id": "256310",
+      "label": "Menangle Park",
+      "type": "interchange",
+      "pos": [
+        -2.416,
+        3.071
+      ],
+      "desc": "Lines: SHL, STH",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SHL",
+        "STH"
+      ],
+      "lat": -34.1037011996,
+      "lon": 150.74495576
+    },
+    {
+      "id": "256610",
+      "label": "Minto",
+      "type": "interchange",
+      "pos": [
+        -1.264,
+        1.983
+      ],
+      "desc": "Lines: SHL, STH, T2, T3, T5, T8",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SHL",
+        "STH",
+        "T2",
+        "T3",
+        "T5",
+        "T8"
+      ],
+      "lat": -34.027149716,
+      "lon": 150.842596731
+    },
+    {
+      "id": "257510",
+      "label": "Mittagong",
+      "type": "interchange",
+      "pos": [
+        -5.921,
+        8.03
+      ],
+      "desc": "Lines: SHL, STH",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SHL",
+        "STH"
+      ],
+      "lat": -34.4527063834,
+      "lon": 150.447689915
+    },
+    {
+      "id": "208010",
+      "label": "Mount Kuring-gai",
+      "type": "interchange",
+      "pos": [
+        2.206,
+        -3.332
+      ],
+      "desc": "Lines: CCN, NRC, NRW, T1, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW",
+        "T1",
+        "T9"
+      ],
+      "lat": -33.6530016406,
+      "lon": 151.136822325
+    },
+    {
+      "id": "220410",
+      "label": "Marrickville",
+      "type": "station",
+      "pos": [
+        2.409,
+        0.377
+      ],
+      "desc": "Sydney Trains station",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [],
+      "lat": -33.9140903716,
+      "lon": 151.154032786
+    },
+    {
+      "id": "200030",
+      "label": "Martin Place",
+      "type": "interchange",
+      "pos": [
+        3.088,
+        -0.279
+      ],
+      "desc": "Lines: SCO, T4",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO",
+        "T4"
+      ],
+      "lat": -33.8678709087,
+      "lon": 151.211591161
+    },
+    {
+      "id": "206110",
+      "label": "Milsons Point",
+      "type": "interchange",
+      "pos": [
+        3.091,
+        -0.592
+      ],
+      "desc": "Lines: CCN, T1, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "T1",
+        "T9"
+      ],
+      "lat": -33.8458927727,
+      "lon": 151.21182505
+    },
+    {
+      "id": "256410",
+      "label": "Macquarie Fields",
+      "type": "interchange",
+      "pos": [
+        -0.836,
+        1.382
+      ],
+      "desc": "Lines: SHL, STH, T2, T3, T5, T8",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SHL",
+        "STH",
+        "T2",
+        "T3",
+        "T5",
+        "T8"
+      ],
+      "lat": -33.9848071864,
+      "lon": 150.878896493
+    },
+    {
+      "id": "222810",
+      "label": "Miranda",
+      "type": "station",
+      "pos": [
+        1.806,
+        2.114
+      ],
+      "desc": "Lines: T4",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T4"
+      ],
+      "lat": -34.0363547774,
+      "lon": 151.102853527
+    },
+    {
+      "id": "222310",
+      "label": "Mortdale",
+      "type": "interchange",
+      "pos": [
+        1.551,
+        1.18
+      ],
+      "desc": "Lines: SCO, T4",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO",
+        "T4"
+      ],
+      "lat": -33.9705866718,
+      "lon": 151.081288092
+    },
+    {
+      "id": "200040",
+      "label": "Museum",
+      "type": "interchange",
+      "pos": [
+        3.071,
+        -0.168
+      ],
+      "desc": "Lines: SCO, T1, T2, T3, T4, T8",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO",
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T8"
+      ],
+      "lat": -33.8756998483,
+      "lon": 151.21010638
+    },
+    {
+      "id": "207910",
+      "label": "Mount Colah",
+      "type": "interchange",
+      "pos": [
+        1.943,
+        -3.062
+      ],
+      "desc": "Lines: CCN, NRC, NRW, T1, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW",
+        "T1",
+        "T9"
+      ],
+      "lat": -33.6720220528,
+      "lon": 151.114492606
+    },
+    {
+      "id": "278610",
+      "label": "Mount Victoria",
+      "type": "interchange",
+      "pos": [
+        -8.171,
+        -4.254
+      ],
+      "desc": "Lines: BMT, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "WST"
+      ],
+      "lat": -33.5881115955,
+      "lon": 150.256973411
+    },
+    {
+      "id": "275610",
+      "label": "Mulgrave",
+      "type": "interchange",
+      "pos": [
+        -1.405,
+        -3.706
+      ],
+      "desc": "Lines: T1, T5",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T1",
+        "T5"
+      ],
+      "lat": -33.6266836695,
+      "lon": 150.830637019
+    },
+    {
+      "id": "214820",
+      "label": "Marayong",
+      "type": "interchange",
+      "pos": [
+        -0.585,
+        -2.005
+      ],
+      "desc": "Lines: T1, T2, T5",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T1",
+        "T2",
+        "T5"
+      ],
+      "lat": -33.7464511113,
+      "lon": 150.900199145
+    },
+    {
+      "id": "216010",
+      "label": "Merrylands",
+      "type": "interchange",
+      "pos": [
+        0.508,
+        -0.727
+      ],
+      "desc": "Lines: T2, T5, T7",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T5",
+        "T7"
+      ],
+      "lat": -33.8363501978,
+      "lon": 150.992863256
+    },
+    {
+      "id": "225060",
+      "label": "Niagara Park",
+      "type": "interchange",
+      "pos": [
+        4.771,
+        -7.164
+      ],
+      "desc": "Lines: CCN, NRC, NRW",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW"
+      ],
+      "lat": -33.3833313105,
+      "lon": 151.35428206
+    },
+    {
+      "id": "207620",
+      "label": "Normanhurst",
+      "type": "interchange",
+      "pos": [
+        1.739,
+        -2.37
+      ],
+      "desc": "Lines: CCN, NRC, NRW, T1, T2, T7, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW",
+        "T1",
+        "T2",
+        "T7",
+        "T9"
+      ],
+      "lat": -33.7207527376,
+      "lon": 151.097240548
+    },
+    {
+      "id": "2250772",
+      "label": "Narara",
+      "type": "interchange",
+      "pos": [
+        4.653,
+        -7.001
+      ],
+      "desc": "Lines: CCN, NRC, NRW",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW"
+      ],
+      "lat": -33.3947857813,
+      "lon": 151.344307906
+    },
+    {
+      "id": "220920",
+      "label": "Narwee",
+      "type": "interchange",
+      "pos": [
+        1.415,
+        0.852
+      ],
+      "desc": "Lines: T2, T8",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T8"
+      ],
+      "lat": -33.9475181426,
+      "lon": 151.069748212
+    },
+    {
+      "id": "213710",
+      "label": "North Strathfield",
+      "type": "interchange",
+      "pos": [
+        1.63,
+        -0.41
+      ],
+      "desc": "Lines: CCN, NRC, NRW, T1, T2, T7, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW",
+        "T1",
+        "T2",
+        "T7",
+        "T9"
+      ],
+      "lat": -33.8586880092,
+      "lon": 151.087986143
+    },
+    {
+      "id": "206010",
+      "label": "North Sydney",
+      "type": "interchange",
+      "pos": [
+        3.039,
+        -0.658
+      ],
+      "desc": "Lines: CCN, T1, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "T1",
+        "T9"
+      ],
+      "lat": -33.8412085291,
+      "lon": 151.207410164
+    },
+    {
+      "id": "204210",
+      "label": "Newtown",
+      "type": "interchange",
+      "pos": [
+        2.715,
+        0.147
+      ],
+      "desc": "Lines: BMT, CCN, T1, T2, T3, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "CCN",
+        "T1",
+        "T2",
+        "T3",
+        "T9"
+      ],
+      "lat": -33.8978830072,
+      "lon": 151.179924712
+    },
+    {
+      "id": "250010",
+      "label": "North Wollongong",
+      "type": "station",
+      "pos": [
+        -0.689,
+        7.46
+      ],
+      "desc": "Lines: SCO",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO"
+      ],
+      "lat": -34.4125932568,
+      "lon": 150.891349169
+    },
+    {
+      "id": "222320",
+      "label": "Oatley",
+      "type": "interchange",
+      "pos": [
+        1.524,
+        1.326
+      ],
+      "desc": "Lines: SCO, T4",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO",
+        "T4"
+      ],
+      "lat": -33.9808451569,
+      "lon": 151.078965101
+    },
+    {
+      "id": "212710",
+      "label": "Olympic Park",
+      "type": "interchange",
+      "pos": [
+        1.413,
+        -0.583
+      ],
+      "desc": "Lines: T1, T2, T6, T7",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T1",
+        "T2",
+        "T6",
+        "T7"
+      ],
+      "lat": -33.8465201324,
+      "lon": 151.069547249
+    },
+    {
+      "id": "250830",
+      "label": "Otford",
+      "type": "station",
+      "pos": [
+        0.663,
+        4.584
+      ],
+      "desc": "Lines: SCO",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO"
+      ],
+      "lat": -34.2102000425,
+      "lon": 151.006003921
+    },
+    {
+      "id": "225810",
+      "label": "Ourimbah",
+      "type": "interchange",
+      "pos": [
+        4.956,
+        -7.501
+      ],
+      "desc": "Lines: CCN, NRC, NRW",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW"
+      ],
+      "lat": -33.3596035261,
+      "lon": 151.369989223
+    },
+    {
+      "id": "221110",
+      "label": "Padstow",
+      "type": "interchange",
+      "pos": [
+        0.976,
+        0.914
+      ],
+      "desc": "Lines: T2, T8",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T8"
+      ],
+      "lat": -33.9518920189,
+      "lon": 151.032557154
+    },
+    {
+      "id": "221310",
+      "label": "Panania",
+      "type": "interchange",
+      "pos": [
+        0.567,
+        0.949
+      ],
+      "desc": "Lines: SHL, STH, T2, T5, T8, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SHL",
+        "STH",
+        "T2",
+        "T5",
+        "T8",
+        "T9"
+      ],
+      "lat": -33.9543111213,
+      "lon": 150.997826061
+    },
+    {
+      "id": "225030",
+      "label": "Point Clare",
+      "type": "interchange",
+      "pos": [
+        4.468,
+        -6.276
+      ],
+      "desc": "Lines: CCN, NRC, NRW",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW"
+      ],
+      "lat": -33.4457700795,
+      "lon": 151.328555962
+    },
+    {
+      "id": "214530",
+      "label": "Pendle Hill",
+      "type": "interchange",
+      "pos": [
+        0.078,
+        -1.225
+      ],
+      "desc": "Lines: BMT, CCN, T1, T2, T5, T7, T9, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "CCN",
+        "T1",
+        "T2",
+        "T5",
+        "T7",
+        "T9",
+        "WST"
+      ],
+      "lat": -33.8013478991,
+      "lon": 150.956342684
+    },
+    {
+      "id": "275010",
+      "label": "Penrith",
+      "type": "interchange",
+      "pos": [
+        -2.991,
+        -1.953
+      ],
+      "desc": "Lines: BMT, T1, T2, T5, T7, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "T1",
+        "T2",
+        "T5",
+        "T7",
+        "WST"
+      ],
+      "lat": -33.7500552895,
+      "lon": 150.696134761
+    },
+    {
+      "id": "204910",
+      "label": "Petersham",
+      "type": "interchange",
+      "pos": [
+        2.422,
+        0.09
+      ],
+      "desc": "Lines: BMT, CCN, T1, T2, T3, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "CCN",
+        "T1",
+        "T2",
+        "T3",
+        "T9"
+      ],
+      "lat": -33.8938593952,
+      "lon": 151.155156228
+    },
+    {
+      "id": "257110",
+      "label": "Picton",
+      "type": "interchange",
+      "pos": [
+        -3.976,
+        4.143
+      ],
+      "desc": "Lines: SHL, STH",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SHL",
+        "STH"
+      ],
+      "lat": -34.1791465735,
+      "lon": 150.61260155
+    },
+    {
+      "id": "250540",
+      "label": "Port Kembla",
+      "type": "station",
+      "pos": [
+        -0.564,
+        8.378
+      ],
+      "desc": "Lines: SCO",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO"
+      ],
+      "lat": -34.47724493,
+      "lon": 150.901922312
+    },
+    {
+      "id": "250530",
+      "label": "Port Kembla North",
+      "type": "station",
+      "pos": [
+        -0.728,
+        8.315
+      ],
+      "desc": "Lines: SCO",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO"
+      ],
+      "lat": -34.4727666662,
+      "lon": 150.8880483
+    },
+    {
+      "id": "222210",
+      "label": "Penshurst",
+      "type": "interchange",
+      "pos": [
+        1.647,
+        1.117
+      ],
+      "desc": "Lines: SCO, T4",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO",
+        "T4"
+      ],
+      "lat": -33.9661295363,
+      "lon": 151.089386527
+    },
+    {
+      "id": "212020",
+      "label": "Pennant Hills",
+      "type": "interchange",
+      "pos": [
+        1.448,
+        -2.125
+      ],
+      "desc": "Lines: CCN, NRC, NRW, T1, T2, T7, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW",
+        "T1",
+        "T2",
+        "T7",
+        "T9"
+      ],
+      "lat": -33.7379386253,
+      "lon": 151.072529669
+    },
+    {
+      "id": "215020",
+      "label": "Parramatta",
+      "type": "interchange",
+      "pos": [
+        0.658,
+        -0.994
+      ],
+      "desc": "Lines: BMT, CCN, T1, T2, T5, T7, T9, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "CCN",
+        "T1",
+        "T2",
+        "T5",
+        "T7",
+        "T9",
+        "WST"
+      ],
+      "lat": -33.8175792613,
+      "lon": 151.005535136
+    },
+    {
+      "id": "219610",
+      "label": "Punchbowl",
+      "type": "station",
+      "pos": [
+        1.251,
+        0.538
+      ],
+      "desc": "Sydney Trains station",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [],
+      "lat": -33.9253775169,
+      "lon": 151.055866993
+    },
+    {
+      "id": "207310",
+      "label": "Pymble",
+      "type": "interchange",
+      "pos": [
+        2.269,
+        -2.029
+      ],
+      "desc": "Lines: CCN, T1, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "T1",
+        "T9"
+      ],
+      "lat": -33.7447288843,
+      "lon": 151.142137963
+    },
+    {
+      "id": "276310",
+      "label": "Quakers Hill",
+      "type": "interchange",
+      "pos": [
+        -0.743,
+        -2.266
+      ],
+      "desc": "Lines: T1, T2, T5",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T1",
+        "T2",
+        "T5"
+      ],
+      "lat": -33.728024833,
+      "lon": 150.886724975
+    },
+    {
+      "id": "2795999",
+      "label": "Raglan Bus",
+      "type": "interchange",
+      "pos": [
+        -15.362,
+        -6.61
+      ],
+      "desc": "Lines: BMT, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "WST"
+      ],
+      "lat": -33.422262,
+      "lon": 149.64726
+    },
+    {
+      "id": "201510",
+      "label": "Redfern",
+      "type": "interchange",
+      "pos": [
+        2.933,
+        0.069
+      ],
+      "desc": "Lines: BMT, CCN, NRC, NRW, SCO, SHL, STH, T1, T2, T3, T4, T7, T8, T9, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "CCN",
+        "NRC",
+        "NRW",
+        "SCO",
+        "SHL",
+        "STH",
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T7",
+        "T8",
+        "T9",
+        "WST"
+      ],
+      "lat": -33.8923698959,
+      "lon": 151.198484708
+    },
+    {
+      "id": "2790128",
+      "label": "Rydal",
+      "type": "interchange",
+      "pos": [
+        -10.826,
+        -5.739
+      ],
+      "desc": "Lines: BMT, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "WST"
+      ],
+      "lat": -33.4835650033,
+      "lon": 150.031811997
+    },
+    {
+      "id": "213820",
+      "label": "Rhodes",
+      "type": "interchange",
+      "pos": [
+        1.619,
+        -0.81
+      ],
+      "desc": "Lines: CCN, NRC, NRW, T1, T2, T7, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW",
+        "T1",
+        "T2",
+        "T7",
+        "T9"
+      ],
+      "lat": -33.8305303567,
+      "lon": 151.08703226
+    },
+    {
+      "id": "275320",
+      "label": "Richmond",
+      "type": "interchange",
+      "pos": [
+        -2.318,
+        -4.098
+      ],
+      "desc": "Lines: T1, T5",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T1",
+        "T5"
+      ],
+      "lat": -33.5991116405,
+      "lon": 150.753211003
+    },
+    {
+      "id": "276510",
+      "label": "Riverstone",
+      "type": "interchange",
+      "pos": [
+        -1.056,
+        -2.962
+      ],
+      "desc": "Lines: T1, T5",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T1",
+        "T5"
+      ],
+      "lat": -33.6790433699,
+      "lon": 150.860267864
+    },
+    {
+      "id": "221620",
+      "label": "Rockdale",
+      "type": "interchange",
+      "pos": [
+        2.207,
+        0.914
+      ],
+      "desc": "Lines: SCO, T4",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO",
+        "T4"
+      ],
+      "lat": -33.9518802725,
+      "lon": 151.136861613
+    },
+    {
+      "id": "214310",
+      "label": "Regents Park",
+      "type": "interchange",
+      "pos": [
+        0.878,
+        -0.065
+      ],
+      "desc": "Lines: T2, T3, T5, T6",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T3",
+        "T5",
+        "T6"
+      ],
+      "lat": -33.8829888939,
+      "lon": 151.024187469
+    },
+    {
+      "id": "206910",
+      "label": "Roseville",
+      "type": "interchange",
+      "pos": [
+        2.683,
+        -1.468
+      ],
+      "desc": "Lines: CCN, T1, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "T1",
+        "T9"
+      ],
+      "lat": -33.7842202564,
+      "lon": 151.177265981
+    },
+    {
+      "id": "276610",
+      "label": "Rooty Hill",
+      "type": "interchange",
+      "pos": [
+        -1.235,
+        -1.648
+      ],
+      "desc": "Lines: BMT, T1, T2, T5, T7, T9, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "T1",
+        "T2",
+        "T5",
+        "T7",
+        "T9",
+        "WST"
+      ],
+      "lat": -33.7715117275,
+      "lon": 150.845018733
+    },
+    {
+      "id": "221210",
+      "label": "Revesby",
+      "type": "interchange",
+      "pos": [
+        0.768,
+        0.922
+      ],
+      "desc": "Lines: SHL, STH, T2, T5, T8, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SHL",
+        "STH",
+        "T2",
+        "T5",
+        "T8",
+        "T9"
+      ],
+      "lat": -33.9524600343,
+      "lon": 151.014838369
+    },
+    {
+      "id": "221010",
+      "label": "Riverwood",
+      "type": "interchange",
+      "pos": [
+        1.206,
+        0.909
+      ],
+      "desc": "Lines: T2, T8",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T8"
+      ],
+      "lat": -33.9515354072,
+      "lon": 151.052035296
+    },
+    {
+      "id": "276220",
+      "label": "Schofields",
+      "type": "interchange",
+      "pos": [
+        -0.892,
+        -2.601
+      ],
+      "desc": "Lines: T1, T2, T5",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T1",
+        "T2",
+        "T5"
+      ],
+      "lat": -33.704452,
+      "lon": 150.874138
+    },
+    {
+      "id": "251510",
+      "label": "Scarborough",
+      "type": "station",
+      "pos": [
+        0.189,
+        5.363
+      ],
+      "desc": "Lines: SCO",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO"
+      ],
+      "lat": -34.2649865514,
+      "lon": 150.965790871
+    },
+    {
+      "id": "202020",
+      "label": "Domestic Airport",
+      "type": "interchange",
+      "pos": [
+        2.725,
+        0.655
+      ],
+      "desc": "Lines: T2, T5, T8",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T5",
+        "T8"
+      ],
+      "lat": -33.9336596293,
+      "lon": 151.180785679
+    },
+    {
+      "id": "216210",
+      "label": "Sefton",
+      "type": "interchange",
+      "pos": [
+        0.726,
+        -0.033
+      ],
+      "desc": "Lines: T2, T3, T5",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T3",
+        "T5"
+      ],
+      "lat": -33.8852361649,
+      "lon": 151.011283338
+    },
+    {
+      "id": "202030",
+      "label": "International Airport",
+      "type": "interchange",
+      "pos": [
+        2.549,
+        0.674
+      ],
+      "desc": "Lines: T2, T5, T8",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T5",
+        "T8"
+      ],
+      "lat": -33.9349882286,
+      "lon": 151.165891276
+    },
+    {
+      "id": "213010",
+      "label": "Summer Hill",
+      "type": "interchange",
+      "pos": [
+        2.237,
+        0.043
+      ],
+      "desc": "Lines: BMT, CCN, NRC, T1, T2, T3, T9, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "CCN",
+        "NRC",
+        "T1",
+        "T2",
+        "T3",
+        "T9",
+        "WST"
+      ],
+      "lat": -33.8905607663,
+      "lon": 151.139445147
+    },
+    {
+      "id": "204810",
+      "label": "Stanmore",
+      "type": "interchange",
+      "pos": [
+        2.527,
+        0.1
+      ],
+      "desc": "Lines: BMT, CCN, NRC, T1, T2, T3, T9, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "CCN",
+        "NRC",
+        "T1",
+        "T2",
+        "T3",
+        "T9",
+        "WST"
+      ],
+      "lat": -33.8945488499,
+      "lon": 151.164009338
+    },
+    {
+      "id": "277720",
+      "label": "Springwood",
+      "type": "interchange",
+      "pos": [
+        -4.55,
+        -2.681
+      ],
+      "desc": "Lines: BMT, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "WST"
+      ],
+      "lat": -33.698841604,
+      "lon": 150.563979903
+    },
+    {
+      "id": "223210",
+      "label": "Sutherland",
+      "type": "interchange",
+      "pos": [
+        1.267,
+        2.049
+      ],
+      "desc": "Lines: SCO, T4",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO",
+        "T4"
+      ],
+      "lat": -34.0317869151,
+      "lon": 151.05719008
+    },
+    {
+      "id": "200050",
+      "label": "St James",
+      "type": "interchange",
+      "pos": [
+        3.091,
+        -0.239
+      ],
+      "desc": "Lines: SCO, T1, T2, T3, T4, T8",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO",
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T8"
+      ],
+      "lat": -33.8706974192,
+      "lon": 151.211837375
+    },
+    {
+      "id": "206520",
+      "label": "St Leonards",
+      "type": "interchange",
+      "pos": [
+        2.882,
+        -0.926
+      ],
+      "desc": "Lines: CCN, T1, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "T1",
+        "T9"
+      ],
+      "lat": -33.8223888849,
+      "lon": 151.194126811
+    },
+    {
+      "id": "276010",
+      "label": "St Marys",
+      "type": "interchange",
+      "pos": [
+        -2.049,
+        -1.78
+      ],
+      "desc": "Lines: BMT, T1, T2, T5, T7, T9, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "T1",
+        "T2",
+        "T5",
+        "T7",
+        "T9",
+        "WST"
+      ],
+      "lat": -33.7622558528,
+      "lon": 150.77602901
+    },
+    {
+      "id": "204410",
+      "label": "St Peters",
+      "type": "interchange",
+      "pos": [
+        2.719,
+        0.282
+      ],
+      "desc": "Lines: SCO, SHL, STH, T2, T3, T4, T8, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO",
+        "SHL",
+        "STH",
+        "T2",
+        "T3",
+        "T4",
+        "T8",
+        "T9"
+      ],
+      "lat": -33.9073952028,
+      "lon": 151.180267452
+    },
+    {
+      "id": "213510",
+      "label": "Strathfield",
+      "type": "interchange",
+      "pos": [
+        1.706,
+        -0.223
+      ],
+      "desc": "Lines: BMT, CCN, NRC, NRW, T1, T2, T3, T7, T9, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "CCN",
+        "NRC",
+        "NRW",
+        "T1",
+        "T2",
+        "T3",
+        "T7",
+        "T9",
+        "WST"
+      ],
+      "lat": -33.8718104968,
+      "lon": 151.094427077
+    },
+    {
+      "id": "214710",
+      "label": "Seven Hills",
+      "type": "interchange",
+      "pos": [
+        -0.156,
+        -1.607
+      ],
+      "desc": "Lines: BMT, CCN, T1, T2, T5, T7, T9, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "CCN",
+        "T1",
+        "T2",
+        "T5",
+        "T7",
+        "T9",
+        "WST"
+      ],
+      "lat": -33.774430434,
+      "lon": 150.936513359
+    },
+    {
+      "id": "250840",
+      "label": "Stanwell Park",
+      "type": "station",
+      "pos": [
+        0.368,
+        4.817
+      ],
+      "desc": "Lines: SCO",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO"
+      ],
+      "lat": -34.2265864217,
+      "lon": 150.980938038
+    },
+    {
+      "id": "204420",
+      "label": "Sydenham",
+      "type": "interchange",
+      "pos": [
+        2.558,
+        0.381
+      ],
+      "desc": "Lines: SCO, SHL, STH, T2, T3, T4, T5, T8, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO",
+        "SHL",
+        "STH",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T8",
+        "T9"
+      ],
+      "lat": -33.9143731989,
+      "lon": 151.166645609
+    },
+    {
+      "id": "257310",
+      "label": "Tahmoor",
+      "type": "interchange",
+      "pos": [
+        -4.244,
+        4.776
+      ],
+      "desc": "Lines: SHL, STH",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SHL",
+        "STH"
+      ],
+      "lat": -34.2236766672,
+      "lon": 150.589910563
+    },
+    {
+      "id": "27871",
+      "label": "Tarana",
+      "type": "interchange",
+      "pos": [
+        -12.291,
+        -5.163
+      ],
+      "desc": "Lines: BMT, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "WST"
+      ],
+      "lat": -33.5241070016,
+      "lon": 149.907594003
+    },
+    {
+      "id": "225020",
+      "label": "Tascott",
+      "type": "interchange",
+      "pos": [
+        4.344,
+        -6.197
+      ],
+      "desc": "Lines: CCN, NRC, NRW",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW"
+      ],
+      "lat": -33.451356945,
+      "lon": 151.318056032
+    },
+    {
+      "id": "214610",
+      "label": "Toongabbie",
+      "type": "interchange",
+      "pos": [
+        0.02,
+        -1.425
+      ],
+      "desc": "Lines: BMT, CCN, T1, T2, T5, T7, T9, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "CCN",
+        "T1",
+        "T2",
+        "T5",
+        "T7",
+        "T9",
+        "WST"
+      ],
+      "lat": -33.7872629962,
+      "lon": 150.951437323
+    },
+    {
+      "id": "251550",
+      "label": "Thirroul",
+      "type": "station",
+      "pos": [
+        -0.367,
+        6.122
+      ],
+      "desc": "Lines: SCO",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO"
+      ],
+      "lat": -34.3184243988,
+      "lon": 150.918652366
+    },
+    {
+      "id": "200070",
+      "label": "Town Hall",
+      "type": "interchange",
+      "pos": [
+        3.033,
+        -0.198
+      ],
+      "desc": "Lines: CCN, SCO, T1, T2, T3, T4, T8, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "SCO",
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T8",
+        "T9"
+      ],
+      "lat": -33.8735963257,
+      "lon": 151.206899293
+    },
+    {
+      "id": "257225",
+      "label": "Thirlmere Bus",
+      "type": "station",
+      "pos": [
+        -4.45,
+        4.491
+      ],
+      "desc": "Sydney Trains station",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [],
+      "lat": -34.203677,
+      "lon": 150.572495
+    },
+    {
+      "id": "212010",
+      "label": "Thornleigh",
+      "type": "interchange",
+      "pos": [
+        1.516,
+        -2.212
+      ],
+      "desc": "Lines: CCN, NRC, NRW, T1, T2, T7, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW",
+        "T1",
+        "T2",
+        "T7",
+        "T9"
+      ],
+      "lat": -33.7318711955,
+      "lon": 151.078280974
+    },
+    {
+      "id": "204430",
+      "label": "Tempe",
+      "type": "interchange",
+      "pos": [
+        2.438,
+        0.525
+      ],
+      "desc": "Lines: SCO, SHL, STH, T2, T4, T5, T8, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO",
+        "SHL",
+        "STH",
+        "T2",
+        "T4",
+        "T5",
+        "T8",
+        "T9"
+      ],
+      "lat": -33.9245047291,
+      "lon": 151.156507285
+    },
+    {
+      "id": "220530",
+      "label": "Turrella",
+      "type": "interchange",
+      "pos": [
+        2.243,
+        0.603
+      ],
+      "desc": "Lines: T2, T8",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T8"
+      ],
+      "lat": -33.9299529576,
+      "lon": 151.139909016
+    },
+    {
+      "id": "225910",
+      "label": "Tuggerah",
+      "type": "interchange",
+      "pos": [
+        5.548,
+        -8.233
+      ],
+      "desc": "Lines: CCN, NRC, NRW",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW"
+      ],
+      "lat": -33.3080864837,
+      "lon": 151.420152642
+    },
+    {
+      "id": "207410",
+      "label": "Turramurra",
+      "type": "interchange",
+      "pos": [
+        2.105,
+        -2.207
+      ],
+      "desc": "Lines: CCN, T1, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "T1",
+        "T9"
+      ],
+      "lat": -33.7321822059,
+      "lon": 151.128281842
+    },
+    {
+      "id": "251830",
+      "label": "Towradgi",
+      "type": "station",
+      "pos": [
+        -0.572,
+        7.063
+      ],
+      "desc": "Lines: SCO",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO"
+      ],
+      "lat": -34.384686325,
+      "lon": 150.901238888
+    },
+    {
+      "id": "252610",
+      "label": "Unanderra",
+      "type": "station",
+      "pos": [
+        -1.221,
+        8.054
+      ],
+      "desc": "Lines: SCO",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO"
+      ],
+      "lat": -34.4544287823,
+      "lon": 150.846262892
+    },
+    {
+      "id": "277710",
+      "label": "Valley Heights",
+      "type": "interchange",
+      "pos": [
+        -4.316,
+        -2.601
+      ],
+      "desc": "Lines: BMT, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "WST"
+      ],
+      "lat": -33.7044657278,
+      "lon": 150.583813038
+    },
+    {
+      "id": "216320",
+      "label": "Villawood",
+      "type": "interchange",
+      "pos": [
+        0.31,
+        -0.094
+      ],
+      "desc": "Lines: T2, T3, T5",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T3",
+        "T5"
+      ],
+      "lat": -33.8809016751,
+      "lon": 150.976047927
+    },
+    {
+      "id": "276520",
+      "label": "Vineyard",
+      "type": "interchange",
+      "pos": [
+        -1.162,
+        -3.368
+      ],
+      "desc": "Lines: T1, T5",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T1",
+        "T5"
+      ],
+      "lat": -33.6505041515,
+      "lon": 150.851245754
+    },
+    {
+      "id": "207610",
+      "label": "Wahroonga",
+      "type": "interchange",
+      "pos": [
+        1.971,
+        -2.417
+      ],
+      "desc": "Lines: CCN, T1, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "T1",
+        "T9"
+      ],
+      "lat": -33.7174291976,
+      "lon": 151.116892277
+    },
+    {
+      "id": "207710",
+      "label": "Waitara",
+      "type": "interchange",
+      "pos": [
+        1.823,
+        -2.522
+      ],
+      "desc": "Lines: CCN, T1, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "T1",
+        "T9"
+      ],
+      "lat": -33.7099932648,
+      "lon": 151.104341133
+    },
+    {
+      "id": "206020",
+      "label": "Waverton",
+      "type": "interchange",
+      "pos": [
+        2.926,
+        -0.7
+      ],
+      "desc": "Lines: CCN, T1, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "T1",
+        "T9"
+      ],
+      "lat": -33.8382452525,
+      "lon": 151.197855547
+    },
+    {
+      "id": "251520",
+      "label": "Wombarra",
+      "type": "station",
+      "pos": [
+        0.04,
+        5.518
+      ],
+      "desc": "Lines: SCO",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO"
+      ],
+      "lat": -34.2759329354,
+      "lon": 150.953145001
+    },
+    {
+      "id": "220510",
+      "label": "Wolli Creek",
+      "type": "interchange",
+      "pos": [
+        2.41,
+        0.583
+      ],
+      "desc": "Lines: SCO, T2, T4, T5, T8",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO",
+        "T2",
+        "T4",
+        "T5",
+        "T8"
+      ],
+      "lat": -33.9285468328,
+      "lon": 151.154113182
+    },
+    {
+      "id": "225010",
+      "label": "Wondabyne",
+      "type": "interchange",
+      "pos": [
+        3.624,
+        -5.618
+      ],
+      "desc": "Lines: CCN, NRC, NRW",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW"
+      ],
+      "lat": -33.4921353608,
+      "lon": 151.257010783
+    },
+    {
+      "id": "277810",
+      "label": "Woodford",
+      "type": "interchange",
+      "pos": [
+        -5.518,
+        -2.161
+      ],
+      "desc": "Lines: BMT, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "WST"
+      ],
+      "lat": -33.7354492815,
+      "lon": 150.481917441
+    },
+    {
+      "id": "223330",
+      "label": "Waterfall",
+      "type": "interchange",
+      "pos": [
+        0.528,
+        3.507
+      ],
+      "desc": "Lines: SCO, T4",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO",
+        "T4"
+      ],
+      "lat": -34.1343852228,
+      "lon": 150.994511503
+    },
+    {
+      "id": "278210",
+      "label": "Wentworth Falls",
+      "type": "interchange",
+      "pos": [
+        -6.763,
+        -2.53
+      ],
+      "desc": "Lines: BMT, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "WST"
+      ],
+      "lat": -33.7094719208,
+      "lon": 150.376311429
+    },
+    {
+      "id": "275620",
+      "label": "Windsor",
+      "type": "interchange",
+      "pos": [
+        -1.632,
+        -3.887
+      ],
+      "desc": "Lines: T1, T5",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T1",
+        "T5"
+      ],
+      "lat": -33.6139276709,
+      "lon": 150.811408003
+    },
+    {
+      "id": "217010",
+      "label": "Warwick Farm",
+      "type": "interchange",
+      "pos": [
+        -0.174,
+        0.368
+      ],
+      "desc": "Lines: T2, T3, T5, T7",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T3",
+        "T5",
+        "T7"
+      ],
+      "lat": -33.9134499609,
+      "lon": 150.935036365
+    },
+    {
+      "id": "206510",
+      "label": "Wollstonecraft",
+      "type": "interchange",
+      "pos": [
+        2.856,
+        -0.792
+      ],
+      "desc": "Lines: CCN, T1, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "T1",
+        "T9"
+      ],
+      "lat": -33.8317948735,
+      "lon": 151.191895006
+    },
+    {
+      "id": "223010",
+      "label": "Woolooware",
+      "type": "station",
+      "pos": [
+        2.291,
+        2.276
+      ],
+      "desc": "Lines: T4",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T4"
+      ],
+      "lat": -34.0477180921,
+      "lon": 151.143995336
+    },
+    {
+      "id": "219520",
+      "label": "Wiley Park",
+      "type": "station",
+      "pos": [
+        1.386,
+        0.504
+      ],
+      "desc": "Sydney Trains station",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [],
+      "lat": -33.9230085448,
+      "lon": 151.067276248
+    },
+    {
+      "id": "214510",
+      "label": "Westmead",
+      "type": "interchange",
+      "pos": [
+        0.451,
+        -1.123
+      ],
+      "desc": "Lines: BMT, CCN, T1, T2, T5, T7, T9, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "CCN",
+        "T1",
+        "T2",
+        "T5",
+        "T7",
+        "T9",
+        "WST"
+      ],
+      "lat": -33.8085293689,
+      "lon": 150.98801145
+    },
+    {
+      "id": "2845999",
+      "label": "Wallerawang Bus",
+      "type": "interchange",
+      "pos": [
+        -10.417,
+        -6.769
+      ],
+      "desc": "Lines: BMT, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "WST"
+      ],
+      "lat": -33.411104,
+      "lon": 150.066497
+    },
+    {
+      "id": "250020",
+      "label": "Wollongong",
+      "type": "station",
+      "pos": [
+        -0.726,
+        7.665
+      ],
+      "desc": "Lines: SCO",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO"
+      ],
+      "lat": -34.427016169,
+      "lon": 150.88824305
+    },
+    {
+      "id": "251710",
+      "label": "Woonona",
+      "type": "station",
+      "pos": [
+        -0.411,
+        6.574
+      ],
+      "desc": "Lines: SCO",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SCO"
+      ],
+      "lat": -34.3502304682,
+      "lon": 150.914953779
+    },
+    {
+      "id": "225610",
+      "label": "Woy Woy",
+      "type": "interchange",
+      "pos": [
+        4.409,
+        -5.717
+      ],
+      "desc": "Lines: CCN, NRC, NRW",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW"
+      ],
+      "lat": -33.4851124911,
+      "lon": 151.32362386
+    },
+    {
+      "id": "211420",
+      "label": "West Ryde",
+      "type": "interchange",
+      "pos": [
+        1.657,
+        -1.142
+      ],
+      "desc": "Lines: CCN, NRC, NRW, T1, T2, T7, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW",
+        "T1",
+        "T2",
+        "T7",
+        "T9"
+      ],
+      "lat": -33.8071721307,
+      "lon": 151.09022893
+    },
+    {
+      "id": "225930",
+      "label": "Warnervale",
+      "type": "interchange",
+      "pos": [
+        5.883,
+        -9.092
+      ],
+      "desc": "Lines: CCN, NRC, NRW",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW"
+      ],
+      "lat": -33.2475593068,
+      "lon": 151.448562292
+    },
+    {
+      "id": "274710",
+      "label": "Werrington",
+      "type": "interchange",
+      "pos": [
+        -2.258,
+        -1.822
+      ],
+      "desc": "Lines: BMT, T1, T2, T5, T7, T9, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "T1",
+        "T2",
+        "T5",
+        "T7",
+        "T9",
+        "WST"
+      ],
+      "lat": -33.7592923009,
+      "lon": 150.758339734
+    },
+    {
+      "id": "277420",
+      "label": "Warrimoo",
+      "type": "interchange",
+      "pos": [
+        -4.102,
+        -2.363
+      ],
+      "desc": "Lines: BMT, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "WST"
+      ],
+      "lat": -33.7211964368,
+      "lon": 150.601979239
+    },
+    {
+      "id": "207420",
+      "label": "Warrawee",
+      "type": "interchange",
+      "pos": [
+        2.029,
+        -2.319
+      ],
+      "desc": "Lines: CCN, T1, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "T1",
+        "T9"
+      ],
+      "lat": -33.7242854623,
+      "lon": 151.121756755
+    },
+    {
+      "id": "214520",
+      "label": "Wentworthville",
+      "type": "interchange",
+      "pos": [
+        0.27,
+        -1.142
+      ],
+      "desc": "Lines: BMT, CCN, T1, T2, T5, T7, T9, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "CCN",
+        "T1",
+        "T2",
+        "T5",
+        "T7",
+        "T9",
+        "WST"
+      ],
+      "lat": -33.8071929536,
+      "lon": 150.972637553
+    },
+    {
+      "id": "225920",
+      "label": "Wyong",
+      "type": "interchange",
+      "pos": [
+        5.608,
+        -8.554
+      ],
+      "desc": "Lines: CCN, NRC, NRW",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "NRC",
+        "NRW"
+      ],
+      "lat": -33.2854792278,
+      "lon": 151.425256215
+    },
+    {
+      "id": "200080",
+      "label": "Wynyard",
+      "type": "interchange",
+      "pos": [
+        3.02,
+        -0.307
+      ],
+      "desc": "Lines: CCN, SCO, T1, T2, T3, T4, T8, T9",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "CCN",
+        "SCO",
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T8",
+        "T9"
+      ],
+      "lat": -33.8658979945,
+      "lon": 151.205789333
+    },
+    {
+      "id": "219910",
+      "label": "Yagoona",
+      "type": "interchange",
+      "pos": [
+        0.877,
+        0.27
+      ],
+      "desc": "Lines: T2, T3, T6",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T3",
+        "T6"
+      ],
+      "lat": -33.9065533731,
+      "lon": 151.024151882
+    },
+    {
+      "id": "216120",
+      "label": "Yennora",
+      "type": "interchange",
+      "pos": [
+        0.251,
+        -0.324
+      ],
+      "desc": "Lines: T2, T5, T7",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "T2",
+        "T5",
+        "T7"
+      ],
+      "lat": -33.8647184018,
+      "lon": 150.971007349
+    },
+    {
+      "id": "257540",
+      "label": "Yerrinbool",
+      "type": "interchange",
+      "pos": [
+        -4.792,
+        6.879
+      ],
+      "desc": "Lines: SHL, STH",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "SHL",
+        "STH"
+      ],
+      "lat": -34.3717400589,
+      "lon": 150.543495689
+    },
+    {
+      "id": "278630",
+      "label": "Zig Zag",
+      "type": "interchange",
+      "pos": [
+        -8.818,
+        -5.905
+      ],
+      "desc": "Lines: BMT, WST",
+      "receives": "Passengers boarding.",
+      "sends": "Passengers alighting.",
+      "lines": [
+        "BMT",
+        "WST"
+      ],
+      "lat": -33.4718863935,
+      "lon": 150.202128706
+    }
+  ],
+  "links": [
+    [
+      "214410",
+      "214110",
+      "t2",
+      "T2 line",
+      4
+    ],
+    [
+      "214110",
+      "214020",
+      "t2",
+      "T2 line",
+      4
+    ],
+    [
+      "214020",
+      "214010",
+      "t2",
+      "T2 line",
+      4
+    ],
+    [
+      "214010",
+      "213510",
+      "t2",
+      "T2 line",
+      4
+    ],
+    [
+      "213510",
+      "213410",
+      "t2",
+      "T2 line",
+      4
+    ],
+    [
+      "213410",
+      "213210",
+      "t2",
+      "T2 line",
+      4
+    ],
+    [
+      "213210",
+      "213110",
+      "t2",
+      "T2 line",
+      4
+    ],
+    [
+      "213110",
+      "213010",
+      "t2",
+      "T2 line",
+      4
+    ],
+    [
+      "213010",
+      "204920",
+      "t2",
+      "T2 line",
+      4
+    ],
+    [
+      "204920",
+      "204910",
+      "t2",
+      "T2 line",
+      4
+    ],
+    [
+      "204910",
+      "204810",
+      "t2",
+      "T2 line",
+      4
+    ],
+    [
+      "204810",
+      "204210",
+      "t2",
+      "T2 line",
+      4
+    ],
+    [
+      "204210",
+      "201520",
+      "t2",
+      "T2 line",
+      4
+    ],
+    [
+      "201520",
+      "201510",
+      "t2",
+      "T2 line",
+      4
+    ],
+    [
+      "201510",
+      "200060",
+      "t2",
+      "T2 line",
+      4
+    ],
+    [
+      "200060",
+      "200070",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "200070",
+      "200080",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "200080",
+      "200020",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "200020",
+      "200050",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "200050",
+      "200040",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "200040",
+      "200060",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "200060",
+      "201710",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "201710",
+      "202010",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "202010",
+      "202020",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "202020",
+      "202030",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "202030",
+      "220510",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "220510",
+      "220530",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "220530",
+      "220710",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "220710",
+      "220720",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "220720",
+      "220810",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "220810",
+      "220910",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "220910",
+      "220920",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "220920",
+      "221010",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "221010",
+      "221110",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "221110",
+      "221210",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "221210",
+      "221310",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "221310",
+      "221320",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "221320",
+      "217310",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "217310",
+      "216710",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "216710",
+      "256410",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "256410",
+      "256510",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "256510",
+      "256610",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "256610",
+      "256010",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "256010",
+      "256020",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "256020",
+      "256030",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "215020",
+      "215010",
+      "t2",
+      "T2 line",
+      4
+    ],
+    [
+      "215010",
+      "214240",
+      "t2",
+      "T2 line",
+      4
+    ],
+    [
+      "214240",
+      "214230",
+      "t2",
+      "T2 line",
+      4
+    ],
+    [
+      "214230",
+      "214410",
+      "t2",
+      "T2 line",
+      4
+    ],
+    [
+      "221210",
+      "220510",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "214110",
+      "214120",
+      "t3",
+      "T3 line",
+      4
+    ],
+    [
+      "214120",
+      "214310",
+      "t3",
+      "T3 line",
+      4
+    ],
+    [
+      "214310",
+      "216210",
+      "t3",
+      "T3 line",
+      4
+    ],
+    [
+      "216210",
+      "216220",
+      "t3",
+      "T3 line",
+      4
+    ],
+    [
+      "216220",
+      "216310",
+      "t3",
+      "T3 line",
+      4
+    ],
+    [
+      "216310",
+      "216320",
+      "t3",
+      "T3 line",
+      4
+    ],
+    [
+      "216320",
+      "216330",
+      "t3",
+      "T3 line",
+      4
+    ],
+    [
+      "216330",
+      "216620",
+      "t3",
+      "T3 line",
+      4
+    ],
+    [
+      "216620",
+      "217010",
+      "t3",
+      "T3 line",
+      4
+    ],
+    [
+      "217010",
+      "217020",
+      "t3",
+      "T3 line",
+      4
+    ],
+    [
+      "216710",
+      "217030",
+      "t3",
+      "T3 line",
+      4
+    ],
+    [
+      "217030",
+      "217020",
+      "t3",
+      "T3 line",
+      4
+    ],
+    [
+      "214240",
+      "216010",
+      "t2",
+      "T2 line",
+      4
+    ],
+    [
+      "216010",
+      "216110",
+      "t2",
+      "T2 line",
+      4
+    ],
+    [
+      "216110",
+      "216120",
+      "t2",
+      "T2 line",
+      4
+    ],
+    [
+      "216120",
+      "216510",
+      "t2",
+      "T2 line",
+      4
+    ],
+    [
+      "216510",
+      "216610",
+      "t2",
+      "T2 line",
+      4
+    ],
+    [
+      "216610",
+      "216620",
+      "t2",
+      "T2 line",
+      4
+    ],
+    [
+      "216710",
+      "217426",
+      "t2",
+      "T2 line",
+      4
+    ],
+    [
+      "217426",
+      "217933",
+      "t2",
+      "T2 line",
+      4
+    ],
+    [
+      "200080",
+      "206110",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "206110",
+      "206010",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "206010",
+      "206020",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "206020",
+      "206510",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "206510",
+      "206520",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "206520",
+      "206410",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "206410",
+      "206710",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "206710",
+      "206910",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "206910",
+      "207010",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "207010",
+      "207110",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "207110",
+      "207210",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "207720",
+      "207710",
+      "t9",
+      "T9 line",
+      4
+    ],
+    [
+      "207710",
+      "207610",
+      "t9",
+      "T9 line",
+      4
+    ],
+    [
+      "207610",
+      "207420",
+      "t9",
+      "T9 line",
+      4
+    ],
+    [
+      "207420",
+      "207410",
+      "t9",
+      "T9 line",
+      4
+    ],
+    [
+      "207410",
+      "207310",
+      "t9",
+      "T9 line",
+      4
+    ],
+    [
+      "207310",
+      "207210",
+      "t9",
+      "T9 line",
+      4
+    ],
+    [
+      "201510",
+      "204810",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "204810",
+      "213010",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "215020",
+      "214510",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "214510",
+      "214520",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "214520",
+      "214530",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "214530",
+      "214610",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "214610",
+      "214710",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "214710",
+      "214810",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "214810",
+      "276710",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "276710",
+      "276610",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "276610",
+      "277010",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "277010",
+      "276010",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "276010",
+      "274710",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "274710",
+      "274720",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "274720",
+      "275010",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "213510",
+      "213710",
+      "t9",
+      "T9 line",
+      4
+    ],
+    [
+      "213710",
+      "213810",
+      "t9",
+      "T9 line",
+      4
+    ],
+    [
+      "213810",
+      "213820",
+      "t9",
+      "T9 line",
+      4
+    ],
+    [
+      "213820",
+      "211430",
+      "t9",
+      "T9 line",
+      4
+    ],
+    [
+      "211430",
+      "211420",
+      "t9",
+      "T9 line",
+      4
+    ],
+    [
+      "211420",
+      "211410",
+      "t9",
+      "T9 line",
+      4
+    ],
+    [
+      "211410",
+      "212210",
+      "t9",
+      "T9 line",
+      4
+    ],
+    [
+      "212210",
+      "212110",
+      "t9",
+      "T9 line",
+      4
+    ],
+    [
+      "212110",
+      "211920",
+      "t9",
+      "T9 line",
+      4
+    ],
+    [
+      "211920",
+      "211910",
+      "t9",
+      "T9 line",
+      4
+    ],
+    [
+      "211910",
+      "212020",
+      "t9",
+      "T9 line",
+      4
+    ],
+    [
+      "212020",
+      "212010",
+      "t9",
+      "T9 line",
+      4
+    ],
+    [
+      "212010",
+      "207620",
+      "t9",
+      "T9 line",
+      4
+    ],
+    [
+      "207620",
+      "207720",
+      "t9",
+      "T9 line",
+      4
+    ],
+    [
+      "213110",
+      "201510",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "213410",
+      "201510",
+      "t9",
+      "T9 line",
+      4
+    ],
+    [
+      "201510",
+      "213210",
+      "t9",
+      "T9 line",
+      4
+    ],
+    [
+      "211920",
+      "212020",
+      "t9",
+      "T9 line",
+      4
+    ],
+    [
+      "207720",
+      "207730",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "207730",
+      "207910",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "207910",
+      "208010",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "208010",
+      "208110",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "201510",
+      "204310",
+      "t4",
+      "T4 line",
+      4
+    ],
+    [
+      "204310",
+      "204410",
+      "t4",
+      "T4 line",
+      4
+    ],
+    [
+      "204410",
+      "204420",
+      "t4",
+      "T4 line",
+      4
+    ],
+    [
+      "204420",
+      "204430",
+      "t4",
+      "T4 line",
+      4
+    ],
+    [
+      "204430",
+      "220510",
+      "t4",
+      "T4 line",
+      4
+    ],
+    [
+      "220510",
+      "220520",
+      "t4",
+      "T4 line",
+      4
+    ],
+    [
+      "220520",
+      "221610",
+      "t4",
+      "T4 line",
+      4
+    ],
+    [
+      "221610",
+      "221620",
+      "t4",
+      "T4 line",
+      4
+    ],
+    [
+      "221620",
+      "221710",
+      "t4",
+      "T4 line",
+      4
+    ],
+    [
+      "221710",
+      "221810",
+      "t4",
+      "T4 line",
+      4
+    ],
+    [
+      "221810",
+      "222020",
+      "t4",
+      "T4 line",
+      4
+    ],
+    [
+      "222020",
+      "222010",
+      "t4",
+      "T4 line",
+      4
+    ],
+    [
+      "214810",
+      "214820",
+      "t5",
+      "T5 line",
+      4
+    ],
+    [
+      "214820",
+      "276310",
+      "t5",
+      "T5 line",
+      4
+    ],
+    [
+      "276310",
+      "276220",
+      "t5",
+      "T5 line",
+      4
+    ],
+    [
+      "276220",
+      "276510",
+      "t5",
+      "T5 line",
+      4
+    ],
+    [
+      "276510",
+      "276520",
+      "t5",
+      "T5 line",
+      4
+    ],
+    [
+      "276520",
+      "275610",
+      "t5",
+      "T5 line",
+      4
+    ],
+    [
+      "275610",
+      "275620",
+      "t5",
+      "T5 line",
+      4
+    ],
+    [
+      "275620",
+      "275630",
+      "t5",
+      "T5 line",
+      4
+    ],
+    [
+      "275630",
+      "275310",
+      "t5",
+      "T5 line",
+      4
+    ],
+    [
+      "275310",
+      "275320",
+      "t5",
+      "T5 line",
+      4
+    ],
+    [
+      "275020",
+      "275010",
+      "t1",
+      "T1 line",
+      4
+    ],
+    [
+      "221210",
+      "204430",
+      "t8",
+      "T8 line",
+      4
+    ],
+    [
+      "215010",
+      "216010",
+      "t5",
+      "T5 line",
+      4
+    ],
+    [
+      "214110",
+      "212710",
+      "t2",
+      "T2 line",
+      4
+    ],
+    [
+      "204430",
+      "220530",
+      "t2",
+      "T2 line",
+      4
+    ],
+    [
+      "208110",
+      "208120",
+      "ccn",
+      "CCN line",
+      4
+    ],
+    [
+      "208120",
+      "208310",
+      "ccn",
+      "CCN line",
+      4
+    ],
+    [
+      "208310",
+      "225010",
+      "ccn",
+      "CCN line",
+      4
+    ],
+    [
+      "225010",
+      "225610",
+      "ccn",
+      "CCN line",
+      4
+    ],
+    [
+      "225610",
+      "225620",
+      "ccn",
+      "CCN line",
+      4
+    ],
+    [
+      "225620",
+      "225020",
+      "ccn",
+      "CCN line",
+      4
+    ],
+    [
+      "225020",
+      "225030",
+      "ccn",
+      "CCN line",
+      4
+    ],
+    [
+      "225030",
+      "225040",
+      "ccn",
+      "CCN line",
+      4
+    ],
+    [
+      "225010",
+      "208120",
+      "ccn",
+      "CCN line",
+      4
+    ],
+    [
+      "225920",
+      "225910",
+      "ccn",
+      "CCN line",
+      4
+    ],
+    [
+      "225910",
+      "225810",
+      "ccn",
+      "CCN line",
+      4
+    ],
+    [
+      "225810",
+      "225070",
+      "ccn",
+      "CCN line",
+      4
+    ],
+    [
+      "225070",
+      "225060",
+      "ccn",
+      "CCN line",
+      4
+    ],
+    [
+      "225060",
+      "2250772",
+      "ccn",
+      "CCN line",
+      4
+    ],
+    [
+      "2250772",
+      "225040",
+      "ccn",
+      "CCN line",
+      4
+    ],
+    [
+      "279538",
+      "2795999",
+      "wst",
+      "WST line",
+      4
+    ],
+    [
+      "2795999",
+      "27871",
+      "wst",
+      "WST line",
+      4
+    ],
+    [
+      "27871",
+      "2790128",
+      "wst",
+      "WST line",
+      4
+    ],
+    [
+      "2790128",
+      "2845999",
+      "wst",
+      "WST line",
+      4
+    ],
+    [
+      "2845999",
+      "279010",
+      "wst",
+      "WST line",
+      4
+    ],
+    [
+      "279010",
+      "278630",
+      "wst",
+      "WST line",
+      4
+    ],
+    [
+      "278630",
+      "278620",
+      "wst",
+      "WST line",
+      4
+    ],
+    [
+      "278620",
+      "278610",
+      "wst",
+      "WST line",
+      4
+    ],
+    [
+      "278610",
+      "278510",
+      "wst",
+      "WST line",
+      4
+    ],
+    [
+      "278510",
+      "278030",
+      "wst",
+      "WST line",
+      4
+    ],
+    [
+      "278030",
+      "278020",
+      "wst",
+      "WST line",
+      4
+    ],
+    [
+      "278020",
+      "278010",
+      "wst",
+      "WST line",
+      4
+    ],
+    [
+      "278010",
+      "278210",
+      "wst",
+      "WST line",
+      4
+    ],
+    [
+      "278210",
+      "278410",
+      "wst",
+      "WST line",
+      4
+    ],
+    [
+      "278410",
+      "278310",
+      "wst",
+      "WST line",
+      4
+    ],
+    [
+      "278310",
+      "277910",
+      "wst",
+      "WST line",
+      4
+    ],
+    [
+      "277910",
+      "277810",
+      "wst",
+      "WST line",
+      4
+    ],
+    [
+      "277810",
+      "277820",
+      "wst",
+      "WST line",
+      4
+    ],
+    [
+      "277820",
+      "277610",
+      "wst",
+      "WST line",
+      4
+    ],
+    [
+      "277610",
+      "277720",
+      "wst",
+      "WST line",
+      4
+    ],
+    [
+      "277720",
+      "277710",
+      "wst",
+      "WST line",
+      4
+    ],
+    [
+      "277710",
+      "277420",
+      "wst",
+      "WST line",
+      4
+    ],
+    [
+      "277420",
+      "277410",
+      "wst",
+      "WST line",
+      4
+    ],
+    [
+      "277410",
+      "277310",
+      "wst",
+      "WST line",
+      4
+    ],
+    [
+      "277310",
+      "275030",
+      "wst",
+      "WST line",
+      4
+    ],
+    [
+      "275030",
+      "275020",
+      "wst",
+      "WST line",
+      4
+    ],
+    [
+      "250020",
+      "250010",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "250010",
+      "251910",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "251910",
+      "251830",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "251830",
+      "251820",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "251820",
+      "251810",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "251810",
+      "251710",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "251710",
+      "251610",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "251610",
+      "251550",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "251550",
+      "251540",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "251540",
+      "251530",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "251530",
+      "251520",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "251520",
+      "251510",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "251510",
+      "250850",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "250850",
+      "250840",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "250840",
+      "250830",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "250830",
+      "250810",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "250810",
+      "223330",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "223330",
+      "223320",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "223320",
+      "223310",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "223310",
+      "223220",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "223220",
+      "223210",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "223210",
+      "222620",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "222620",
+      "222610",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "222610",
+      "222320",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "222320",
+      "222310",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "222310",
+      "222210",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "222210",
+      "222010",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "200070",
+      "200030",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "200030",
+      "201110",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "201110",
+      "202710",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "202710",
+      "202210",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "250030",
+      "250020",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "250540",
+      "250530",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "250530",
+      "250520",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "250520",
+      "250510",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "250510",
+      "250030",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "223320",
+      "250810",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "214310",
+      "214320",
+      "t6",
+      "T6 line",
+      4
+    ],
+    [
+      "214320",
+      "219910",
+      "t6",
+      "T6 line",
+      4
+    ],
+    [
+      "219910",
+      "220010",
+      "t6",
+      "T6 line",
+      4
+    ],
+    [
+      "253020",
+      "253010",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "253010",
+      "252610",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "252610",
+      "250030",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "220520",
+      "204430",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "214020",
+      "212710",
+      "t2",
+      "T2 line",
+      4
+    ],
+    [
+      "223210",
+      "223230",
+      "t4",
+      "T4 line",
+      4
+    ],
+    [
+      "223230",
+      "222710",
+      "t4",
+      "T4 line",
+      4
+    ],
+    [
+      "222710",
+      "222810",
+      "t4",
+      "T4 line",
+      4
+    ],
+    [
+      "222810",
+      "222910",
+      "t4",
+      "T4 line",
+      4
+    ],
+    [
+      "222910",
+      "223010",
+      "t4",
+      "T4 line",
+      4
+    ],
+    [
+      "223010",
+      "223020",
+      "t4",
+      "T4 line",
+      4
+    ],
+    [
+      "216210",
+      "214320",
+      "t3",
+      "T3 line",
+      4
+    ],
+    [
+      "225930",
+      "225920",
+      "ccn",
+      "CCN line",
+      4
+    ],
+    [
+      "253010",
+      "250030",
+      "sco",
+      "SCO line",
+      4
+    ],
+    [
+      "216210",
+      "204420",
+      "t3",
+      "T3 line",
+      4
+    ],
+    [
+      "257620",
+      "257610",
+      "shl",
+      "SHL line",
+      4
+    ],
+    [
+      "257610",
+      "257510",
+      "shl",
+      "SHL line",
+      4
+    ],
+    [
+      "257510",
+      "257540",
+      "shl",
+      "SHL line",
+      4
+    ],
+    [
+      "257540",
+      "257420",
+      "shl",
+      "SHL line",
+      4
+    ],
+    [
+      "257420",
+      "257310",
+      "shl",
+      "SHL line",
+      4
+    ],
+    [
+      "257310",
+      "257110",
+      "shl",
+      "SHL line",
+      4
+    ],
+    [
+      "257110",
+      "256910",
+      "shl",
+      "SHL line",
+      4
+    ],
+    [
+      "256910",
+      "256810",
+      "shl",
+      "SHL line",
+      4
+    ],
+    [
+      "256810",
+      "256310",
+      "shl",
+      "SHL line",
+      4
+    ],
+    [
+      "256310",
+      "256030",
+      "shl",
+      "SHL line",
+      4
+    ],
+    [
+      "278410",
+      "277910",
+      "bmt",
+      "BMT line",
+      4
+    ],
+    [
+      "277420",
+      "277720",
+      "bmt",
+      "BMT line",
+      4
+    ]
+  ],
+  "center": [
+    -33.88754008060927,
+    150.94976230746374
+  ],
+  "scale": 0.00012799478587981777,
+  "line_colors": {
+    "t8": "#00954C",
+    "bmt": "#F99D1C",
+    "ccn": "#D11F2F",
+    "t5": "#C4258F",
+    "nrc": "#F6891F",
+    "nrw": "#F6891F",
+    "sth": "#F6891F",
+    "wst": "#F6891F",
+    "t4": "#005AA3",
+    "hun": "#833134",
+    "t2": "#0098CD",
+    "t1": "#F99D1C",
+    "t9": "#D11F2F",
+    "t7": "#6F818E",
+    "sco": "#005AA3",
+    "shl": "#00954C",
+    "t3": "#F37021",
+    "t6": "#7C3E21"
+  }
+}
