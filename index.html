@@ -3,382 +3,337 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Sydney Train Network — Live 3D Map</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
+<title>Sydney Train Network — Live Map</title>
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet" />
 <style>
-:root { --ink: #f7ead0; --muted: rgba(247,234,208,.68); --panel: rgba(12,16,30,.72); --gold: #f6c65b; }
+:root { --ink: #f7ead0; --muted: rgba(247,234,208,.68); --panel: rgba(12,16,30,.82); --gold: #f6c65b; }
 * { box-sizing: border-box; }
 html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #050713; color: var(--ink); font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif; }
-#app { position: fixed; inset: 0; }
-canvas { display: block; }
-.topbar { position: fixed; z-index: 4; top: 20px; left: 24px; right: 24px; display: flex; align-items: start; justify-content: space-between; gap: 18px; pointer-events: none; }
-.brand { max-width: 620px; }
+#map { position: fixed; inset: 0; }
+
+/* Overlays */
+.topbar { position: fixed; z-index: 4; top: 18px; left: 18px; right: 18px; display: flex; align-items: start; justify-content: space-between; gap: 14px; pointer-events: none; }
+.brand { max-width: 560px; }
 .eyebrow { color: var(--gold); font-size: 12px; letter-spacing: .22em; text-transform: uppercase; font-weight: 700; }
-h1 { margin: 6px 0 4px; font-size: clamp(26px, 4vw, 54px); line-height: .95; letter-spacing: -.045em; text-shadow: 0 0 24px rgba(246,198,91,.25); }
-.subtitle { color: var(--muted); font-size: 14px; max-width: 520px; line-height: 1.45; }
-.hud { pointer-events: auto; display: flex; gap: 8px; flex-wrap: wrap; justify-content: end; max-width: 520px; }
-button, .chip { border: 1px solid rgba(247,234,208,.18); background: rgba(11,15,30,.68); color: var(--ink); border-radius: 999px; padding: 9px 12px; font-size: 12px; cursor: pointer; backdrop-filter: blur(12px); box-shadow: inset 0 0 20px rgba(255,255,255,.025), 0 8px 30px rgba(0,0,0,.18); }
+h1 { margin: 6px 0 4px; font-size: clamp(22px, 3.2vw, 44px); line-height: .95; letter-spacing: -.045em; text-shadow: 0 0 24px rgba(246,198,91,.25); }
+.subtitle { color: var(--muted); font-size: 13px; max-width: 480px; line-height: 1.4; }
+.hud { pointer-events: auto; display: flex; gap: 8px; flex-wrap: wrap; justify-content: end; max-width: 420px; }
+button, .chip { border: 1px solid rgba(247,234,208,.18); background: rgba(11,15,30,.72); color: var(--ink); border-radius: 999px; padding: 9px 12px; font-size: 12px; cursor: pointer; backdrop-filter: blur(12px); }
 button:hover, button.active { border-color: rgba(246,198,91,.75); color: #fff4d9; box-shadow: 0 0 20px rgba(246,198,91,.18); }
-.panel { position: fixed; z-index: 4; right: 24px; bottom: 78px; width: min(380px, calc(100vw - 48px)); max-height: min(520px, calc(100vh - 160px)); overflow: auto; padding: 16px; background: var(--panel); border: 1px solid rgba(247,234,208,.14); border-radius: 22px; backdrop-filter: blur(18px); box-shadow: 0 24px 70px rgba(0,0,0,.4); scrollbar-width: thin; scrollbar-color: rgba(246,198,91,.45) transparent; }
-.panel h2 { margin: 0 0 8px; font-size: 22px; letter-spacing: -.02em; }
-.panel p { color: var(--muted); line-height: 1.5; margin: 0 0 12px; font-size: 13px; }
-.departure { border: 1px solid rgba(247,234,208,.12); background: rgba(255,255,255,.035); border-radius: 14px; padding: 10px; margin-bottom: 8px; }
-.departure b { display: block; color: var(--gold); font-size: 11px; text-transform: uppercase; letter-spacing: .11em; margin-bottom: 6px; }
-.departure span { color: rgba(247,234,208,.72); font-size: 12px; line-height: 1.35; display: block; }
-.left-dock { position: fixed; z-index: 4; left: 24px; top: clamp(188px, 20vh, 224px); bottom: 18px; width: min(260px, calc(100vw - 48px)); display: flex; flex-direction: column; gap: 10px; pointer-events: auto; overflow-y: auto; overflow-x: hidden; padding-right: 6px; scrollbar-width: thin; scrollbar-color: rgba(246,198,91,.45) transparent; }
-.dock-card { flex: 0 0 auto; background: rgba(7,10,22,.72); border: 1px solid rgba(247,234,208,.14); border-radius: 18px; padding: 10px 12px; backdrop-filter: blur(16px); box-shadow: 0 18px 60px rgba(0,0,0,.26); }
+
+/* Left dock (line toggles) */
+.left-dock { position: fixed; z-index: 4; left: 18px; top: clamp(160px, 18vh, 200px); bottom: 18px; width: min(260px, calc(100vw - 36px)); display: flex; flex-direction: column; gap: 10px; pointer-events: auto; overflow-y: auto; overflow-x: hidden; padding-right: 6px; scrollbar-width: thin; scrollbar-color: rgba(246,198,91,.45) transparent; }
+.dock-card { flex: 0 0 auto; background: rgba(7,10,22,.78); border: 1px solid rgba(247,234,208,.14); border-radius: 18px; padding: 10px 12px; backdrop-filter: blur(16px); }
 .legend-title { font-size: 11px; color: var(--gold); letter-spacing: .15em; text-transform: uppercase; margin-bottom: 9px; font-weight: 800; }
 .legend-row { display: flex; align-items: center; gap: 9px; color: var(--muted); font-size: 12px; margin: 6px 0; cursor: pointer; }
 .legend-row:hover { color: #fff; }
 .legend-row.hidden-line { opacity: .35; }
 .swatch { width: 22px; height: 3px; border-radius: 4px; box-shadow: 0 0 12px currentColor; flex: 0 0 auto; }
-.label { position: fixed; z-index: 3; color: #fff4d4; font-size: 12px; font-weight: 700; text-shadow: 0 2px 14px rgba(0,0,0,.8), 0 0 12px rgba(246,198,91,.5); pointer-events: none; white-space: nowrap; transform: translate(-50%, -50%); letter-spacing: -.01em; }
-.label.core { font-size: 15px; color: #fff; }
+
+/* Right panel (departures / station info) */
+.panel { position: fixed; z-index: 4; right: 18px; bottom: 78px; width: min(380px, calc(100vw - 36px)); max-height: min(520px, calc(100vh - 140px)); overflow: auto; padding: 16px; background: var(--panel); border: 1px solid rgba(247,234,208,.14); border-radius: 22px; backdrop-filter: blur(18px); box-shadow: 0 24px 70px rgba(0,0,0,.4); scrollbar-width: thin; scrollbar-color: rgba(246,198,91,.45) transparent; display: none; }
+.panel.show { display: block; }
+.panel h2 { margin: 0 0 8px; font-size: 22px; letter-spacing: -.02em; }
+.panel p { color: var(--muted); line-height: 1.5; margin: 0 0 12px; font-size: 13px; }
+.departure { border: 1px solid rgba(247,234,208,.12); background: rgba(255,255,255,.04); border-radius: 14px; padding: 10px; margin-bottom: 8px; }
+.departure b { display: block; color: var(--gold); font-size: 11px; text-transform: uppercase; letter-spacing: .11em; margin-bottom: 6px; }
+.departure span { color: rgba(247,234,208,.72); font-size: 12px; line-height: 1.35; display: block; }
+.close-panel { float: right; background: transparent; border: none; color: var(--muted); font-size: 16px; cursor: pointer; padding: 0; margin: -4px -4px 0 0; }
+.close-panel:hover { color: #fff; }
+
+/* Toast */
 .toast { position: fixed; z-index: 5; left: 50%; bottom: 28px; transform: translateX(-50%); color: rgba(247,234,208,.72); font-size: 12px; background: rgba(6,8,16,.7); border: 1px solid rgba(247,234,208,.12); border-radius: 999px; padding: 8px 12px; pointer-events: none; opacity: 0; transition: opacity .4s; }
 .toast.show { opacity: 1; }
+
+/* Live train markers */
+.train-marker { width: 14px; height: 14px; border-radius: 50%; border: 2px solid rgba(0,0,0,.6); box-shadow: 0 0 10px currentColor; pointer-events: none; }
 </style>
 </head>
 <body>
-<div id="app"></div>
+<div id="map"></div>
 
 <div class="topbar">
   <div class="brand">
     <div class="eyebrow">NSW Transport Open Data</div>
     <h1>Sydney Train Network</h1>
-    <div class="subtitle">248 stations · Real-time departures · Click any station</div>
+    <div class="subtitle">248 stations · Real-time positions · Click any station</div>
   </div>
   <div class="hud">
-    <button id="btnReset">Reset View</button>
     <button id="btnLive">Live: Off</button>
-    <button id="btnAll">All Lines</button>
+    <button id="btnAll">Show All Lines</button>
   </div>
 </div>
 
-<div class="left-dock">
-  <div class="dock-card">
-    <div class="legend-title">Lines</div>
-    <div id="legend"></div>
-  </div>
-</div>
+<div class="left-dock" id="legendDock"></div>
 
-<div class="panel" id="stationPanel" style="display:none;">
-  <h2 id="pTitle">Station</h2>
-  <p id="pMeta">Lines · Location</p>
+<div class="panel" id="stationPanel">
+  <button class="close-panel" id="btnClosePanel">×</button>
+  <h2 id="pName">Station</h2>
+  <p id="pDesc"></p>
   <div id="pDepartures"></div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-const NODES = [{"id": "222020", "label": "Allawah", "type": "interchange", "lines": ["SCO", "T4"], "xyz": [-8.817, 0.15, 11.054], "lat": -33.9695839058, "lon": 151.11432998}, {"id": "220520", "label": "Arncliffe", "type": "interchange", "lines": ["SCO", "T4"], "xyz": [-5.779, 0.15, 7.377], "lat": -33.9364561946, "lon": 151.147299468}, {"id": "206410", "label": "Artarmon", "type": "interchange", "lines": ["CCN", "T1", "T9"], "xyz": [-2.277, 0.15, -6.782], "lat": -33.8089026435, "lon": 151.185293878}, {"id": "213110", "label": "Ashfield", "type": "interchange", "lines": ["BMT", "CCN", "NRC", "T1", "T2", "T3", "T9", "WST"], "xyz": [-7.787, 0.15, 1.948], "lat": -33.8875506079, "lon": 151.125504163}, {"id": "207730", "label": "Asquith", "type": "interchange", "lines": ["CCN", "NRC", "NRW", "T1", "T9"], "xyz": [-9.398, 0.15, -20.117], "lat": -33.6887699577, "lon": 151.108025195}, {"id": "214410", "label": "Auburn", "type": "interchange", "lines": ["BMT", "CCN", "T1", "T2", "T5", "T7", "T9", "WST"], "xyz": [-16.325, 0.15, -2.301], "lat": -33.8492696009, "lon": 151.032866977}, {"id": "251540", "label": "Austinmer", "type": "station", "lines": ["SCO"], "xyz": [-25.869, 0.05, 48.442], "lat": -34.3064104571, "lon": 150.929312771}, {"id": "211910", "label": "Beecroft", "type": "interchange", "lines": ["CCN", "NRC", "NRW", "T1", "T2", "T7", "T9"], "xyz": [-13.244, 0.15, -13.325], "lat": -33.7499541654, "lon": 151.066298171}, {"id": "220710", "label": "Bardwell Park", "type": "interchange", "lines": ["T2", "T8"], "xyz": [-7.847, 0.15, 6.839], "lat": -33.9316166619, "lon": 151.1248574}, {"id": "208110", "label": "Berowra", "type": "interchange", "lines": ["CCN", "NRC", "NRW", "T1", "T9"], "xyz": [-5.256, 0.15, -27.344], "lat": -33.6236572023, "lon": 151.152971085}, {"id": "257420", "label": "Bargo", "type": "interchange", "lines": ["SHL", "STH"], "xyz": [-58.044, 0.15, 46.772], "lat": -34.2913649332, "lon": 150.580209109}, {"id": "278510", "label": "Blackheath", "type": "interchange", "lines": ["BMT", "WST"], "xyz": [-85.312, 0.15, -26.32], "lat": -33.6328810405, "lon": 150.284344986}, {"id": "214320", "label": "Birrong", "type": "interchange", "lines": ["T2", "T3", "T6"], "xyz": [-17.139, 0.15, 2.584], "lat": -33.8932786044, "lon": 151.024041348}, {"id": "202210", "label": "Bondi Junction", "type": "interchange", "lines": ["SCO", "T4"], "xyz": [3.538, 0.15, 2.353], "lat": -33.8912022841, "lon": 151.2483843}, {"id": "221610", "label": "Banksia", "type": "interchange", "lines": ["SCO", "T4"], "xyz": [-6.412, 0.15, 8.357], "lat": -33.9452864513, "lon": 151.140431561}, {"id": "278410", "label": "Bullaburra", "type": "interchange", "lines": ["BMT", "WST"], "xyz": [-73.306, 0.15, -16.25], "lat": -33.7236061568, "lon": 150.414607373}, {"id": "251610", "label": "Bulli", "type": "station", "lines": ["SCO"], "xyz": [-27.212, 0.05, 51.557], "lat": -34.3344809753, "lon": 150.914743941}, {"id": "278620", "label": "Bell", "type": "interchange", "lines": ["BMT", "WST"], "xyz": [-85.815, 0.15, -40.439], "lat": -33.5056855444, "lon": 150.278886098}, {"id": "251810", "label": "Bellambi", "type": "station", "lines": ["SCO"], "xyz": [-27.658, 0.05, 54.758], "lat": -34.363318415, "lon": 150.909902501}, {"id": "219210", "label": "Belmore", "type": "station", "lines": [], "xyz": [-11.176, 0.05, 5.241], "lat": -33.9172179801, "lon": 151.088733212}, {"id": "220010", "label": "Bankstown", "type": "interchange", "lines": ["T2", "T3", "T6"], "xyz": [-16.158, 0.15, 5.313], "lat": -33.9178645357, "lon": 151.034686895}, {"id": "257620", "label": "Burradoo", "type": "interchange", "lines": ["SHL", "STH"], "xyz": [-74.806, 0.15, 69.266], "lat": -34.4940191886, "lon": 150.398338765}, {"id": "257610", "label": "Bowral", "type": "interchange", "lines": ["SHL", "STH"], "xyz": [-73.117, 0.15, 67.502], "lat": -34.4781231702, "lon": 150.416658534}, {"id": "214120", "label": "Berala", "type": "interchange", "lines": ["T2", "T3", "T5", "T6"], "xyz": [-16.364, 0.15, 0.204], "lat": -33.8718356716, "lon": 151.032441754}, {"id": "279538", "label": "Bathurst", "type": "interchange", "lines": ["BMT", "WST"], "xyz": [-149.931, 0.15, -49.325], "lat": -33.4256270264, "lon": 149.58321606}, {"id": "214810", "label": "Blacktown", "type": "interchange", "lines": ["BMT", "CCN", "T1", "T2", "T5", "T7", "T9", "WST"], "xyz": [-27.879, 0.15, -11.297], "lat": -33.768229034, "lon": 150.907510545}, {"id": "257129", "label": "Buxton Bus", "type": "station", "lines": [], "xyz": [-62.278, 0.05, 42.714], "lat": -34.254807, "lon": 150.534265}, {"id": "220910", "label": "Beverly Hills", "type": "interchange", "lines": ["T2", "T8"], "xyz": [-11.825, 0.15, 8.752], "lat": -33.9488485689, "lon": 151.081692204}, {"id": "213410", "label": "Burwood", "type": "interchange", "lines": ["BMT", "CCN", "NRC", "NRW", "T1", "T2", "T3", "T7", "T9", "WST"], "xyz": [-9.699, 0.15, 0.812], "lat": -33.8773146456, "lon": 151.104762238}, {"id": "277410", "label": "Blaxland", "type": "interchange", "lines": ["BMT", "WST"], "xyz": [-55.336, 0.15, -14.033], "lat": -33.7435765927, "lon": 150.609595708}, {"id": "220720", "label": "Bexley North", "type": "interchange", "lines": ["T2", "T8"], "xyz": [-8.903, 0.15, 7.5], "lat": -33.9375660086, "lon": 151.113397321}, {"id": "216620", "label": "Cabramatta", "type": "interchange", "lines": ["T2", "T3", "T5", "T7"], "xyz": [-24.993, 0.15, 2.76], "lat": -33.8948665527, "lon": 150.938820645}, {"id": "217030", "label": "Casula", "type": "interchange", "lines": ["T2", "T3", "T5"], "xyz": [-27.47, 0.15, 8.86], "lat": -33.9498183823, "lon": 150.911946019}, {"id": "219320", "label": "Canterbury", "type": "station", "lines": [], "xyz": [-8.459, 0.05, 4.626], "lat": -33.9116721396, "lon": 151.118213253}, {"id": "250850", "label": "Coalcliff", "type": "station", "lines": ["SCO"], "xyz": [-21.452, 0.05, 41.32], "lat": -34.2422504333, "lon": 150.977242743}, {"id": "200020", "label": "Circular Quay", "type": "interchange", "lines": ["SCO", "T1", "T2", "T3", "T4", "T8"], "xyz": [0.036, 0.15, -0.963], "lat": -33.861323585, "lon": 151.210389837}, {"id": "275630", "label": "Clarendon", "type": "interchange", "lines": ["T1", "T5"], "xyz": [-38.841, 0.15, -28.976], "lat": -33.6089524546, "lon": 150.788562752}, {"id": "200060", "label": "Central", "type": "interchange", "lines": ["BMT", "CCN", "NRC", "NRW", "SCO", "SHL", "STH", "T1", "T2", "T3", "T4", "T5", "T7", "T8", "T9", "WST"], "xyz": [-0.384, 0.15, 1.541], "lat": -33.883881632, "lon": 151.205829312}, {"id": "216220", "label": "Chester Hill", "type": "interchange", "lines": ["T2", "T3", "T5"], "xyz": [-19.405, 0.15, 1.503], "lat": -33.8835434986, "lon": 150.999445637}, {"id": "211920", "label": "Cheltenham", "type": "interchange", "lines": ["CCN", "NRC", "NRW", "T1", "T2", "T7", "T9"], "xyz": [-12.087, 0.15, -12.669], "lat": -33.7558683656, "lon": 151.078851325}, {"id": "251530", "label": "Coledale", "type": "station", "lines": ["SCO"], "xyz": [-24.577, 0.05, 46.552], "lat": -34.2893891323, "lon": 150.943335304}, {"id": "214230", "label": "Clyde", "type": "interchange", "lines": ["BMT", "CCN", "T1", "T2", "T5", "T7", "T9", "WST"], "xyz": [-17.742, 0.15, -3.743], "lat": -33.8362817636, "lon": 151.01748954}, {"id": "221810", "label": "Carlton", "type": "interchange", "lines": ["SCO", "T4"], "xyz": [-7.895, 0.15, 10.908], "lat": -33.9682663189, "lon": 151.124336923}, {"id": "251820", "label": "Corrimal", "type": "station", "lines": ["SCO"], "xyz": [-28.113, 0.05, 56.136], "lat": -34.3757269238, "lon": 150.90497163}, {"id": "222610", "label": "Como", "type": "interchange", "lines": ["SCO", "T4"], "xyz": [-13.087, 0.15, 14.904], "lat": -34.0042661601, "lon": 151.067998839}, {"id": "219410", "label": "Campsie", "type": "station", "lines": [], "xyz": [-9.896, 0.05, 4.493], "lat": -33.9104811565, "lon": 151.102630825}, {"id": "222910", "label": "Caringbah", "type": "station", "lines": ["T4"], "xyz": [-8.042, 0.05, 19.049], "lat": -34.0416103913, "lon": 151.122747575}, {"id": "223020", "label": "Cronulla", "type": "station", "lines": ["T4"], "xyz": [-5.388, 0.05, 20.674], "lat": -34.0562517119, "lon": 151.151542409}, {"id": "250030", "label": "Coniston", "type": "station", "lines": ["SCO"], "xyz": [-29.904, 0.05, 62.987], "lat": -34.4374548931, "lon": 150.885529169}, {"id": "216610", "label": "Canley Vale", "type": "interchange", "lines": ["T2", "T5", "T7"], "xyz": [-24.517, 0.15, 1.865], "lat": -33.8867979256, "lon": 150.943987038}, {"id": "213810", "label": "Concord West", "type": "interchange", "lines": ["CCN", "NRC", "NRW", "T1", "T2", "T7", "T9"], "xyz": [-11.463, 0.15, -2.36], "lat": -33.8487399849, "lon": 151.085626247}, {"id": "250520", "label": "Cringila", "type": "station", "lines": ["SCO"], "xyz": [-30.559, 0.05, 66.286], "lat": -34.4671755384, "lon": 150.878422822}, {"id": "257165", "label": "Couridjah Bus", "type": "station", "lines": [], "xyz": [-60.966, 0.05, 40.273], "lat": -34.232824, "lon": 150.548507}, {"id": "216330", "label": "Carramar", "type": "interchange", "lines": ["T2", "T3", "T5"], "xyz": [-22.898, 0.15, 1.589], "lat": -33.8843177862, "lon": 150.961548622}, {"id": "256020", "label": "Campbelltown", "type": "interchange", "lines": ["SHL", "STH", "T2", "T3", "T5", "T8"], "xyz": [-36.503, 0.15, 21.516], "lat": -34.0638354867, "lon": 150.813928964}, {"id": "206710", "label": "Chatswood", "type": "interchange", "lines": ["CCN", "T1", "T9"], "xyz": [-2.689, 0.15, -8.088], "lat": -33.7971340586, "lon": 151.180820713}, {"id": "208120", "label": "Cowan", "type": "interchange", "lines": ["CCN", "NRC", "NRW"], "xyz": [-3.528, 0.15, -30.735], "lat": -33.5931076339, "lon": 151.171717694}, {"id": "213210", "label": "Croydon", "type": "interchange", "lines": ["BMT", "CCN", "NRC", "NRW", "T1", "T2", "T3", "T7", "T9", "WST"], "xyz": [-8.711, 0.15, 1.469], "lat": -33.8832342462, "lon": 151.115488246}, {"id": "253020", "label": "Dapto", "type": "station", "lines": ["SCO"], "xyz": [-38.494, 0.05, 69.052], "lat": -34.4920904371, "lon": 150.792328257}, {"id": "220310", "label": "Dulwich Hill", "type": "station", "lines": [], "xyz": [-6.36, 0.05, 4.562], "lat": -33.9111022345, "lon": 151.140989389}, {"id": "211410", "label": "Denistone", "type": "interchange", "lines": ["CCN", "NRC", "NRW", "T1", "T2", "T7", "T9"], "xyz": [-11.285, 0.15, -7.78], "lat": -33.7999061767, "lon": 151.087550272}, {"id": "276710", "label": "Doonside", "type": "interchange", "lines": ["BMT", "T1", "T2", "T5", "T7", "T9", "WST"], "xyz": [-31.488, 0.15, -11.768], "lat": -33.7639850225, "lon": 150.868352057}, {"id": "256910", "label": "Douglas Park", "type": "interchange", "lines": ["SHL", "STH"], "xyz": [-46.088, 0.15, 34.768], "lat": -34.1832266515, "lon": 150.709937814}, {"id": "202710", "label": "Edgecliff", "type": "interchange", "lines": ["SCO", "T4"], "xyz": [2.411, 0.15, 1.027], "lat": -33.8792514754, "lon": 151.23616135}, {"id": "217426", "label": "Edmondson Park", "type": "interchange", "lines": ["T2", "T3", "T5", "T8", "T9"], "xyz": [-32.377, 0.15, 11.022], "lat": -33.9693, "lon": 150.8587}, {"id": "223310", "label": "Engadine", "type": "interchange", "lines": ["SCO", "T4"], "xyz": [-18.004, 0.15, 21.967], "lat": -34.0678990057, "lon": 151.014652906}, {"id": "221320", "label": "East Hills", "type": "interchange", "lines": ["SHL", "STH", "T2", "T5", "T8", "T9"], "xyz": [-20.746, 0.15, 10.168], "lat": -33.9616067679, "lon": 150.98489728}, {"id": "212110", "label": "Epping", "type": "interchange", "lines": ["CCN", "NRC", "NRW", "T1", "T2", "T7", "T9"], "xyz": [-11.781, 0.15, -10.785], "lat": -33.7728414535, "lon": 151.082176647}, {"id": "275020", "label": "Emu Plains", "type": "interchange", "lines": ["BMT", "T1", "T2", "T5", "WST"], "xyz": [-49.558, 0.15, -13.812], "lat": -33.7455677802, "lon": 150.672286674}, {"id": "275310", "label": "East Richmond", "type": "interchange", "lines": ["T1", "T5"], "xyz": [-41.544, 0.15, -29.771], "lat": -33.6017961363, "lon": 150.759234021}, {"id": "204310", "label": "Erskineville", "type": "interchange", "lines": ["SCO", "SHL", "STH", "T2", "T3", "T4", "T8", "T9"], "xyz": [-2.276, 0.15, 3.425], "lat": -33.9008580996, "lon": 151.185307617}, {"id": "212210", "label": "Eastwood", "type": "interchange", "lines": ["CCN", "NRC", "NRW", "T1", "T2", "T7", "T9"], "xyz": [-11.775, 0.15, -8.878], "lat": -33.7900214046, "lon": 151.08223345}, {"id": "277610", "label": "Faulconbridge", "type": "interchange", "lines": ["BMT", "WST"], "xyz": [-62.207, 0.15, -19.26], "lat": -33.6964883499, "lon": 150.535033881}, {"id": "216510", "label": "Fairfield", "type": "interchange", "lines": ["T2", "T5", "T7"], "xyz": [-23.311, 0.15, 0.259], "lat": -33.8723306485, "lon": 150.957071112}, {"id": "214020", "label": "Flemington", "type": "interchange", "lines": ["BMT", "CCN", "T1", "T2", "T3", "T6", "T7", "T9", "WST"], "xyz": [-12.924, 0.15, -0.575], "lat": -33.8648222877, "lon": 151.069766513}, {"id": "251910", "label": "Fairy Meadow", "type": "station", "lines": ["SCO"], "xyz": [-28.924, 0.05, 58.368], "lat": -34.3958341062, "lon": 150.896170208}, {"id": "277310", "label": "Glenbrook", "type": "interchange", "lines": ["BMT", "WST"], "xyz": [-54.3, 0.15, -11.211], "lat": -33.7690043711, "lon": 150.620834198}, {"id": "216710", "label": "Glenfield", "type": "interchange", "lines": ["SHL", "STH", "T2", "T3", "T5", "T8", "T9"], "xyz": [-29.234, 0.15, 11.363], "lat": -33.9723682746, "lon": 150.89280722}, {"id": "216110", "label": "Guildford", "type": "interchange", "lines": ["T2", "T5", "T7"], "xyz": [-20.796, 0.15, -1.72], "lat": -33.8545056996, "lon": 150.984361016}, {"id": "225040", "label": "Gosford", "type": "interchange", "lines": ["CCN", "NRC", "NRW"], "xyz": [12.139, 0.15, -49.519], "lat": -33.423882608, "lon": 151.341710916}, {"id": "201710", "label": "Green Square", "type": "interchange", "lines": ["T2", "T5", "T8"], "xyz": [-0.694, 0.15, 4.003], "lat": -33.9060625915, "lon": 151.202474466}, {"id": "207210", "label": "Gordon", "type": "interchange", "lines": ["CCN", "T1", "T9"], "xyz": [-5.113, 0.15, -12.653], "lat": -33.7560086417, "lon": 151.154528026}, {"id": "214240", "label": "Granville", "type": "interchange", "lines": ["BMT", "CCN", "T1", "T2", "T5", "T7", "T9", "WST"], "xyz": [-18.203, 0.15, -4.087], "lat": -33.833175985, "lon": 151.012494676}, {"id": "222710", "label": "Gymea", "type": "station", "lines": ["T4"], "xyz": [-11.477, 0.05, 18.303], "lat": -34.0348929402, "lon": 151.085476628}, {"id": "207720", "label": "Hornsby", "type": "interchange", "lines": ["CCN", "NRC", "NRW", "T1", "T2", "T7", "T9"], "xyz": [-10.277, 0.15, -18.559], "lat": -33.7028012445, "lon": 151.098494013}, {"id": "223320", "label": "Heathcote", "type": "interchange", "lines": ["SCO", "T4"], "xyz": [-18.617, 0.15, 24.224], "lat": -34.0882366141, "lon": 151.008002409}, {"id": "250810", "label": "Helensburgh", "type": "interchange", "lines": ["SCO", "T4"], "xyz": [-19.831, 0.15, 34.063], "lat": -34.1768698817, "lon": 150.994824856}, {"id": "217310", "label": "Holsworthy", "type": "interchange", "lines": ["SHL", "STH", "T2", "T5", "T8", "T9"], "xyz": [-23.327, 0.15, 10.346], "lat": -33.9632095726, "lon": 150.956894588}, {"id": "214010", "label": "Homebush", "type": "interchange", "lines": ["BMT", "CCN", "T1", "T2", "T3", "T6", "T7", "T9", "WST"], "xyz": [-11.388, 0.15, -0.362], "lat": -33.8667398779, "lon": 151.086441327}, {"id": "215010", "label": "Harris Park", "type": "interchange", "lines": ["BMT", "CCN", "T1", "T2", "T5", "T7", "T9", "WST"], "xyz": [-18.65, 0.15, -5.188], "lat": -33.8232600239, "lon": 151.007638745}, {"id": "219310", "label": "Hurlstone Park", "type": "station", "lines": [], "xyz": [-7.18, 0.05, 4.487], "lat": -33.9104222503, "lon": 151.132092512}, {"id": "208310", "label": "Hawkesbury River", "type": "interchange", "lines": ["CCN", "NRC", "NRW"], "xyz": [1.522, 0.15, -35.876], "lat": -33.5467883528, "lon": 151.226510364}, {"id": "222010", "label": "Hurstville", "type": "interchange", "lines": ["SCO", "T4"], "xyz": [-9.884, 0.15, 10.817], "lat": -33.9674535563, "lon": 151.102757149}, {"id": "277910", "label": "Hazelbrook", "type": "interchange", "lines": ["BMT", "WST"], "xyz": [-69.62, 0.15, -16.209], "lat": -33.7239735131, "lon": 150.454603767}, {"id": "256510", "label": "Ingleburn", "type": "interchange", "lines": ["SHL", "STH", "T2", "T3", "T5", "T8"], "xyz": [-31.804, 0.15, 14.106], "lat": -33.9970796954, "lon": 150.864920489}, {"id": "222620", "label": "Jannali", "type": "interchange", "lines": ["SCO", "T4"], "xyz": [-13.395, 0.15, 16.22], "lat": -34.0161286564, "lon": 151.064664482}, {"id": "278020", "label": "Katoomba", "type": "interchange", "lines": ["BMT", "WST"], "xyz": [-82.84, 0.15, -17.585], "lat": -33.7115734375, "lon": 150.311160201}, {"id": "220810", "label": "Kingsgrove", "type": "interchange", "lines": ["T2", "T8"], "xyz": [-10.093, 0.15, 7.841], "lat": -33.9406360222, "lon": 151.100483923}, {"id": "201110", "label": "Kings Cross", "type": "interchange", "lines": ["SCO", "T4"], "xyz": [1.137, 0.15, 0.504], "lat": -33.8745409123, "lon": 151.222334239}, {"id": "207110", "label": "Killara", "type": "interchange", "lines": ["CCN", "T1", "T9"], "xyz": [-4.456, 0.15, -11.61], "lat": -33.7654089903, "lon": 151.161647368}, {"id": "253010", "label": "Kembla Grange", "type": "station", "lines": ["SCO"], "xyz": [-36.189, 0.05, 66.624], "lat": -34.4702183585, "lon": 150.817340679}, {"id": "221710", "label": "Kogarah", "type": "interchange", "lines": ["SCO", "T4"], "xyz": [-7.13, 0.15, 10.229], "lat": -33.9621493059, "lon": 151.132641462}, {"id": "223230", "label": "Kirrawee", "type": "station", "lines": ["T4"], "xyz": [-12.782, 0.05, 18.317], "lat": -34.0350153507, "lon": 151.071315329}, {"id": "274720", "label": "Kingswood", "type": "interchange", "lines": ["BMT", "T1", "T2", "T5", "T7", "T9", "WST"], "xyz": [-45.177, 0.15, -12.404], "lat": -33.7582512003, "lon": 150.719823595}, {"id": "225620", "label": "Koolewong", "type": "interchange", "lines": ["CCN", "NRC", "NRW"], "xyz": [10.014, 0.15, -44.736], "lat": -33.4669744157, "lon": 151.318655022}, {"id": "219510", "label": "Lakemba", "type": "station", "lines": [], "xyz": [-12.354, 0.05, 5.564], "lat": -33.9201269921, "lon": 151.075955497}, {"id": "275030", "label": "Lapstone", "type": "interchange", "lines": ["BMT", "WST"], "xyz": [-52.276, 0.15, -10.69], "lat": -33.773697882, "lon": 150.642796628}, {"id": "278310", "label": "Lawson", "type": "interchange", "lines": ["BMT", "WST"], "xyz": [-71.904, 0.15, -16.745], "lat": -33.7191448467, "lon": 150.429824445}, {"id": "214110", "label": "Lidcombe", "type": "interchange", "lines": ["BMT", "CCN", "T1", "T2", "T3", "T5", "T6", "T7", "T9", "WST"], "xyz": [-15.171, 0.15, -0.678], "lat": -33.8638893463, "lon": 151.045389501}, {"id": "207010", "label": "Lindfield", "type": "interchange", "lines": ["CCN", "T1", "T9"], "xyz": [-3.769, 0.15, -10.524], "lat": -33.7751854637, "lon": 151.16911057}, {"id": "217933", "label": "Leppington", "type": "interchange", "lines": ["T2", "T3", "T5", "T8", "T9"], "xyz": [-37.041, 0.15, 9.368], "lat": -33.9544, "lon": 150.8081}, {"id": "204920", "label": "Lewisham", "type": "interchange", "lines": ["BMT", "CCN", "T1", "T2", "T3", "T9"], "xyz": [-5.781, 0.15, 2.584], "lat": -33.8932785316, "lon": 151.147272514}, {"id": "223220", "label": "Loftus", "type": "interchange", "lines": ["SCO", "T4"], "xyz": [-14.625, 0.15, 19.44], "lat": -34.0451383359, "lon": 151.051320009}, {"id": "277820", "label": "Linden", "type": "interchange", "lines": ["BMT", "WST"], "xyz": [-64.951, 0.15, -17.205], "lat": -33.7150023114, "lon": 150.505264058}, {"id": "217020", "label": "Liverpool", "type": "interchange", "lines": ["T2", "T3", "T5", "T7"], "xyz": [-26.077, 0.15, 6.117], "lat": -33.9251096928, "lon": 150.927054186}, {"id": "278010", "label": "Leura", "type": "interchange", "lines": ["BMT", "WST"], "xyz": [-81.079, 0.15, -17.569], "lat": -33.7117218479, "lon": 150.33027039}, {"id": "225070", "label": "Lisarow", "type": "interchange", "lines": ["CCN", "NRC", "NRW"], "xyz": [14.729, 0.15, -54.133], "lat": -33.3823109858, "lon": 151.369817112}, {"id": "250510", "label": "Lysaghts", "type": "station", "lines": ["SCO"], "xyz": [-30.774, 0.05, 64.918], "lat": -34.4548431655, "lon": 150.876094365}, {"id": "279010", "label": "Lithgow", "type": "interchange", "lines": ["BMT", "WST"], "xyz": [-97.007, 0.15, -43.234], "lat": -33.4805009929, "lon": 150.15744944}, {"id": "216310", "label": "Leightonfield", "type": "interchange", "lines": ["T2", "T3", "T5"], "xyz": [-20.74, 0.15, 1.277], "lat": -33.8815017005, "lon": 150.98496709}, {"id": "256010", "label": "Leumeah", "type": "interchange", "lines": ["SHL", "STH", "T2", "T3", "T5", "T8"], "xyz": [-35.018, 0.15, 20.11], "lat": -34.0511704958, "lon": 150.830050748}, {"id": "256030", "label": "Macarthur", "type": "interchange", "lines": ["SHL", "STH", "T2", "T3", "T5", "T8"], "xyz": [-38.088, 0.15, 22.43], "lat": -34.0720733184, "lon": 150.796737103}, {"id": "202010", "label": "Mascot", "type": "interchange", "lines": ["T2", "T5", "T8"], "xyz": [-2.096, 0.15, 5.904], "lat": -33.9231879691, "lon": 151.187253059}, {"id": "201520", "label": "Macdonaldtown", "type": "interchange", "lines": ["BMT", "CCN", "T1", "T2", "T3", "T9"], "xyz": [-2.185, 0.15, 2.959], "lat": -33.8966600168, "lon": 151.186291644}, {"id": "211430", "label": "Meadowbank", "type": "interchange", "lines": ["CCN", "NRC", "NRW", "T1", "T2", "T7", "T9"], "xyz": [-11.054, 0.15, -5.968], "lat": -33.8162381451, "lon": 151.090060862}, {"id": "277010", "label": "Mount Druitt", "type": "interchange", "lines": ["BMT", "T1", "T2", "T5", "T7", "T9", "WST"], "xyz": [-35.962, 0.15, -11.151], "lat": -33.7695423347, "lon": 150.819798807}, {"id": "278030", "label": "Medlow Bath", "type": "interchange", "lines": ["BMT", "WST"], "xyz": [-85.64, 0.15, -21.77], "lat": -33.6738761213, "lon": 150.280785924}, {"id": "256810", "label": "Menangle", "type": "interchange", "lines": ["SHL", "STH"], "xyz": [-42.909, 0.15, 28.327], "lat": -34.125201371, "lon": 150.744430658}, {"id": "256310", "label": "Menangle Park", "type": "interchange", "lines": ["SHL", "STH"], "xyz": [-42.86, 0.15, 25.941], "lat": -34.1037011996, "lon": 150.74495576}, {"id": "256610", "label": "Minto", "type": "interchange", "lines": ["SHL", "STH", "T2", "T3", "T5", "T8"], "xyz": [-33.861, 0.15, 17.444], "lat": -34.027149716, "lon": 150.842596731}, {"id": "257510", "label": "Mittagong", "type": "interchange", "lines": ["SHL", "STH"], "xyz": [-70.257, 0.15, 64.68], "lat": -34.4527063834, "lon": 150.447689915}, {"id": "208010", "label": "Mount Kuring-gai", "type": "interchange", "lines": ["CCN", "NRC", "NRW", "T1", "T9"], "xyz": [-6.744, 0.15, -24.087], "lat": -33.6530016406, "lon": 151.136822325}, {"id": "220410", "label": "Marrickville", "type": "station", "lines": [], "xyz": [-5.158, 0.05, 4.894], "lat": -33.9140903716, "lon": 151.154032786}, {"id": "200030", "label": "Martin Place", "type": "interchange", "lines": ["SCO", "T4"], "xyz": [0.147, 0.15, -0.236], "lat": -33.8678709087, "lon": 151.211591161}, {"id": "206110", "label": "Milsons Point", "type": "interchange", "lines": ["CCN", "T1", "T9"], "xyz": [0.168, 0.15, -2.676], "lat": -33.8458927727, "lon": 151.21182505}, {"id": "256410", "label": "Macquarie Fields", "type": "interchange", "lines": ["SHL", "STH", "T2", "T3", "T5", "T8"], "xyz": [-30.516, 0.15, 12.744], "lat": -33.9848071864, "lon": 150.878896493}, {"id": "222810", "label": "Miranda", "type": "station", "lines": ["T4"], "xyz": [-9.875, 0.05, 18.465], "lat": -34.0363547774, "lon": 151.102853527}, {"id": "222310", "label": "Mortdale", "type": "interchange", "lines": ["SCO", "T4"], "xyz": [-11.863, 0.15, 11.165], "lat": -33.9705866718, "lon": 151.081288092}, {"id": "200040", "label": "Museum", "type": "interchange", "lines": ["SCO", "T1", "T2", "T3", "T4", "T8"], "xyz": [0.01, 0.15, 0.633], "lat": -33.8756998483, "lon": 151.21010638}, {"id": "207910", "label": "Mount Colah", "type": "interchange", "lines": ["CCN", "NRC", "NRW", "T1", "T9"], "xyz": [-8.802, 0.15, -21.976], "lat": -33.6720220528, "lon": 151.114492606}, {"id": "278610", "label": "Mount Victoria", "type": "interchange", "lines": ["BMT", "WST"], "xyz": [-87.835, 0.15, -31.29], "lat": -33.5881115955, "lon": 150.256973411}, {"id": "275610", "label": "Mulgrave", "type": "interchange", "lines": ["T1", "T5"], "xyz": [-34.964, 0.15, -27.008], "lat": -33.6266836695, "lon": 150.830637019}, {"id": "214820", "label": "Marayong", "type": "interchange", "lines": ["T1", "T2", "T5"], "xyz": [-28.552, 0.15, -13.714], "lat": -33.7464511113, "lon": 150.900199145}, {"id": "216010", "label": "Merrylands", "type": "interchange", "lines": ["T2", "T5", "T7"], "xyz": [-20.012, 0.15, -3.735], "lat": -33.8363501978, "lon": 150.992863256}, {"id": "225060", "label": "Niagara Park", "type": "interchange", "lines": ["CCN", "NRC", "NRW"], "xyz": [13.298, 0.15, -54.02], "lat": -33.3833313105, "lon": 151.35428206}, {"id": "207620", "label": "Normanhurst", "type": "interchange", "lines": ["CCN", "NRC", "NRW", "T1", "T2", "T7", "T9"], "xyz": [-10.392, 0.15, -16.566], "lat": -33.7207527376, "lon": 151.097240548}, {"id": "2250772", "label": "Narara", "type": "interchange", "lines": ["CCN", "NRC", "NRW"], "xyz": [12.378, 0.15, -52.749], "lat": -33.3947857813, "lon": 151.344307906}, {"id": "220920", "label": "Narwee", "type": "interchange", "lines": ["T2", "T8"], "xyz": [-12.926, 0.15, 8.605], "lat": -33.9475181426, "lon": 151.069748212}, {"id": "213710", "label": "North Strathfield", "type": "interchange", "lines": ["CCN", "NRC", "NRW", "T1", "T2", "T7", "T9"], "xyz": [-11.245, 0.15, -1.256], "lat": -33.8586880092, "lon": 151.087986143}, {"id": "206010", "label": "North Sydney", "type": "interchange", "lines": ["CCN", "T1", "T9"], "xyz": [-0.239, 0.15, -3.196], "lat": -33.8412085291, "lon": 151.207410164}, {"id": "204210", "label": "Newtown", "type": "interchange", "lines": ["BMT", "CCN", "T1", "T2", "T3", "T9"], "xyz": [-2.772, 0.15, 3.095], "lat": -33.8978830072, "lon": 151.179924712}, {"id": "250010", "label": "North Wollongong", "type": "station", "lines": ["SCO"], "xyz": [-29.368, 0.05, 60.228], "lat": -34.4125932568, "lon": 150.891349169}, {"id": "222320", "label": "Oatley", "type": "interchange", "lines": ["SCO", "T4"], "xyz": [-12.077, 0.15, 12.304], "lat": -33.9808451569, "lon": 151.078965101}, {"id": "212710", "label": "Olympic Park", "type": "interchange", "lines": ["T1", "T2", "T6", "T7"], "xyz": [-12.945, 0.15, -2.606], "lat": -33.8465201324, "lon": 151.069547249}, {"id": "250830", "label": "Otford", "type": "station", "lines": ["SCO"], "xyz": [-18.801, 0.05, 37.762], "lat": -34.2102000425, "lon": 151.006003921}, {"id": "225810", "label": "Ourimbah", "type": "interchange", "lines": ["CCN", "NRC", "NRW"], "xyz": [14.745, 0.15, -56.654], "lat": -33.3596035261, "lon": 151.369989223}, {"id": "221110", "label": "Padstow", "type": "interchange", "lines": ["T2", "T8"], "xyz": [-16.354, 0.15, 9.09], "lat": -33.9518920189, "lon": 151.032557154}, {"id": "221310", "label": "Panania", "type": "interchange", "lines": ["SHL", "STH", "T2", "T5", "T8", "T9"], "xyz": [-19.555, 0.15, 9.359], "lat": -33.9543111213, "lon": 150.997826061}, {"id": "225030", "label": "Point Clare", "type": "interchange", "lines": ["CCN", "NRC", "NRW"], "xyz": [10.927, 0.15, -47.09], "lat": -33.4457700795, "lon": 151.328555962}, {"id": "214530", "label": "Pendle Hill", "type": "interchange", "lines": ["BMT", "CCN", "T1", "T2", "T5", "T7", "T9", "WST"], "xyz": [-23.378, 0.15, -7.62], "lat": -33.8013478991, "lon": 150.956342684}, {"id": "275010", "label": "Penrith", "type": "interchange", "lines": ["BMT", "T1", "T2", "T5", "T7", "WST"], "xyz": [-47.36, 0.15, -13.314], "lat": -33.7500552895, "lon": 150.696134761}, {"id": "204910", "label": "Petersham", "type": "interchange", "lines": ["BMT", "CCN", "T1", "T2", "T3", "T9"], "xyz": [-5.055, 0.15, 2.648], "lat": -33.8938593952, "lon": 151.155156228}, {"id": "257110", "label": "Picton", "type": "interchange", "lines": ["SHL", "STH"], "xyz": [-55.058, 0.15, 34.315], "lat": -34.1791465735, "lon": 150.61260155}, {"id": "250540", "label": "Port Kembla", "type": "station", "lines": ["SCO"], "xyz": [-28.394, 0.05, 67.404], "lat": -34.47724493, "lon": 150.901922312}, {"id": "250530", "label": "Port Kembla North", "type": "station", "lines": ["SCO"], "xyz": [-29.672, 0.05, 66.907], "lat": -34.4727666662, "lon": 150.8880483}, {"id": "222210", "label": "Penshurst", "type": "interchange", "lines": ["SCO", "T4"], "xyz": [-11.116, 0.15, 10.67], "lat": -33.9661295363, "lon": 151.089386527}, {"id": "212020", "label": "Pennant Hills", "type": "interchange", "lines": ["CCN", "NRC", "NRW", "T1", "T2", "T7", "T9"], "xyz": [-12.67, 0.15, -14.659], "lat": -33.7379386253, "lon": 151.072529669}, {"id": "215020", "label": "Parramatta", "type": "interchange", "lines": ["BMT", "CCN", "T1", "T2", "T5", "T7", "T9", "WST"], "xyz": [-18.844, 0.15, -5.819], "lat": -33.8175792613, "lon": 151.005535136}, {"id": "219610", "label": "Punchbowl", "type": "station", "lines": [], "xyz": [-14.205, 0.05, 6.147], "lat": -33.9253775169, "lon": 151.055866993}, {"id": "207310", "label": "Pymble", "type": "interchange", "lines": ["CCN", "T1", "T9"], "xyz": [-6.254, 0.15, -13.905], "lat": -33.7447288843, "lon": 151.142137963}, {"id": "276310", "label": "Quakers Hill", "type": "interchange", "lines": ["T1", "T2", "T5"], "xyz": [-29.794, 0.15, -15.759], "lat": -33.728024833, "lon": 150.886724975}, {"id": "2795999", "label": "Raglan Bus", "type": "interchange", "lines": ["BMT", "WST"], "xyz": [-144.028, 0.15, -49.699], "lat": -33.422262, "lon": 149.64726}, {"id": "201510", "label": "Redfern", "type": "interchange", "lines": ["BMT", "CCN", "NRC", "NRW", "SCO", "SHL", "STH", "T1", "T2", "T3", "T4", "T7", "T8", "T9", "WST"], "xyz": [-1.061, 0.15, 2.483], "lat": -33.8923698959, "lon": 151.198484708}, {"id": "2790128", "label": "Rydal", "type": "interchange", "lines": ["BMT", "WST"], "xyz": [-108.586, 0.15, -42.894], "lat": -33.4835650033, "lon": 150.031811997}, {"id": "213820", "label": "Rhodes", "type": "interchange", "lines": ["CCN", "NRC", "NRW", "T1", "T2", "T7", "T9"], "xyz": [-11.333, 0.15, -4.381], "lat": -33.8305303567, "lon": 151.08703226}, {"id": "275320", "label": "Richmond", "type": "interchange", "lines": ["T1", "T5"], "xyz": [-42.099, 0.15, -30.069], "lat": -33.5991116405, "lon": 150.753211003}, {"id": "276510", "label": "Riverstone", "type": "interchange", "lines": ["T1", "T5"], "xyz": [-32.233, 0.15, -21.196], "lat": -33.6790433699, "lon": 150.860267864}, {"id": "221620", "label": "Rockdale", "type": "interchange", "lines": ["SCO", "T4"], "xyz": [-6.741, 0.15, 9.089], "lat": -33.9518802725, "lon": 151.136861613}, {"id": "214310", "label": "Regents Park", "type": "interchange", "lines": ["T2", "T3", "T5", "T6"], "xyz": [-17.125, 0.15, 1.442], "lat": -33.8829888939, "lon": 151.024187469}, {"id": "206910", "label": "Roseville", "type": "interchange", "lines": ["CCN", "T1", "T9"], "xyz": [-3.017, 0.15, -9.522], "lat": -33.7842202564, "lon": 151.177265981}, {"id": "276610", "label": "Rooty Hill", "type": "interchange", "lines": ["BMT", "T1", "T2", "T5", "T7", "T9", "WST"], "xyz": [-33.638, 0.15, -10.932], "lat": -33.7715117275, "lon": 150.845018733}, {"id": "221210", "label": "Revesby", "type": "interchange", "lines": ["SHL", "STH", "T2", "T5", "T8", "T9"], "xyz": [-17.987, 0.15, 9.153], "lat": -33.9524600343, "lon": 151.014838369}, {"id": "221010", "label": "Riverwood", "type": "interchange", "lines": ["T2", "T8"], "xyz": [-14.559, 0.15, 9.05], "lat": -33.9515354072, "lon": 151.052035296}, {"id": "276220", "label": "Schofields", "type": "interchange", "lines": ["T1", "T2", "T5"], "xyz": [-30.954, 0.15, -18.376], "lat": -33.704452, "lon": 150.874138}, {"id": "251510", "label": "Scarborough", "type": "station", "lines": ["SCO"], "xyz": [-22.507, 0.05, 43.844], "lat": -34.2649865514, "lon": 150.965790871}, {"id": "202020", "label": "Domestic Airport", "type": "interchange", "lines": ["T2", "T5", "T8"], "xyz": [-2.693, 0.15, 7.066], "lat": -33.9336596293, "lon": 151.180785679}, {"id": "216210", "label": "Sefton", "type": "interchange", "lines": ["T2", "T3", "T5"], "xyz": [-18.314, 0.15, 1.691], "lat": -33.8852361649, "lon": 151.011283338}, {"id": "202030", "label": "International Airport", "type": "interchange", "lines": ["T2", "T5", "T8"], "xyz": [-4.065, 0.15, 7.214], "lat": -33.9349882286, "lon": 151.165891276}, {"id": "213010", "label": "Summer Hill", "type": "interchange", "lines": ["BMT", "CCN", "NRC", "T1", "T2", "T3", "T9", "WST"], "xyz": [-6.503, 0.15, 2.282], "lat": -33.8905607663, "lon": 151.139445147}, {"id": "204810", "label": "Stanmore", "type": "interchange", "lines": ["BMT", "CCN", "NRC", "T1", "T2", "T3", "T9", "WST"], "xyz": [-4.239, 0.15, 2.725], "lat": -33.8945488499, "lon": 151.164009338}, {"id": "277720", "label": "Springwood", "type": "interchange", "lines": ["BMT", "WST"], "xyz": [-59.54, 0.15, -18.999], "lat": -33.698841604, "lon": 150.563979903}, {"id": "223210", "label": "Sutherland", "type": "interchange", "lines": ["SCO", "T4"], "xyz": [-14.084, 0.15, 17.958], "lat": -34.0317869151, "lon": 151.05719008}, {"id": "200050", "label": "St James", "type": "interchange", "lines": ["SCO", "T1", "T2", "T3", "T4", "T8"], "xyz": [0.169, 0.15, 0.077], "lat": -33.8706974192, "lon": 151.211837375}, {"id": "206520", "label": "St Leonards", "type": "interchange", "lines": ["CCN", "T1", "T9"], "xyz": [-1.463, 0.15, -5.285], "lat": -33.8223888849, "lon": 151.194126811}, {"id": "276010", "label": "St Marys", "type": "interchange", "lines": ["BMT", "T1", "T2", "T5", "T7", "T9", "WST"], "xyz": [-39.996, 0.15, -11.96], "lat": -33.7622558528, "lon": 150.77602901}, {"id": "204410", "label": "St Peters", "type": "interchange", "lines": ["SCO", "SHL", "STH", "T2", "T3", "T4", "T8", "T9"], "xyz": [-2.74, 0.15, 4.151], "lat": -33.9073952028, "lon": 151.180267452}, {"id": "213510", "label": "Strathfield", "type": "interchange", "lines": ["BMT", "CCN", "NRC", "NRW", "T1", "T2", "T3", "T7", "T9", "WST"], "xyz": [-10.652, 0.15, 0.201], "lat": -33.8718104968, "lon": 151.094427077}, {"id": "214710", "label": "Seven Hills", "type": "interchange", "lines": ["BMT", "CCN", "T1", "T2", "T5", "T7", "T9", "WST"], "xyz": [-25.206, 0.15, -10.608], "lat": -33.774430434, "lon": 150.936513359}, {"id": "250840", "label": "Stanwell Park", "type": "station", "lines": ["SCO"], "xyz": [-21.111, 0.05, 39.581], "lat": -34.2265864217, "lon": 150.980938038}, {"id": "204420", "label": "Sydenham", "type": "interchange", "lines": ["SCO", "SHL", "STH", "T2", "T3", "T4", "T5", "T8", "T9"], "xyz": [-3.996, 0.15, 4.925], "lat": -33.9143731989, "lon": 151.166645609}, {"id": "257310", "label": "Tahmoor", "type": "interchange", "lines": ["SHL", "STH"], "xyz": [-57.15, 0.15, 39.258], "lat": -34.2236766672, "lon": 150.589910563}, {"id": "27871", "label": "Tarana", "type": "interchange", "lines": ["BMT", "WST"], "xyz": [-120.035, 0.15, -38.394], "lat": -33.5241070016, "lon": 149.907594003}, {"id": "225020", "label": "Tascott", "type": "interchange", "lines": ["CCN", "NRC", "NRW"], "xyz": [9.959, 0.15, -46.469], "lat": -33.451356945, "lon": 151.318056032}, {"id": "214610", "label": "Toongabbie", "type": "interchange", "lines": ["BMT", "CCN", "T1", "T2", "T5", "T7", "T9", "WST"], "xyz": [-23.83, 0.15, -9.184], "lat": -33.7872629962, "lon": 150.951437323}, {"id": "251550", "label": "Thirroul", "type": "station", "lines": ["SCO"], "xyz": [-26.852, 0.05, 49.775], "lat": -34.3184243988, "lon": 150.918652366}, {"id": "200070", "label": "Town Hall", "type": "interchange", "lines": ["CCN", "SCO", "T1", "T2", "T3", "T4", "T8", "T9"], "xyz": [-0.286, 0.15, 0.399], "lat": -33.8735963257, "lon": 151.206899293}, {"id": "257225", "label": "Thirlmere Bus", "type": "station", "lines": [], "xyz": [-58.755, 0.05, 37.038], "lat": -34.203677, "lon": 150.572495}, {"id": "212010", "label": "Thornleigh", "type": "interchange", "lines": ["CCN", "NRC", "NRW", "T1", "T2", "T7", "T9"], "xyz": [-12.14, 0.15, -15.332], "lat": -33.7318711955, "lon": 151.078280974}, {"id": "204430", "label": "Tempe", "type": "interchange", "lines": ["SCO", "SHL", "STH", "T2", "T4", "T5", "T8", "T9"], "xyz": [-4.93, 0.15, 6.05], "lat": -33.9245047291, "lon": 151.156507285}, {"id": "220530", "label": "Turrella", "type": "interchange", "lines": ["T2", "T8"], "xyz": [-6.46, 0.15, 6.655], "lat": -33.9299529576, "lon": 151.139909016}, {"id": "225910", "label": "Tuggerah", "type": "interchange", "lines": ["CCN", "NRC", "NRW"], "xyz": [19.368, 0.15, -62.372], "lat": -33.3080864837, "lon": 151.420152642}, {"id": "207410", "label": "Turramurra", "type": "interchange", "lines": ["CCN", "T1", "T9"], "xyz": [-7.531, 0.15, -15.298], "lat": -33.7321822059, "lon": 151.128281842}, {"id": "251830", "label": "Towradgi", "type": "station", "lines": ["SCO"], "xyz": [-28.457, 0.05, 57.13], "lat": -34.384686325, "lon": 150.901238888}, {"id": "252610", "label": "Unanderra", "type": "station", "lines": ["SCO"], "xyz": [-33.523, 0.05, 64.872], "lat": -34.4544287823, "lon": 150.846262892}, {"id": "277710", "label": "Valley Heights", "type": "interchange", "lines": ["BMT", "WST"], "xyz": [-57.712, 0.15, -18.374], "lat": -33.7044657278, "lon": 150.583813038}, {"id": "216320", "label": "Villawood", "type": "interchange", "lines": ["T2", "T3", "T5"], "xyz": [-21.562, 0.15, 1.21], "lat": -33.8809016751, "lon": 150.976047927}, {"id": "276520", "label": "Vineyard", "type": "interchange", "lines": ["T1", "T5"], "xyz": [-33.064, 0.15, -24.364], "lat": -33.6505041515, "lon": 150.851245754}, {"id": "207610", "label": "Wahroonga", "type": "interchange", "lines": ["CCN", "T1", "T9"], "xyz": [-8.581, 0.15, -16.935], "lat": -33.7174291976, "lon": 151.116892277}, {"id": "207710", "label": "Waitara", "type": "interchange", "lines": ["CCN", "T1", "T9"], "xyz": [-9.738, 0.15, -17.761], "lat": -33.7099932648, "lon": 151.104341133}, {"id": "206020", "label": "Waverton", "type": "interchange", "lines": ["CCN", "T1", "T9"], "xyz": [-1.119, 0.15, -3.525], "lat": -33.8382452525, "lon": 151.197855547}, {"id": "251520", "label": "Wombarra", "type": "station", "lines": ["SCO"], "xyz": [-23.673, 0.05, 45.059], "lat": -34.2759329354, "lon": 150.953145001}, {"id": "220510", "label": "Wolli Creek", "type": "interchange", "lines": ["SCO", "T2", "T4", "T5", "T8"], "xyz": [-5.151, 0.15, 6.499], "lat": -33.9285468328, "lon": 151.154113182}, {"id": "225010", "label": "Wondabyne", "type": "interchange", "lines": ["CCN", "NRC", "NRW"], "xyz": [4.333, 0.15, -41.943], "lat": -33.4921353608, "lon": 151.257010783}, {"id": "277810", "label": "Woodford", "type": "interchange", "lines": ["BMT", "WST"], "xyz": [-67.103, 0.15, -14.935], "lat": -33.7354492815, "lon": 150.481917441}, {"id": "223330", "label": "Waterfall", "type": "interchange", "lines": ["SCO", "T4"], "xyz": [-19.86, 0.15, 29.347], "lat": -34.1343852228, "lon": 150.994511503}, {"id": "278210", "label": "Wentworth Falls", "type": "interchange", "lines": ["BMT", "WST"], "xyz": [-76.836, 0.15, -17.819], "lat": -33.7094719208, "lon": 150.376311429}, {"id": "275620", "label": "Windsor", "type": "interchange", "lines": ["T1", "T5"], "xyz": [-36.736, 0.15, -28.424], "lat": -33.6139276709, "lon": 150.811408003}, {"id": "217010", "label": "Warwick Farm", "type": "interchange", "lines": ["T2", "T3", "T5", "T7"], "xyz": [-25.342, 0.15, 4.823], "lat": -33.9134499609, "lon": 150.935036365}, {"id": "206510", "label": "Wollstonecraft", "type": "interchange", "lines": ["CCN", "T1", "T9"], "xyz": [-1.669, 0.15, -4.241], "lat": -33.8317948735, "lon": 151.191895006}, {"id": "223010", "label": "Woolooware", "type": "station", "lines": ["T4"], "xyz": [-6.083, 0.05, 19.727], "lat": -34.0477180921, "lon": 151.143995336}, {"id": "219520", "label": "Wiley Park", "type": "station", "lines": [], "xyz": [-13.154, 0.05, 5.884], "lat": -33.9230085448, "lon": 151.067276248}, {"id": "214510", "label": "Westmead", "type": "interchange", "lines": ["BMT", "CCN", "T1", "T2", "T5", "T7", "T9", "WST"], "xyz": [-20.459, 0.15, -6.823], "lat": -33.8085293689, "lon": 150.98801145}, {"id": "2845999", "label": "Wallerawang Bus", "type": "interchange", "lines": ["BMT", "WST"], "xyz": [-105.39, 0.15, -50.937], "lat": -33.411104, "lon": 150.066497}, {"id": "250020", "label": "Wollongong", "type": "station", "lines": ["SCO"], "xyz": [-29.654, 0.05, 61.829], "lat": -34.427016169, "lon": 150.88824305}, {"id": "251710", "label": "Woonona", "type": "station", "lines": ["SCO"], "xyz": [-27.193, 0.05, 53.306], "lat": -34.3502304682, "lon": 150.914953779}, {"id": "225610", "label": "Woy Woy", "type": "interchange", "lines": ["CCN", "NRC", "NRW"], "xyz": [10.472, 0.15, -42.723], "lat": -33.4851124911, "lon": 151.32362386}, {"id": "211420", "label": "West Ryde", "type": "interchange", "lines": ["CCN", "NRC", "NRW", "T1", "T2", "T7", "T9"], "xyz": [-11.039, 0.15, -6.974], "lat": -33.8071721307, "lon": 151.09022893}, {"id": "225930", "label": "Warnervale", "type": "interchange", "lines": ["CCN", "NRC", "NRW"], "xyz": [21.987, 0.15, -69.091], "lat": -33.2475593068, "lon": 151.448562292}, {"id": "274710", "label": "Werrington", "type": "interchange", "lines": ["BMT", "T1", "T2", "T5", "T7", "T9", "WST"], "xyz": [-41.627, 0.15, -12.289], "lat": -33.7592923009, "lon": 150.758339734}, {"id": "277420", "label": "Warrimoo", "type": "interchange", "lines": ["BMT", "WST"], "xyz": [-56.037, 0.15, -16.517], "lat": -33.7211964368, "lon": 150.601979239}, {"id": "207420", "label": "Warrawee", "type": "interchange", "lines": ["CCN", "T1", "T9"], "xyz": [-8.133, 0.15, -16.174], "lat": -33.7242854623, "lon": 151.121756755}, {"id": "214520", "label": "Wentworthville", "type": "interchange", "lines": ["BMT", "CCN", "T1", "T2", "T5", "T7", "T9", "WST"], "xyz": [-21.876, 0.15, -6.972], "lat": -33.8071929536, "lon": 150.972637553}, {"id": "225920", "label": "Wyong", "type": "interchange", "lines": ["CCN", "NRC", "NRW"], "xyz": [19.839, 0.15, -64.882], "lat": -33.2854792278, "lon": 151.425256215}, {"id": "200080", "label": "Wynyard", "type": "interchange", "lines": ["CCN", "SCO", "T1", "T2", "T3", "T4", "T8", "T9"], "xyz": [-0.388, 0.15, -0.455], "lat": -33.8658979945, "lon": 151.205789333}, {"id": "219910", "label": "Yagoona", "type": "interchange", "lines": ["T2", "T3", "T6"], "xyz": [-17.128, 0.15, 4.057], "lat": -33.9065533731, "lon": 151.024151882}, {"id": "216120", "label": "Yennora", "type": "interchange", "lines": ["T2", "T5", "T7"], "xyz": [-22.026, 0.15, -0.586], "lat": -33.8647184018, "lon": 150.971007349}, {"id": "257540", "label": "Yerrinbool", "type": "interchange", "lines": ["SHL", "STH"], "xyz": [-61.428, 0.15, 55.693], "lat": -34.3717400589, "lon": 150.543495689}, {"id": "278630", "label": "Zig Zag", "type": "interchange", "lines": ["BMT", "WST"], "xyz": [-92.889, 0.15, -44.191], "lat": -33.4718863935, "lon": 150.202128706}];
-const LINKS = [{"source": "214410", "target": "214110", "line": "t2", "name": "T2 line", "stops": 4}, {"source": "214110", "target": "214020", "line": "t2", "name": "T2 line", "stops": 4}, {"source": "214020", "target": "214010", "line": "t2", "name": "T2 line", "stops": 4}, {"source": "214010", "target": "213510", "line": "t2", "name": "T2 line", "stops": 4}, {"source": "213510", "target": "213410", "line": "t2", "name": "T2 line", "stops": 4}, {"source": "213410", "target": "213210", "line": "t2", "name": "T2 line", "stops": 4}, {"source": "213210", "target": "213110", "line": "t2", "name": "T2 line", "stops": 4}, {"source": "213110", "target": "213010", "line": "t2", "name": "T2 line", "stops": 4}, {"source": "213010", "target": "204920", "line": "t2", "name": "T2 line", "stops": 4}, {"source": "204920", "target": "204910", "line": "t2", "name": "T2 line", "stops": 4}, {"source": "204910", "target": "204810", "line": "t2", "name": "T2 line", "stops": 4}, {"source": "204810", "target": "204210", "line": "t2", "name": "T2 line", "stops": 4}, {"source": "204210", "target": "201520", "line": "t2", "name": "T2 line", "stops": 4}, {"source": "201520", "target": "201510", "line": "t2", "name": "T2 line", "stops": 4}, {"source": "201510", "target": "200060", "line": "t2", "name": "T2 line", "stops": 4}, {"source": "200060", "target": "200070", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "200070", "target": "200080", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "200080", "target": "200020", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "200020", "target": "200050", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "200050", "target": "200040", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "200040", "target": "200060", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "200060", "target": "201710", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "201710", "target": "202010", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "202010", "target": "202020", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "202020", "target": "202030", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "202030", "target": "220510", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "220510", "target": "220530", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "220530", "target": "220710", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "220710", "target": "220720", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "220720", "target": "220810", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "220810", "target": "220910", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "220910", "target": "220920", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "220920", "target": "221010", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "221010", "target": "221110", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "221110", "target": "221210", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "221210", "target": "221310", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "221310", "target": "221320", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "221320", "target": "217310", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "217310", "target": "216710", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "216710", "target": "256410", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "256410", "target": "256510", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "256510", "target": "256610", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "256610", "target": "256010", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "256010", "target": "256020", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "256020", "target": "256030", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "215020", "target": "215010", "line": "t2", "name": "T2 line", "stops": 4}, {"source": "215010", "target": "214240", "line": "t2", "name": "T2 line", "stops": 4}, {"source": "214240", "target": "214230", "line": "t2", "name": "T2 line", "stops": 4}, {"source": "214230", "target": "214410", "line": "t2", "name": "T2 line", "stops": 4}, {"source": "221210", "target": "220510", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "214110", "target": "214120", "line": "t3", "name": "T3 line", "stops": 4}, {"source": "214120", "target": "214310", "line": "t3", "name": "T3 line", "stops": 4}, {"source": "214310", "target": "216210", "line": "t3", "name": "T3 line", "stops": 4}, {"source": "216210", "target": "216220", "line": "t3", "name": "T3 line", "stops": 4}, {"source": "216220", "target": "216310", "line": "t3", "name": "T3 line", "stops": 4}, {"source": "216310", "target": "216320", "line": "t3", "name": "T3 line", "stops": 4}, {"source": "216320", "target": "216330", "line": "t3", "name": "T3 line", "stops": 4}, {"source": "216330", "target": "216620", "line": "t3", "name": "T3 line", "stops": 4}, {"source": "216620", "target": "217010", "line": "t3", "name": "T3 line", "stops": 4}, {"source": "217010", "target": "217020", "line": "t3", "name": "T3 line", "stops": 4}, {"source": "216710", "target": "217030", "line": "t3", "name": "T3 line", "stops": 4}, {"source": "217030", "target": "217020", "line": "t3", "name": "T3 line", "stops": 4}, {"source": "214240", "target": "216010", "line": "t2", "name": "T2 line", "stops": 4}, {"source": "216010", "target": "216110", "line": "t2", "name": "T2 line", "stops": 4}, {"source": "216110", "target": "216120", "line": "t2", "name": "T2 line", "stops": 4}, {"source": "216120", "target": "216510", "line": "t2", "name": "T2 line", "stops": 4}, {"source": "216510", "target": "216610", "line": "t2", "name": "T2 line", "stops": 4}, {"source": "216610", "target": "216620", "line": "t2", "name": "T2 line", "stops": 4}, {"source": "216710", "target": "217426", "line": "t2", "name": "T2 line", "stops": 4}, {"source": "217426", "target": "217933", "line": "t2", "name": "T2 line", "stops": 4}, {"source": "200080", "target": "206110", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "206110", "target": "206010", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "206010", "target": "206020", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "206020", "target": "206510", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "206510", "target": "206520", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "206520", "target": "206410", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "206410", "target": "206710", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "206710", "target": "206910", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "206910", "target": "207010", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "207010", "target": "207110", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "207110", "target": "207210", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "207720", "target": "207710", "line": "t9", "name": "T9 line", "stops": 4}, {"source": "207710", "target": "207610", "line": "t9", "name": "T9 line", "stops": 4}, {"source": "207610", "target": "207420", "line": "t9", "name": "T9 line", "stops": 4}, {"source": "207420", "target": "207410", "line": "t9", "name": "T9 line", "stops": 4}, {"source": "207410", "target": "207310", "line": "t9", "name": "T9 line", "stops": 4}, {"source": "207310", "target": "207210", "line": "t9", "name": "T9 line", "stops": 4}, {"source": "201510", "target": "204810", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "204810", "target": "213010", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "215020", "target": "214510", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "214510", "target": "214520", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "214520", "target": "214530", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "214530", "target": "214610", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "214610", "target": "214710", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "214710", "target": "214810", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "214810", "target": "276710", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "276710", "target": "276610", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "276610", "target": "277010", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "277010", "target": "276010", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "276010", "target": "274710", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "274710", "target": "274720", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "274720", "target": "275010", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "213510", "target": "213710", "line": "t9", "name": "T9 line", "stops": 4}, {"source": "213710", "target": "213810", "line": "t9", "name": "T9 line", "stops": 4}, {"source": "213810", "target": "213820", "line": "t9", "name": "T9 line", "stops": 4}, {"source": "213820", "target": "211430", "line": "t9", "name": "T9 line", "stops": 4}, {"source": "211430", "target": "211420", "line": "t9", "name": "T9 line", "stops": 4}, {"source": "211420", "target": "211410", "line": "t9", "name": "T9 line", "stops": 4}, {"source": "211410", "target": "212210", "line": "t9", "name": "T9 line", "stops": 4}, {"source": "212210", "target": "212110", "line": "t9", "name": "T9 line", "stops": 4}, {"source": "212110", "target": "211920", "line": "t9", "name": "T9 line", "stops": 4}, {"source": "211920", "target": "211910", "line": "t9", "name": "T9 line", "stops": 4}, {"source": "211910", "target": "212020", "line": "t9", "name": "T9 line", "stops": 4}, {"source": "212020", "target": "212010", "line": "t9", "name": "T9 line", "stops": 4}, {"source": "212010", "target": "207620", "line": "t9", "name": "T9 line", "stops": 4}, {"source": "207620", "target": "207720", "line": "t9", "name": "T9 line", "stops": 4}, {"source": "213110", "target": "201510", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "213410", "target": "201510", "line": "t9", "name": "T9 line", "stops": 4}, {"source": "201510", "target": "213210", "line": "t9", "name": "T9 line", "stops": 4}, {"source": "211920", "target": "212020", "line": "t9", "name": "T9 line", "stops": 4}, {"source": "207720", "target": "207730", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "207730", "target": "207910", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "207910", "target": "208010", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "208010", "target": "208110", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "201510", "target": "204310", "line": "t4", "name": "T4 line", "stops": 4}, {"source": "204310", "target": "204410", "line": "t4", "name": "T4 line", "stops": 4}, {"source": "204410", "target": "204420", "line": "t4", "name": "T4 line", "stops": 4}, {"source": "204420", "target": "204430", "line": "t4", "name": "T4 line", "stops": 4}, {"source": "204430", "target": "220510", "line": "t4", "name": "T4 line", "stops": 4}, {"source": "220510", "target": "220520", "line": "t4", "name": "T4 line", "stops": 4}, {"source": "220520", "target": "221610", "line": "t4", "name": "T4 line", "stops": 4}, {"source": "221610", "target": "221620", "line": "t4", "name": "T4 line", "stops": 4}, {"source": "221620", "target": "221710", "line": "t4", "name": "T4 line", "stops": 4}, {"source": "221710", "target": "221810", "line": "t4", "name": "T4 line", "stops": 4}, {"source": "221810", "target": "222020", "line": "t4", "name": "T4 line", "stops": 4}, {"source": "222020", "target": "222010", "line": "t4", "name": "T4 line", "stops": 4}, {"source": "214810", "target": "214820", "line": "t5", "name": "T5 line", "stops": 4}, {"source": "214820", "target": "276310", "line": "t5", "name": "T5 line", "stops": 4}, {"source": "276310", "target": "276220", "line": "t5", "name": "T5 line", "stops": 4}, {"source": "276220", "target": "276510", "line": "t5", "name": "T5 line", "stops": 4}, {"source": "276510", "target": "276520", "line": "t5", "name": "T5 line", "stops": 4}, {"source": "276520", "target": "275610", "line": "t5", "name": "T5 line", "stops": 4}, {"source": "275610", "target": "275620", "line": "t5", "name": "T5 line", "stops": 4}, {"source": "275620", "target": "275630", "line": "t5", "name": "T5 line", "stops": 4}, {"source": "275630", "target": "275310", "line": "t5", "name": "T5 line", "stops": 4}, {"source": "275310", "target": "275320", "line": "t5", "name": "T5 line", "stops": 4}, {"source": "275020", "target": "275010", "line": "t1", "name": "T1 line", "stops": 4}, {"source": "221210", "target": "204430", "line": "t8", "name": "T8 line", "stops": 4}, {"source": "215010", "target": "216010", "line": "t5", "name": "T5 line", "stops": 4}, {"source": "214110", "target": "212710", "line": "t2", "name": "T2 line", "stops": 4}, {"source": "204430", "target": "220530", "line": "t2", "name": "T2 line", "stops": 4}, {"source": "208110", "target": "208120", "line": "ccn", "name": "CCN line", "stops": 4}, {"source": "208120", "target": "208310", "line": "ccn", "name": "CCN line", "stops": 4}, {"source": "208310", "target": "225010", "line": "ccn", "name": "CCN line", "stops": 4}, {"source": "225010", "target": "225610", "line": "ccn", "name": "CCN line", "stops": 4}, {"source": "225610", "target": "225620", "line": "ccn", "name": "CCN line", "stops": 4}, {"source": "225620", "target": "225020", "line": "ccn", "name": "CCN line", "stops": 4}, {"source": "225020", "target": "225030", "line": "ccn", "name": "CCN line", "stops": 4}, {"source": "225030", "target": "225040", "line": "ccn", "name": "CCN line", "stops": 4}, {"source": "225010", "target": "208120", "line": "ccn", "name": "CCN line", "stops": 4}, {"source": "225920", "target": "225910", "line": "ccn", "name": "CCN line", "stops": 4}, {"source": "225910", "target": "225810", "line": "ccn", "name": "CCN line", "stops": 4}, {"source": "225810", "target": "225070", "line": "ccn", "name": "CCN line", "stops": 4}, {"source": "225070", "target": "225060", "line": "ccn", "name": "CCN line", "stops": 4}, {"source": "225060", "target": "2250772", "line": "ccn", "name": "CCN line", "stops": 4}, {"source": "2250772", "target": "225040", "line": "ccn", "name": "CCN line", "stops": 4}, {"source": "279538", "target": "2795999", "line": "wst", "name": "WST line", "stops": 4}, {"source": "2795999", "target": "27871", "line": "wst", "name": "WST line", "stops": 4}, {"source": "27871", "target": "2790128", "line": "wst", "name": "WST line", "stops": 4}, {"source": "2790128", "target": "2845999", "line": "wst", "name": "WST line", "stops": 4}, {"source": "2845999", "target": "279010", "line": "wst", "name": "WST line", "stops": 4}, {"source": "279010", "target": "278630", "line": "wst", "name": "WST line", "stops": 4}, {"source": "278630", "target": "278620", "line": "wst", "name": "WST line", "stops": 4}, {"source": "278620", "target": "278610", "line": "wst", "name": "WST line", "stops": 4}, {"source": "278610", "target": "278510", "line": "wst", "name": "WST line", "stops": 4}, {"source": "278510", "target": "278030", "line": "wst", "name": "WST line", "stops": 4}, {"source": "278030", "target": "278020", "line": "wst", "name": "WST line", "stops": 4}, {"source": "278020", "target": "278010", "line": "wst", "name": "WST line", "stops": 4}, {"source": "278010", "target": "278210", "line": "wst", "name": "WST line", "stops": 4}, {"source": "278210", "target": "278410", "line": "wst", "name": "WST line", "stops": 4}, {"source": "278410", "target": "278310", "line": "wst", "name": "WST line", "stops": 4}, {"source": "278310", "target": "277910", "line": "wst", "name": "WST line", "stops": 4}, {"source": "277910", "target": "277810", "line": "wst", "name": "WST line", "stops": 4}, {"source": "277810", "target": "277820", "line": "wst", "name": "WST line", "stops": 4}, {"source": "277820", "target": "277610", "line": "wst", "name": "WST line", "stops": 4}, {"source": "277610", "target": "277720", "line": "wst", "name": "WST line", "stops": 4}, {"source": "277720", "target": "277710", "line": "wst", "name": "WST line", "stops": 4}, {"source": "277710", "target": "277420", "line": "wst", "name": "WST line", "stops": 4}, {"source": "277420", "target": "277410", "line": "wst", "name": "WST line", "stops": 4}, {"source": "277410", "target": "277310", "line": "wst", "name": "WST line", "stops": 4}, {"source": "277310", "target": "275030", "line": "wst", "name": "WST line", "stops": 4}, {"source": "275030", "target": "275020", "line": "wst", "name": "WST line", "stops": 4}, {"source": "250020", "target": "250010", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "250010", "target": "251910", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "251910", "target": "251830", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "251830", "target": "251820", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "251820", "target": "251810", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "251810", "target": "251710", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "251710", "target": "251610", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "251610", "target": "251550", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "251550", "target": "251540", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "251540", "target": "251530", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "251530", "target": "251520", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "251520", "target": "251510", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "251510", "target": "250850", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "250850", "target": "250840", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "250840", "target": "250830", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "250830", "target": "250810", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "250810", "target": "223330", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "223330", "target": "223320", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "223320", "target": "223310", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "223310", "target": "223220", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "223220", "target": "223210", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "223210", "target": "222620", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "222620", "target": "222610", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "222610", "target": "222320", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "222320", "target": "222310", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "222310", "target": "222210", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "222210", "target": "222010", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "200070", "target": "200030", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "200030", "target": "201110", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "201110", "target": "202710", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "202710", "target": "202210", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "250030", "target": "250020", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "250540", "target": "250530", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "250530", "target": "250520", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "250520", "target": "250510", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "250510", "target": "250030", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "223320", "target": "250810", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "214310", "target": "214320", "line": "t6", "name": "T6 line", "stops": 4}, {"source": "214320", "target": "219910", "line": "t6", "name": "T6 line", "stops": 4}, {"source": "219910", "target": "220010", "line": "t6", "name": "T6 line", "stops": 4}, {"source": "253020", "target": "253010", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "253010", "target": "252610", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "252610", "target": "250030", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "220520", "target": "204430", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "214020", "target": "212710", "line": "t2", "name": "T2 line", "stops": 4}, {"source": "223210", "target": "223230", "line": "t4", "name": "T4 line", "stops": 4}, {"source": "223230", "target": "222710", "line": "t4", "name": "T4 line", "stops": 4}, {"source": "222710", "target": "222810", "line": "t4", "name": "T4 line", "stops": 4}, {"source": "222810", "target": "222910", "line": "t4", "name": "T4 line", "stops": 4}, {"source": "222910", "target": "223010", "line": "t4", "name": "T4 line", "stops": 4}, {"source": "223010", "target": "223020", "line": "t4", "name": "T4 line", "stops": 4}, {"source": "216210", "target": "214320", "line": "t3", "name": "T3 line", "stops": 4}, {"source": "225930", "target": "225920", "line": "ccn", "name": "CCN line", "stops": 4}, {"source": "253010", "target": "250030", "line": "sco", "name": "SCO line", "stops": 4}, {"source": "216210", "target": "204420", "line": "t3", "name": "T3 line", "stops": 4}, {"source": "257620", "target": "257610", "line": "shl", "name": "SHL line", "stops": 4}, {"source": "257610", "target": "257510", "line": "shl", "name": "SHL line", "stops": 4}, {"source": "257510", "target": "257540", "line": "shl", "name": "SHL line", "stops": 4}, {"source": "257540", "target": "257420", "line": "shl", "name": "SHL line", "stops": 4}, {"source": "257420", "target": "257310", "line": "shl", "name": "SHL line", "stops": 4}, {"source": "257310", "target": "257110", "line": "shl", "name": "SHL line", "stops": 4}, {"source": "257110", "target": "256910", "line": "shl", "name": "SHL line", "stops": 4}, {"source": "256910", "target": "256810", "line": "shl", "name": "SHL line", "stops": 4}, {"source": "256810", "target": "256310", "line": "shl", "name": "SHL line", "stops": 4}, {"source": "256310", "target": "256030", "line": "shl", "name": "SHL line", "stops": 4}, {"source": "278410", "target": "277910", "line": "bmt", "name": "BMT line", "stops": 4}, {"source": "277420", "target": "277720", "line": "bmt", "name": "BMT line", "stops": 4}];
-const LINE_COLORS = {"t1": "#F99D1C", "t2": "#0098CD", "t3": "#F37021", "t4": "#005AA3", "t5": "#C4258F", "t6": "#7C3E21", "t7": "#6F818E", "t8": "#00954C", "t9": "#D11F2F", "sco": "#005AA3", "ccn": "#D11F2F", "bmt": "#F99D1C", "wst": "#F6891F", "shl": "#00954C", "hun": "#833134", "nrc": "#F6891F", "nrw": "#F6891F", "sth": "#F6891F"};
-const LINE_NAMES = {"t1": "T1 North Shore & Western", "t2": "T2 Inner West & Leppington", "t3": "T3 Bankstown", "t4": "T4 Eastern Suburbs & Illawarra", "t5": "T5 Cumberland", "t6": "T6 Lidcombe & Bankstown", "t7": "T7 Olympic Park", "t8": "T8 Airport & South", "t9": "T9 Northern", "sco": "South Coast Line", "ccn": "Central Coast & Newcastle", "bmt": "Blue Mountains Line", "wst": "Western Line", "shl": "Southern Highlands Line", "hun": "Hunter Line", "nrc": "NSW TrainLink Regional", "nrw": "NSW TrainLink Regional", "sth": "NSW TrainLink Regional"};
-const ALL_LINES = ["bmt", "ccn", "sco", "shl", "t1", "t2", "t3", "t4", "t5", "t6", "t8", "t9", "wst"];
-
-const nodeMap = {};
-NODES.forEach(n => nodeMap[n.id] = n);
-
-let hiddenLines = new Set();
-let selectedNode = null;
-let liveInterval = null;
-
-const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x050713);
-scene.fog = new THREE.FogExp2(0x050713, 0.018);
-
-const camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 0.1, 1000);
-camera.position.set(0, 18, 22);
-
-const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance" });
-renderer.setSize(innerWidth, innerHeight);
-renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-renderer.domElement.style.width = "100%";
-renderer.domElement.style.height = "100%";
-document.getElementById("app").appendChild(renderer.domElement);
-
-const controls = new THREE.OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;
-controls.dampingFactor = 0.08;
-controls.maxPolarAngle = Math.PI / 2.1;
-controls.target.set(0, 0, 0);
-
-scene.add(new THREE.AmbientLight(0xffffff, 0.6));
-const dir = new THREE.DirectionalLight(0xffffff, 0.7);
-dir.position.set(10, 20, 10);
-scene.add(dir);
-
-const ground = new THREE.Mesh(
-  new THREE.PlaneGeometry(200, 200),
-  new THREE.MeshStandardMaterial({ color: 0x0a0e1a, roughness: 0.9, metalness: 0.1 })
-);
-ground.rotation.x = -Math.PI / 2;
-ground.position.y = -0.2;
-scene.add(ground);
-
-const grid = new THREE.GridHelper(200, 100, 0x1a2035, 0x11162a);
-grid.position.y = -0.19;
-scene.add(grid);
-
-const lineMeshes = {};
-ALL_LINES.forEach(line => {
-  const color = new THREE.Color(LINE_COLORS[line] || '#888');
-  const material = new THREE.MeshStandardMaterial({ color, emissive: color, emissiveIntensity: 0.35, roughness: 0.4 });
-  lineMeshes[line] = material;
-});
-
-const linkGroup = new THREE.Group();
-LINKS.forEach(l => {
-  const a = nodeMap[l.source];
-  const b = nodeMap[l.target];
-  if (!a || !b) return;
-  const p1 = new THREE.Vector3(...a.xyz);
-  const p2 = new THREE.Vector3(...b.xyz);
-  const dist = p1.distanceTo(p2);
-  const curve = new THREE.QuadraticBezierCurve3(
-    p1,
-    new THREE.Vector3((p1.x + p2.x) / 2, Math.max(p1.y, p2.y) + dist * 0.08, (p1.z + p2.z) / 2),
-    p2
-  );
-  const tube = new THREE.Mesh(
-    new THREE.TubeGeometry(curve, Math.max(4, Math.floor(dist * 3)), 0.06, 6, false),
-    lineMeshes[l.line]
-  );
-  tube.userData.line = l.line;
-  tube.userData.curve = curve;
-  tube.userData.source = l.source;
-  tube.userData.target = l.target;
-  linkGroup.add(tube);
-});
-scene.add(linkGroup);
-
-const nodeGroup = new THREE.Group();
-const nodeGeom = new THREE.SphereGeometry(0.18, 16, 16);
-const nodeMat = new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0xffffff, emissiveIntensity: 0.6 });
-const interchangeMat = new THREE.MeshStandardMaterial({ color: 0xf6c65b, emissive: 0xf6c65b, emissiveIntensity: 0.9 });
-
-NODES.forEach(n => {
-  const mat = (n.type === 'interchange') ? interchangeMat : nodeMat;
-  const mesh = new THREE.Mesh(nodeGeom, mat);
-  mesh.position.set(...n.xyz);
-  mesh.userData.node = n;
-  nodeGroup.add(mesh);
-});
-scene.add(nodeGroup);
-
-const labels = [];
-NODES.forEach(n => {
-  const el = document.createElement('div');
-  el.className = 'label' + (n.type === 'interchange' ? ' core' : '');
-  el.textContent = n.label;
-  document.body.appendChild(el);
-  labels.push({ el, node: n });
-});
-
-function updateLabels() {
-  labels.forEach(({ el, node }) => {
-    const pos = new THREE.Vector3(...node.xyz).project(camera);
-    const x = (pos.x * 0.5 + 0.5) * innerWidth;
-    const y = (-pos.y * 0.5 + 0.5) * innerHeight;
-    if (pos.z > 1 || x < -50 || x > innerWidth + 50 || y < -50 || y > innerHeight + 50) {
-      el.style.display = 'none';
-    } else {
-      el.style.display = 'block';
-      el.style.left = x + 'px';
-      el.style.top = y + 'px';
-      const dist = camera.position.distanceTo(new THREE.Vector3(...node.xyz));
-      el.style.opacity = Math.max(0.25, 1 - (dist - 8) / 35);
+/* =====================  Mapbox setup (token fetched from serverless config)  ===================== */
+let map;
+async function initMap() {
+  const isLocal = window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  const configUrl = isLocal ? 'http://localhost:8766/api/config' : '/api/config';
+  let token = null;
+  try {
+    const res = await fetch(configUrl);
+    if (res.ok) {
+      const data = await res.json();
+      token = data.token;
     }
+  } catch (e) { /* no local proxy */ }
+  if (!token) token = 'YOUR_MAPBOX_TOKEN_HERE'; // fallback placeholder
+  mapboxgl.accessToken = token;
+
+  map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/dark-v11',
+    center: [151.2, -33.87],
+    zoom: 11.2,
+    pitch: 0,
+    attributionControl: false
+  });
+  map.addControl(new mapboxgl.AttributionControl({ compact: true }), 'bottom-right');
+  map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'bottom-right');
+
+  map.on('load', () => {
+    loadNetwork().then(() => showToast('Network loaded'));
   });
 }
+initMap();
+let NODES = [];
+let LINKS = [];
+let LINE_COLORS = {};
+const hiddenLines = new Set();
+let liveOn = false;
+let selectedNode = null;
+let liveFetchInterval = null;
+let liveInterval = null;
 
-const raycaster = new THREE.Raycaster();
-const pointer = new THREE.Vector2();
+const GTFS_API = (() => {
+  const isLocal = window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  return isLocal ? "http://localhost:8766/api/gtfs_vehiclepos" : "/api/gtfs_vehiclepos";
+})();
 
-function onPointer(e) {
-  pointer.x = (e.clientX / innerWidth) * 2 - 1;
-  pointer.y = -(e.clientY / innerHeight) * 2 + 1;
-  raycaster.setFromCamera(pointer, camera);
-  const hits = raycaster.intersectObjects(nodeGroup.children);
-  if (hits.length > 0) {
-    selectStation(hits[0].object.userData.node);
+/* =====================  Load network data  ===================== */
+async function loadNetwork() {
+  const res = await fetch('network_data.json');
+  const data = await res.json();
+  NODES = data.nodes;
+  // links array: [sourceId, targetId, lineKey, lineLabel, weight]
+  LINKS = data.links.map(l => ({ source: l[0], target: l[1], line: l[2], label: l[3], weight: l[4] }));
+  LINE_COLORS = data.line_colors;
+  buildMapLayers();
+  buildLegend();
+}
+
+/* =====================  Build GeoJSON & Layers  ===================== */
+function buildMapLayers() {
+  // --- Line polylines ---
+  const lineFeatures = {};
+  LINKS.forEach(lk => {
+    const s = NODES.find(n => n.id === lk.source);
+    const t = NODES.find(n => n.id === lk.target);
+    if (!s || !t) return;
+    if (!lineFeatures[lk.line]) lineFeatures[lk.line] = [];
+    lineFeatures[lk.line].push({
+      type: 'Feature',
+      properties: { line: lk.line, color: LINE_COLORS[lk.line] || '#ff00ff' },
+      geometry: { type: 'LineString', coordinates: [[s.lon, s.lat], [t.lon, t.lat]] }
+    });
+  });
+
+  Object.entries(lineFeatures).forEach(([line, features]) => {
+    const sourceId = `source-line-${line}`;
+    const layerId = `layer-line-${line}`;
+    map.addSource(sourceId, { type: 'geojson', data: { type: 'FeatureCollection', features } });
+    map.addLayer({
+      id: layerId,
+      type: 'line',
+      source: sourceId,
+      paint: {
+        'line-color': ['get', 'color'],
+        'line-width': 3,
+        'line-opacity': 0.85
+      }
+    });
+  });
+
+  // --- Stations (circles) ---
+  const stationFeatures = NODES.map(n => ({
+    type: 'Feature',
+    properties: {
+      id: n.id,
+      label: n.label,
+      lines: n.lines || [],
+      desc: n.desc || ''
+    },
+    geometry: { type: 'Point', coordinates: [n.lon, n.lat] }
+  }));
+
+  map.addSource('source-stations', { type: 'geojson', data: { type: 'FeatureCollection', features: stationFeatures } });
+
+  map.addLayer({
+    id: 'layer-stations-bg',
+    type: 'circle',
+    source: 'source-stations',
+    paint: {
+      'circle-radius': 5,
+      'circle-color': '#0b0f1e',
+      'circle-stroke-color': '#f6c65b',
+      'circle-stroke-width': 1.5,
+      'circle-opacity': 0.9
+    }
+  });
+
+  map.addLayer({
+    id: 'layer-stations-label',
+    type: 'symbol',
+    source: 'source-stations',
+    layout: {
+      'text-field': ['get', 'label'],
+      'text-size': 11,
+      'text-offset': [0, 1.2],
+      'text-anchor': 'top',
+      'text-font': ['Open Sans SemiBold', 'Arial Unicode MS Bold']
+    },
+    paint: {
+      'text-color': 'rgba(247,234,208,.85)',
+      'text-halo-color': '#050713',
+      'text-halo-width': 1.8
+    }
+  });
+
+  // Station click
+  map.on('click', 'layer-stations-bg', (e) => {
+    const feature = e.features[0];
+    selectStation(feature);
+  });
+  map.on('mouseenter', 'layer-stations-bg', () => map.getCanvas().style.cursor = 'pointer');
+  map.on('mouseleave', 'layer-stations-bg', () => map.getCanvas().style.cursor = '');
+}
+
+/* =====================  Legend & Toggles  ===================== */
+function buildLegend() {
+  const dock = document.getElementById('legendDock');
+  const lines = Object.keys(LINE_COLORS).sort();
+
+  const card = document.createElement('div');
+  card.className = 'dock-card';
+  card.innerHTML = '<div class="legend-title">Lines</div>';
+
+  lines.forEach(line => {
+    const color = LINE_COLORS[line];
+    const row = document.createElement('div');
+    row.className = 'legend-row';
+    row.dataset.line = line;
+    row.innerHTML = `<div class="swatch" style="background:${color};color:${color}"></div><span>${line.toUpperCase()}</span>`;
+    row.addEventListener('click', () => toggleLine(line, row));
+    card.appendChild(row);
+  });
+
+  dock.appendChild(card);
+}
+
+function toggleLine(line, rowEl) {
+  if (hiddenLines.has(line)) {
+    hiddenLines.delete(line);
+    rowEl.classList.remove('hidden-line');
+    const layerId = `layer-line-${line}`;
+    if (map.getLayer(layerId)) map.setLayoutProperty(layerId, 'visibility', 'visible');
+  } else {
+    hiddenLines.add(line);
+    rowEl.classList.add('hidden-line');
+    const layerId = `layer-line-${line}`;
+    if (map.getLayer(layerId)) map.setLayoutProperty(layerId, 'visibility', 'none');
   }
+  updateStationVisibility();
 }
 
-window.addEventListener('pointerdown', onPointer);
+function updateStationVisibility() {
+  const filter = ['any'];
+  const allHidden = hiddenLines.size > 0 && hiddenLines.size === Object.keys(LINE_COLORS).length;
+  if (allHidden) {
+    map.setLayoutProperty('layer-stations-bg', 'visibility', 'none');
+    map.setLayoutProperty('layer-stations-label', 'visibility', 'none');
+    return;
+  }
+  map.setLayoutProperty('layer-stations-bg', 'visibility', 'visible');
+  map.setLayoutProperty('layer-stations-label', 'visibility', 'visible');
 
-function selectStation(n) {
-  selectedNode = n;
-  const panel = document.getElementById('stationPanel');
-  document.getElementById('pTitle').textContent = n.label;
-  document.getElementById('pMeta').textContent = n.lines.map(l => LINE_NAMES[l] || l.toUpperCase()).join(' · ') + ' · ' + n.lat.toFixed(4) + ', ' + n.lon.toFixed(4);
-  document.getElementById('pDepartures').innerHTML = '<div class="departure"><span>Loading live departures…</span></div>';
-  panel.style.display = 'block';
-  const target = new THREE.Vector3(...n.xyz);
-  controls.target.lerp(target, 1);
-  camera.position.lerp(new THREE.Vector3(target.x, target.y + 6, target.z + 8), 0.05);
-  fetchDepartures(n);
+  // Show station if at least one of its lines is visible
+  const visible = Object.keys(LINE_COLORS).filter(l => !hiddenLines.has(l));
+  if (visible.length === 0) return;
+  // filter: any line in properties.lines overlaps visible
+  // Mapbox expression: any of the station's lines is NOT in hiddenLines
+  const expr = ['any'];
+  visible.forEach(l => expr.push(['in', l, ['get', 'lines']]));
+  map.setFilter('layer-stations-bg', expr);
+  map.setFilter('layer-stations-label', expr);
 }
+
+/* =====================  Station selection & departures  ===================== */
+function selectStation(feature) {
+  const props = feature.properties;
+  const coords = feature.geometry.coordinates;
+  selectedNode = { id: props.id, label: props.label, lat: coords[1], lon: coords[0] };
+  document.getElementById('pName').textContent = props.label;
+  document.getElementById('pDesc').textContent = props.desc || '';
+  document.getElementById('stationPanel').classList.add('show');
+  fetchDepartures(selectedNode);
+  map.flyTo({ center: coords, zoom: 14, speed: 0.8 });
+}
+
+document.getElementById('btnClosePanel').addEventListener('click', () => {
+  document.getElementById('stationPanel').classList.remove('show');
+  selectedNode = null;
+});
 
 async function fetchDepartures(n) {
-  const url = `/api/departure_mon?stopId=${encodeURIComponent(n.id)}`;
   const container = document.getElementById('pDepartures');
+  const url = `/api/departure_mon?stopId=${encodeURIComponent(n.id)}`;
   try {
     const res = await fetch(url);
-    if (!res.ok) {
-      const text = await res.text().catch(() => '');
-      container.innerHTML = `<div class="departure"><span>API error ${res.status}${text ? ': ' + text.slice(0,200) : ''}</span></div>`;
-      return;
-    }
+    if (!res.ok) { container.innerHTML = `<div class="departure"><span>API error ${res.status}</span></div>`; return; }
     const data = await res.json();
     renderDepartures(data);
   } catch (err) {
-    container.innerHTML = `<div class="departure"><span>Network error: ${err.message || err}. Check internet / console.</span></div>`;
-    console.error('fetchDepartures failed:', err);
+    container.innerHTML = `<div class="departure"><span>Network error: ${err.message}</span></div>`;
   }
 }
 
 function renderDepartures(data) {
   const container = document.getElementById('pDepartures');
-  if (!data || !data.stopEvents) {
-    container.innerHTML = '<div class="departure"><span>No departures found.</span></div>';
-    return;
-  }
+  if (!data || !data.stopEvents) { container.innerHTML = '<div class="departure"><span>No departures found.</span></div>'; return; }
   const now = new Date();
   let html = '';
   data.stopEvents.slice(0, 8).forEach(ev => {
-    const rt = ev.departureTimeEstimated || ev.departureTimePlanned;
-    const pt = ev.departureTimePlanned;
+    const dt = new Date(ev.departureTimeEstimated || ev.departureTimePlanned);
+    const mins = Math.round((dt - now) / 60000);
+    const timeStr = dt.toLocaleTimeString('en-AU', { hour: '2-digit', minute: '2-digit' });
+    const line = (ev.transportation?.number || ev.transportation?.symbol || '—');
     const dest = ev.transportation?.destination?.name || 'Unknown';
-    const fullLine = ev.transportation?.number || '';
-    const shortCode = (ev.transportation?.disassembledName || fullLine.split(' ')[0]).toLowerCase();
-    const lineCol = LINE_COLORS[shortCode] || '#888';
-    const mins = Math.round((new Date(rt) - now) / 60000);
-    const status = mins <= 0 ? 'Now' : mins + ' min';
-    const plannedTime = new Date(pt).toLocaleTimeString('en-AU', { timeZone: 'Australia/Sydney', hour: '2-digit', minute: '2-digit' });
-    html += `<div class="departure"><b style="color:${lineCol}">${fullLine} → ${dest}</b><span>${status} · Platform ${ev.location?.properties?.platformName || '–'} · ${plannedTime}</span></div>`;
+    const status = mins <= 0 ? 'Due' : `${mins} min`;
+    html += `<div class="departure"><b>${line} to ${dest}</b><span>${timeStr} · ${status}</span></div>`;
   });
   container.innerHTML = html || '<div class="departure"><span>No upcoming departures.</span></div>';
 }
 
-const legend = document.getElementById('legend');
-ALL_LINES.forEach(line => {
-  const row = document.createElement('div');
-  row.className = 'legend-row';
-  row.innerHTML = `<div class="swatch" style="background:${LINE_COLORS[line]};color:${LINE_COLORS[line]}"></div><span>${LINE_NAMES[line] || line.toUpperCase()}</span>`;
-  row.addEventListener('click', () => toggleLine(line, row));
-  legend.appendChild(row);
-});
+/* =====================  Live Mode  ===================== */
+const liveMarkers = []; // { id, marker, targetLngLat, currentLngLat, line }
 
-function toggleLine(line, row) {
-  if (hiddenLines.has(line)) {
-    hiddenLines.delete(line);
-    row.classList.remove('hidden-line');
-  } else {
-    hiddenLines.add(line);
-    row.classList.add('hidden-line');
-  }
-  updateVisibility();
-}
-
-function updateVisibility() {
-  linkGroup.children.forEach(mesh => {
-    mesh.visible = !hiddenLines.has(mesh.userData.line);
-  });
-  // Hide simulated trains on hidden lines
-  trains.forEach(obj => {
-    obj.mesh.visible = !hiddenLines.has(obj.line) && !obj.hidden;
-  });
-  // Hide live markers on hidden lines OR when live mode is off
-  liveMarkers.forEach(obj => {
-    obj.mesh.visible = liveOn && !hiddenLines.has(obj.line);
-  });
-  // Hide station labels on hidden lines
-  nodeGroup.children.forEach(mesh => {
-    const nodeLines = (mesh.userData.lines || []);
-    const isHidden = nodeLines.length > 0 && nodeLines.every(l => hiddenLines.has(l));
-    mesh.visible = !isHidden;
-  });
-}
-
-document.getElementById('btnReset').addEventListener('click', () => {
-  controls.target.set(0, 0, 0);
-  camera.position.set(0, 18, 22);
-  document.getElementById('stationPanel').style.display = 'none';
-  selectedNode = null;
-});
-
-let liveOn = false;
-document.getElementById('btnLive').addEventListener('click', () => {
-  liveOn = !liveOn;
-  document.getElementById('btnLive').textContent = liveOn ? 'Live: On' : 'Live: Off';
-  document.getElementById('btnLive').classList.toggle('active', liveOn);
-  setLiveMode(liveOn);
-  if (liveOn && selectedNode) fetchDepartures(selectedNode);
-  if (liveOn) {
-    liveInterval = setInterval(() => { if (selectedNode) fetchDepartures(selectedNode); }, 30000);
-  } else {
-    clearInterval(liveInterval);
-  }
-});
-
-document.getElementById('btnAll').addEventListener('click', () => {
-  hiddenLines.clear();
-  document.querySelectorAll('.legend-row').forEach(r => r.classList.remove('hidden-line'));
-  updateVisibility();
-});
-
-window.addEventListener('resize', () => {
-  camera.aspect = innerWidth / innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(innerWidth, innerHeight);
-});
-
-// ---- Simulated Train Dots ----
-const trains = [];
-const lineLinkMap = {}; // line -> array of link objects
-LINKS.forEach((l, idx) => {
-  if (!lineLinkMap[l.line]) lineLinkMap[l.line] = [];
-  lineLinkMap[l.line].push({
-    mesh: linkGroup.children[idx],
-    curve: linkGroup.children[idx].userData.curve,
-    source: l.source,
-    target: l.target,
-    length: linkGroup.children[idx].userData.curve ? linkGroup.children[idx].userData.curve.getLength() : 1
-  });
-});
-
-// Build simple station adjacency for routing
-const adjacency = {};      // stationId -> { line: [linkIndex, ...] }
-LINKS.forEach((l, idx) => {
-  [l.source, l.target].forEach(sid => {
-    if (!adjacency[sid]) adjacency[sid] = {};
-    if (!adjacency[sid][l.line]) adjacency[sid][l.line] = [];
-    const linkMesh = linkGroup.children[idx];
-    adjacency[sid][l.line].push({
-      mesh: linkMesh,
-      curve: linkMesh.userData.curve,
-      source: l.source,
-      target: l.target,
-      length: linkMesh.userData.curve ? linkMesh.userData.curve.getLength() : 1
-    });
-  });
-});
-const TRAIN_SPEED_BASE = 6.0; // world units per second at scale 1
-
-// ---- Lat/Lon -> XYZ mapping (fitted from network_data.json) ----
-function latLonToXYZ(lat, lon) {
-  const x = 92.163844 * lon + 0.000031 * lat - 13936.093820;
-  const z = 0.000003 * lon - 111.000036 * lat - 3759.571735;
-  return new THREE.Vector3(x, 0.35, z);
-}
-
-// Map GTFS route_id prefixes to our line codes
 const GTFS_ROUTE_MAP = {
-  "APS": "t8", "ESI": "t4", "NSN": "t1", "CCN": "ccn", "BMT": "bmt",
-  "SCO": "sco", "WST": "wst", "NTH": "t9", "CMB": "t5", "OLY": "t7",
-  "SHL": "shl", "T3": "t3", "T6": "t6", "IWL": "t2"
+  'T1': 't1', 'T2': 't2', 'T3': 't3', 'T4': 't4', 'T5': 't5', 'T6': 't6', 'T7': 't7', 'T8': 't8', 'T9': 't9',
+  'CCN': 'ccn', 'SCO': 'sco', 'BMT': 'bmt', 'WST': 'wst', 'NRC': 'nrc', 'NRW': 'nrw',
+  'SHL': 'shl', 'STH': 'sth'
 };
 function routeToLine(routeId) {
   if (!routeId) return null;
@@ -388,176 +343,108 @@ function routeToLine(routeId) {
   return null;
 }
 
-// ---- Live train markers (separate from simulated trains) ----
-const liveMarkers = [];
-const GTFS_API = (() => {
-  const isLocal = window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-  return isLocal ? "http://localhost:8766/api/gtfs_vehiclepos" : "/api/gtfs_vehiclepos";
-})();
-
 async function fetchLiveTrains() {
   try {
-    const res = await fetch(GTFS_API, { method: "GET", headers: { "Accept": "application/json" } });
+    const res = await fetch(GTFS_API, { method: 'GET', headers: { 'Accept': 'application/json' } });
     if (!res.ok) return;
     const data = await res.json();
     if (!data.trains) return;
     updateLiveMarkers(data.trains);
-  } catch (e) {
-    console.warn("Live trains fetch failed:", e);
-  }
+  } catch (e) { console.warn('Live fetch failed:', e); }
 }
 
 function updateLiveMarkers(trainData) {
-  liveMarkers.forEach(m => { m.mesh.visible = false; });
   const visibleIds = new Set();
   trainData.forEach(t => {
     if (t.lat == null || t.lon == null) return;
-    const pos = latLonToXYZ(t.lat, t.lon);
-    // Only show trains within the scene area
-    if (pos.x < -22 || pos.x > 22 || pos.z < -22 || pos.z > 22) return;
+    // Exclude trains way outside metro Sydney
+    if (t.lon < 150.5 || t.lon > 151.6 || t.lat < -34.5 || t.lat > -33.3) return;
     const line = routeToLine(t.route);
-    let marker = liveMarkers.find(m => m.id === t.id);
-    if (!marker) {
-      const col = new THREE.Color(LINE_COLORS[line] || '#ff00ff');
-      const geo = new THREE.SphereGeometry(0.32, 12, 12);
-      const mat = new THREE.MeshStandardMaterial({ color: col, emissive: col, emissiveIntensity: 4.5, transparent: true, opacity: 0.95 });
-      const mesh = new THREE.Mesh(geo, mat);
-      scene.add(mesh);
-      marker = { mesh, id: t.id, line };
-      liveMarkers.push(marker);
+    if (line && hiddenLines.has(line)) return;
+
+    let lm = liveMarkers.find(m => m.id === t.id);
+    if (!lm) {
+      const el = document.createElement('div');
+      el.className = 'train-marker';
+      const color = LINE_COLORS[line] || '#ff00ff';
+      el.style.background = color;
+      el.style.color = color;
+      const marker = new mapboxgl.Marker({ element: el, anchor: 'center' }).setLngLat([t.lon, t.lat]).addTo(map);
+      lm = { id: t.id, marker, line, currentLngLat: [t.lon, t.lat], targetLngLat: [t.lon, t.lat] };
+      liveMarkers.push(lm);
+    } else {
+      lm.targetLngLat = [t.lon, t.lat];
     }
-    marker.mesh.visible = true;
-    // Smooth: store target, lerp in animate (don't snap)
-    marker.targetPos = pos.clone();
     visibleIds.add(t.id);
   });
+
+  // Remove disappeared trains
   for (let i = liveMarkers.length - 1; i >= 0; i--) {
     if (!visibleIds.has(liveMarkers[i].id)) {
-      scene.remove(liveMarkers[i].mesh);
+      liveMarkers[i].marker.remove();
       liveMarkers.splice(i, 1);
     }
   }
 }
 
-let liveFetchInterval = null;
+/* Smooth lerp in animation loop */
+function animateLiveMarkers() {
+  liveMarkers.forEach(m => {
+    if (!m.targetLngLat || !m.currentLngLat) return;
+    const [cLng, cLat] = m.currentLngLat;
+    const [tLng, tLat] = m.targetLngLat;
+    const lng = cLng + (tLng - cLng) * 0.12;
+    const lat = cLat + (tLat - cLat) * 0.12;
+    m.currentLngLat = [lng, lat];
+    m.marker.setLngLat([lng, lat]);
+  });
+  requestAnimationFrame(animateLiveMarkers);
+}
+animateLiveMarkers();
 
-function setLiveMode(enabled) {
-  if (enabled) {
+/* =====================  Live Toggle  ===================== */
+document.getElementById('btnLive').addEventListener('click', () => {
+  liveOn = !liveOn;
+  const btn = document.getElementById('btnLive');
+  btn.textContent = liveOn ? 'Live: On' : 'Live: Off';
+  btn.classList.toggle('active', liveOn);
+
+  if (liveOn) {
     fetchLiveTrains();
     if (!liveFetchInterval) liveFetchInterval = setInterval(fetchLiveTrains, 10000);
-    // Hide simulated trains when live is active (avoid double dots)
-    trains.forEach(t => { t.mesh.visible = false; });
+    showToast('Live train positions enabled');
+    if (selectedNode) { fetchDepartures(selectedNode); liveInterval = setInterval(() => { if (selectedNode) fetchDepartures(selectedNode); }, 30000); }
   } else {
     if (liveFetchInterval) { clearInterval(liveFetchInterval); liveFetchInterval = null; }
-    liveMarkers.forEach(m => { m.mesh.visible = false; });
-    // Restore simulated trains (respecting hidden lines)
-    trains.forEach(t => { t.mesh.visible = !hiddenLines.has(t.line) && !t.hidden; });
+    if (liveInterval) { clearInterval(liveInterval); liveInterval = null; }
+    liveMarkers.forEach(m => m.marker.remove());
+    liveMarkers.length = 0;
+    showToast('Live mode off');
   }
-}
-
-// ---- Simulated Train Dots ----
-
-function spawnTrain(line) {
-  const links = lineLinkMap[line];
-  if (!links || links.length === 0) return;
-  const link = links[Math.floor(Math.random() * links.length)];
-  const geo = new THREE.SphereGeometry(0.24, 12, 12);
-  const col = new THREE.Color(LINE_COLORS[line] || '#fff');
-  const mat = new THREE.MeshStandardMaterial({ color: col, emissive: col, emissiveIntensity: 3.0, transparent: true, opacity: 0.95 });
-  const mesh = new THREE.Mesh(geo, mat);
-  scene.add(mesh);
-  if (trains.length >= 200) {
-    const old = trains.shift();
-    scene.remove(old.mesh);
-    old.mesh.geometry.dispose();
-    old.mesh.material.dispose();
-  }
-  trains.push({
-    mesh,
-    line,
-    link,
-    t: 0,
-    direction: Math.random() > 0.5 ? 1 : -1,
-    speed: TRAIN_SPEED_BASE * (0.75 + Math.random() * 0.5),
-    hidden: false
-  });
-}
-
-// Initial burst + interval spawners
-ALL_LINES.forEach(line => {
-  for (let i = 0; i < 3; i++) setTimeout(() => spawnTrain(line), i * 1200);
 });
-setInterval(() => {
-  if (liveOn) return; // Don't spawn fake trains when showing real live data
-  ALL_LINES.forEach(line => {
-    if (!hiddenLines.has(line)) spawnTrain(line);
+
+document.getElementById('btnAll').addEventListener('click', () => {
+  hiddenLines.clear();
+  document.querySelectorAll('.legend-row').forEach(r => r.classList.remove('hidden-line'));
+  Object.keys(LINE_COLORS).forEach(line => {
+    const layerId = `layer-line-${line}`;
+    if (map.getLayer(layerId)) map.setLayoutProperty(layerId, 'visibility', 'visible');
   });
-}, 4000);
+  updateStationVisibility();
+  showToast('All lines visible');
+});
 
-function pickNextLink(train) {
-  const currentNodeId = train.direction > 0 ? train.link.target : train.link.source;
-  const candidates = (adjacency[currentNodeId] || {})[train.line];
-  if (!candidates || candidates.length === 0) return null;
-  // Exclude immediate reverse
-  const rev = candidates.filter(c => !(c.source === train.link.target && c.target === train.link.source))
-    .filter(c => !(c.source === train.link.source && c.target === train.link.target));
-  const pool = rev.length ? rev : candidates;
-  return pool[Math.floor(Math.random() * pool.length)];
+function showToast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2200);
 }
 
-function updateTrains(dt) {
-  for (let i = trains.length - 1; i >= 0; i--) {
-    const tr = trains[i];
-    const lineHidden = hiddenLines.has(tr.line);
-    if (lineHidden || liveOn) {
-      tr.mesh.visible = false;
-      continue;
-    }
-    tr.mesh.visible = true;
-    const len = tr.link.length || 1;
-    tr.t += (tr.speed / len) * dt * tr.direction;
-    if (tr.t >= 1) {
-      const next = pickNextLink(tr);
-      if (next) {
-        tr.link = next;
-        tr.t = 0;
-      } else {
-        tr.direction = -1;
-        tr.t = 1;
-      }
-    } else if (tr.t <= 0) {
-      const next = pickNextLink(tr);
-      if (next) {
-        tr.link = next;
-        tr.t = 1;
-      } else {
-        tr.direction = 1;
-        tr.t = 0;
-      }
-    }
-    const pt = tr.link.curve.getPoint(Math.max(0, Math.min(1, tr.t)));
-    tr.mesh.position.copy(pt);
-    tr.mesh.position.y = Math.max(pt.y, 0.3); // keep slightly above rail
-  }
-}
-// ---- End train dots ----
-
-function animate() {
-  requestAnimationFrame(animate);
-  controls.update();
-  updateLabels();
-  updateTrains(0.0167);
-  // Smooth lerp live markers toward their latest target positions (0.08 ≈ 1.5s gliding)
-  if (liveOn) {
-    liveMarkers.forEach(m => {
-      if (m.targetPos && m.mesh.visible) {
-        m.mesh.position.lerp(m.targetPos, 0.08);
-      }
-    });
-  }
-  renderer.render(scene, camera);
-}
-animate();
+/* =====================  Init  ===================== */
+map.on('load', () => {
+  loadNetwork().then(() => showToast('Network loaded'));
+});
 </script>
 </body>
 </html>
