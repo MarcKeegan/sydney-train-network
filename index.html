@@ -62,9 +62,16 @@ button:hover, button.active { border-color: rgba(246,198,91,.75); color: #fff4d9
 .toast.show { opacity: 1; }
 
 /* Live train markers */
-.train-marker { width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(0,0,0,.7); box-shadow: 0 0 12px 2px currentColor; pointer-events: none; }
+.train-marker { width: 20px; height: 20px; border-radius: 50%; border: 2px solid rgba(255,255,255,.9); box-shadow: 0 0 12px 3px currentColor, 0 0 4px 1px rgba(0,0,0,.5); pointer-events: none; position: relative; background: currentColor; }
+.train-marker::after { content: ''; position: absolute; inset: 4px; border-radius: 50%; background: rgba(255,255,255,.85); box-shadow: 0 0 4px rgba(255,255,255,.6); }
+.train-marker.pulse { animation: pulse-train 1.5s ease-in-out infinite; }
+@keyframes pulse-train {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
 @media (max-width: 640px) {
-  .train-marker { width: 20px; height: 20px; border-width: 2.5px; box-shadow: 0 0 16px 3px currentColor; }
+  .train-marker { width: 24px; height: 24px; border-width: 2.5px; box-shadow: 0 0 18px 4px currentColor, 0 0 6px 2px rgba(0,0,0,.5); }
+  .train-marker::after { inset: 5px; }
 }
 </style>
 </head>
@@ -79,6 +86,7 @@ button:hover, button.active { border-color: rgba(246,198,91,.75); color: #fff4d9
   </div>
   <div class="hud">
     <button id="btnLive">Live: Off</button>
+    <span id="liveCount" style="display:none;font-size:11px;color:var(--gold);margin-left:-4px;align-self:center;"></span>
     <button id="btnAll">Show All Lines</button>
   </div>
 </div>
@@ -360,6 +368,9 @@ async function fetchLiveTrains() {
     const data = await res.json();
     if (!data.trains) return;
     updateLiveMarkers(data.trains);
+    const visible = liveMarkers.filter(m => !(m.line && hiddenLines.has(m.line))).length;
+    document.getElementById('liveCount').textContent = visible ? `(${visible})` : '';
+    document.getElementById('liveCount').style.display = visible ? 'inline' : 'none';
   } catch (e) { console.warn('Live fetch failed:', e); }
 }
 
@@ -377,9 +388,8 @@ function updateLiveMarkers(trainData) {
     let lm = liveMarkers.find(m => m.id === stableId);
     if (!lm) {
       const el = document.createElement('div');
-      el.className = 'train-marker';
+      el.className = 'train-marker pulse';
       const color = LINE_COLORS[line] || '#ff00ff';
-      el.style.background = color;
       el.style.color = color;
       const marker = new mapboxgl.Marker({ element: el, anchor: 'center' }).setLngLat([t.lon, t.lat]).addTo(map);
       lm = { id: stableId, marker, line, currentLngLat: [t.lon, t.lat], targetLngLat: [t.lon, t.lat], speedMps: t.speed, bearing: t.bearing, velLng: 0, velLat: 0 };
