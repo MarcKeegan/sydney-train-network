@@ -156,14 +156,20 @@ const GTFS_API = (() => {
 
 /* =====================  Load network data  ===================== */
 async function loadNetwork() {
-  const res = await fetch('network_data.json');
-  const data = await res.json();
-  NODES = data.nodes;
-  // links array: [sourceId, targetId, lineKey, lineLabel, weight]
-  LINKS = data.links.map(l => ({ source: l[0], target: l[1], line: l[2], label: l[3], weight: l[4] }));
-  LINE_COLORS = data.line_colors;
-  buildMapLayers();
-  buildLegend();
+  try {
+    const res = await fetch('network_data.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    NODES = data.nodes;
+    // links array: [sourceId, targetId, lineKey, lineLabel, weight]
+    LINKS = data.links.map(l => ({ source: l[0], target: l[1], line: l[2], label: l[3], weight: l[4] }));
+    LINE_COLORS = data.line_colors;
+    buildMapLayers();
+    buildLegend();
+  } catch (err) {
+    console.error('Failed to load network data:', err);
+    showToast('Failed to load network data');
+  }
 }
 
 /* =====================  Build GeoJSON & Layers  ===================== */
@@ -295,34 +301,54 @@ document.getElementById('btnClosePanel').addEventListener('click', () => {
   selectedNode = null;
 });
 
+function renderDepartureMessage(container, message) {
+  container.textContent = '';
+  const row = document.createElement('div');
+  row.className = 'departure';
+  const span = document.createElement('span');
+  span.textContent = message;
+  row.appendChild(span);
+  container.appendChild(row);
+}
+
 async function fetchDepartures(n) {
   const container = document.getElementById('pDepartures');
   const url = `/api/departure_mon?stopId=${encodeURIComponent(n.id)}`;
   try {
     const res = await fetch(url);
-    if (!res.ok) { container.innerHTML = `<div class="departure"><span>API error ${res.status}</span></div>`; return; }
+    if (!res.ok) { renderDepartureMessage(container, `API error ${res.status}`); return; }
     const data = await res.json();
     renderDepartures(data);
   } catch (err) {
-    container.innerHTML = `<div class="departure"><span>Network error: ${err.message}</span></div>`;
+    renderDepartureMessage(container, `Network error: ${err.message}`);
   }
 }
 
 function renderDepartures(data) {
   const container = document.getElementById('pDepartures');
-  if (!data || !data.stopEvents) { container.innerHTML = '<div class="departure"><span>No departures found.</span></div>'; return; }
+  if (!data || !data.stopEvents) { renderDepartureMessage(container, 'No departures found.'); return; }
   const now = new Date();
-  let html = '';
+  container.textContent = '';
+  let count = 0;
   data.stopEvents.slice(0, 8).forEach(ev => {
     const dt = new Date(ev.departureTimeEstimated || ev.departureTimePlanned);
+    if (isNaN(dt.getTime())) return;
     const mins = Math.round((dt - now) / 60000);
     const timeStr = dt.toLocaleTimeString('en-AU', { hour: '2-digit', minute: '2-digit' });
     const line = (ev.transportation?.number || ev.transportation?.symbol || '—');
     const dest = ev.transportation?.destination?.name || 'Unknown';
     const status = mins <= 0 ? 'Due' : `${mins} min`;
-    html += `<div class="departure"><b>${line} to ${dest}</b><span>${timeStr} · ${status}</span></div>`;
+    const row = document.createElement('div');
+    row.className = 'departure';
+    const b = document.createElement('b');
+    b.textContent = `${line} to ${dest}`;
+    const span = document.createElement('span');
+    span.textContent = `${timeStr} · ${status}`;
+    row.append(b, span);
+    container.appendChild(row);
+    count++;
   });
-  container.innerHTML = html || '<div class="departure"><span>No upcoming departures.</span></div>';
+  if (!count) renderDepartureMessage(container, 'No upcoming departures.');
 }
 
 /* =====================  Live Mode  ===================== */
@@ -430,7 +456,10 @@ function updateLiveVisibility() {
   });
 }
 
+let animationStarted = false;
 function runAnimation() {
+  if (animationStarted) return;
+  animationStarted = true;
   let lastAnimFrame = performance.now();
 
   function loop() {
@@ -478,7 +507,7 @@ document.getElementById('btnLive').addEventListener('click', () => {
     fetchLiveTrains();
     if (!liveFetchInterval) liveFetchInterval = setInterval(fetchLiveTrains, 5000);
     showToast('Live train positions enabled');
-    if (selectedNode) { fetchDepartures(selectedNode); liveInterval = setInterval(() => { if (selectedNode) fetchDepartures(selectedNode); }, 30000); }
+    if (selectedNode) { fetchDepartures(selectedNode); if (!liveInterval) liveInterval = setInterval(() => { if (selectedNode) fetchDepartures(selectedNode); }, 30000); }
   } else {
     if (liveFetchInterval) { clearInterval(liveFetchInterval); liveFetchInterval = null; }
     if (liveInterval) { clearInterval(liveInterval); liveInterval = null; }

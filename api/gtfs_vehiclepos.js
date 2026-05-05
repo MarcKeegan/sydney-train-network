@@ -1,15 +1,12 @@
+const { applyCors, handlePreflight } = require('./_cors');
+
 const API_URL = 'https://api.transport.nsw.gov.au/v2/gtfs/vehiclepos/sydneytrains';
 const API_KEY = process.env.NSW_API_KEY;
 const GtfsRealtimeBindings = require('gtfs-realtime-bindings');
 
 module.exports = async (req, res) => {
-  if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', '*');
-    res.status(204).end();
-    return;
-  }
+  if (handlePreflight(req, res)) return;
+  applyCors(req, res);
 
   if (!API_KEY) {
     res.status(500).json({ error: 'NSW_API_KEY env var not configured in Vercel' });
@@ -24,10 +21,8 @@ module.exports = async (req, res) => {
 
     if (!response.ok) {
       const text = await response.text();
-      res.status(response.status);
       res.setHeader('Content-Type', 'application/json');
-      res.setHeader('Access-Control-Allow-Origin', '*');
-      res.end(JSON.stringify({ error: 'NSW API error', status: response.status, preview: text.slice(0, 200) }));
+      res.status(response.status).end(JSON.stringify({ error: 'NSW API error', status: response.status, preview: text.slice(0, 200) }));
       return;
     }
 
@@ -56,10 +51,8 @@ module.exports = async (req, res) => {
       });
     }
 
-    res.status(200);
     res.setHeader('Content-Type', 'application/json');
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.end(JSON.stringify({ trains, count: trains.length }));
+    res.status(200).end(JSON.stringify({ trains, count: trains.length }));
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

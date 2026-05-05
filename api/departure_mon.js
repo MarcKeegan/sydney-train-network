@@ -1,7 +1,27 @@
+const { applyCors, handlePreflight } = require('./_cors');
+
 const API_BASE = 'https://api.transport.nsw.gov.au/v1/tp/departure_mon';
 const API_KEY = process.env.NSW_API_KEY;
 
+// Sydney-local YYYYMMDD / HHmm — TfNSW expects times in the network's timezone,
+// not UTC. Using toISOString() for date and toTimeString() for time mixed those.
+function sydneyDateTime() {
+  const fmt = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Australia/Sydney',
+    year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', hour12: false
+  }).formatToParts(new Date());
+  const get = (t) => fmt.find(p => p.type === t).value;
+  return {
+    date: `${get('year')}${get('month')}${get('day')}`,
+    time: `${get('hour')}${get('minute')}`
+  };
+}
+
 module.exports = async (req, res) => {
+  if (handlePreflight(req, res)) return;
+  applyCors(req, res);
+
   const { stopId, date, time } = req.query;
 
   if (!API_KEY) {
@@ -13,14 +33,15 @@ module.exports = async (req, res) => {
     return;
   }
 
+  const now = sydneyDateTime();
   const params = new URLSearchParams({
     outputFormat: 'rapidJSON',
     coordOutputFormat: 'EPSG:4326',
     mode: 'direct',
     type_dm: 'stop',
     name_dm: stopId,
-    itdDate: date || new Date().toISOString().slice(0, 10).replace(/-/g, ''),
-    itdTime: time || new Date().toTimeString().slice(0, 5).replace(/:/g, ''),
+    itdDate: date || now.date,
+    itdTime: time || now.time,
     TfNSWDM: 'true',
     version: '10.2.1.42'
   });
@@ -31,10 +52,8 @@ module.exports = async (req, res) => {
       headers: { Authorization: `apikey ${API_KEY}` }
     });
     const body = await response.text();
-    res.status(response.status);
     res.setHeader('Content-Type', response.headers.get('content-type') || 'application/json');
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.end(body);
+    res.status(response.status).end(body);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
