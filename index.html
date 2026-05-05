@@ -241,11 +241,13 @@ function renderDepartures(data) {
     const rt = ev.departureTimeEstimated || ev.departureTimePlanned;
     const pt = ev.departureTimePlanned;
     const dest = ev.transportation?.destination?.name || 'Unknown';
-    const line = ev.transportation?.number || '';
-    const lineCol = LINE_COLORS[line.toLowerCase()] || '#888';
+    const fullLine = ev.transportation?.number || '';
+    const shortCode = (ev.transportation?.disassembledName || fullLine.split(' ')[0]).toLowerCase();
+    const lineCol = LINE_COLORS[shortCode] || '#888';
     const mins = Math.round((new Date(rt) - now) / 60000);
     const status = mins <= 0 ? 'Now' : mins + ' min';
-    html += `<div class="departure"><b style="color:${lineCol}">${line} → ${dest}</b><span>${status} · Planned ${pt.slice(11,16)}</span></div>`;
+    const plannedTime = new Date(pt).toLocaleTimeString('en-AU', { timeZone: 'Australia/Sydney', hour: '2-digit', minute: '2-digit' });
+    html += `<div class="departure"><b style="color:${lineCol}">${fullLine} → ${dest}</b><span>${status} · Platform ${ev.location?.properties?.platformName || '–'} · ${plannedTime}</span></div>`;
   });
   container.innerHTML = html || '<div class="departure"><span>No upcoming departures.</span></div>';
 }
