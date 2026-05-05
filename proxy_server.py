@@ -1,63 +1,56 @@
 #!/usr/bin/env python3
-"""Simple CORS proxy + static file server for Sydney Train Network map."""
-import http.server, socketserver, urllib.request, urllib.parse, json, os, sys
+import http.server, socketserver, urllib.request, json, os, sys
 
-API_KEY = os.environ.get('NSW_API_KEY', '')
+API_KEY = os.environ.get("NSW_API_KEY", "")
 PORT = int(sys.argv[1]) if len(sys.argv) > 1 else 8766
 
 class Handler(http.server.SimpleHTTPRequestHandler):
     def log_message(self, fmt, *args):
-        pass  # quieter
+        pass
 
     def end_headers(self):
-        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header("Access-Control-Allow-Origin", "*")
         super().end_headers()
 
     def do_OPTIONS(self):
         self.send_response(204)
-        self.send_header('Access-Control-Allow-Origin', '*')
-        self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-        self.send_header('Access-Control-Allow-Headers', '*')
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "*")
         self.end_headers()
 
     def do_GET(self):
-        if self.path.startswith('/api/'):
+        if self.path.startswith("/api/"):
             self.proxy_api()
         else:
             super().do_GET()
 
     def proxy_api(self):
-        if not API_KEY or API_KEY == '[REDACTED]':
-            self.send_response(500)
-            self.send_header('Content-Type', 'application/json')
-            self.send_header('Access-Control-Allow-Origin', '*')
-            self.end_headers()
-            self.wfile.write(json.dumps({
-                'error': 'NSW_API_KEY not set. Start server with: NSW_API_KEY=your_key python3 proxy_server.py'
-            }).encode())
+        if not API_KEY:
+            self._json(500, {"error": "NSW_API_KEY not set."})
             return
         try:
-            target = 'https://api.transport.nsw.gov.au' + self.path[4:]
-            req = urllib.request.Request(target, headers={'Authorization': f'apikey {API_KEY}'})
+            target = "https://api.transport.nsw.gov.au" + self.path[4:]
+            req = urllib.request.Request(target, headers={"Authorization": "apikey " + API_KEY})
             with urllib.request.urlopen(req, timeout=15) as resp:
-                body = resp.read()
                 self.send_response(resp.status)
-                ct = resp.headers.get('Content-Type', 'application/json')
-                self.send_header('Content-Type', ct)
-                self.send_header('Access-Control-Allow-Origin', '*')
+                ct = resp.headers.get("Content-Type", "application/json")
+                self.send_header("Content-Type", ct)
+                self.send_header("Access-Control-Allow-Origin", "*")
                 self.end_headers()
-                self.wfile.write(body)
+                self.wfile.write(resp.read())
         except Exception as e:
-            self.send_response(500)
-            self.send_header('Content-Type', 'application/json')
-            self.send_header('Access-Control-Allow-Origin', '*')
-            self.end_headers()
-            self.wfile.write(json.dumps({'error': str(e)}).encode())
+            self._json(500, {"error": str(e)})
 
-os.chdir('/opt/data/sydney-train-network')
+    def _json(self, code, data):
+        self.send_response(code)
+        self.send_header("Content-Type", "application/json")
+        self.end_headers()
+        self.wfile.write(json.dumps(data).encode())
+
+os.chdir("/opt/data/sydney-train-network")
 with socketserver.TCPServer(("", PORT), Handler) as httpd:
-    print(f"Serving at http://localhost:{PORT}")
-    print("Proxy active at /api/*")
+    print(f"Local server: http://localhost:{PORT}")
     if not API_KEY:
-        print("WARNING: NSW_API_KEY not set. Live departures will fail.")
+        print("WARNING: NSW_API_KEY not set.")
     httpd.serve_forever()
