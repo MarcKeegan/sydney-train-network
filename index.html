@@ -398,15 +398,17 @@ function updateLiveMarkers(trainData) {
   const visibleIds = new Set();
   trainData.forEach(t => {
     if (t.lat == null || t.lon == null) return;
-    const line = routeToLine(t.route);
     const pos = latLonToXYZ(t.lat, t.lon);
+    // Only show trains within the scene area
+    if (pos.x < -22 || pos.x > 22 || pos.z < -22 || pos.z > 22) return;
+    const line = routeToLine(t.route);
     let marker = liveMarkers.find(m => m.id === t.id);
     if (!marker) {
-      const col = new THREE.Color(LINE_COLORS[line] || '#ffffff');
-      const geo = new THREE.SphereGeometry(0.28, 16, 16);
-      const mat = new THREE.MeshStandardMaterial({ color: col, emissive: col, emissiveIntensity: 2.2, transparent: true, opacity: 0.95 });
+      const col = new THREE.Color(LINE_COLORS[line] || '#ff00ff');
+      const geo = new THREE.SphereGeometry(0.32, 16, 16);
+      const mat = new THREE.MeshStandardMaterial({ color: col, emissive: col, emissiveIntensity: 3.0, transparent: true, opacity: 0.95 });
       const mesh = new THREE.Mesh(geo, mat);
-      const light = new THREE.PointLight(col, 1.4, 6.0);
+      const light = new THREE.PointLight(col, 1.8, 7.0);
       mesh.add(light);
       scene.add(mesh);
       marker = { mesh, id: t.id, line };
