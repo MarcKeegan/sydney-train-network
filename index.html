@@ -359,21 +359,9 @@ function updateLiveMarkers(trainData) {
       el.style.background = color;
       el.style.color = color;
       const marker = new mapboxgl.Marker({ element: el, anchor: 'center' }).setLngLat([t.lon, t.lat]).addTo(map);
-      lm = { id: stableId, marker, line, currentLngLat: [t.lon, t.lat], targetLngLat: [t.lon, t.lat], speedMps: t.speed, bearing: t.bearing, prevLngLat: null, prevTs: null, velocityLng: 0, velocityLat: 0 };
+      lm = { id: stableId, marker, line, currentLngLat: [t.lon, t.lat], targetLngLat: [t.lon, t.lat], speedMps: t.speed, bearing: t.bearing, velLng: 0, velLat: 0 };
       liveMarkers.push(lm);
     } else {
-      // Update velocity from GPS delta (more stable than speed field alone)
-      const [lastLng, lastLat] = lm.currentLngLat;
-      const now = Date.now();
-      if (lm.prevTs) {
-        const dt = (now - lm.prevTs) / 1000;
-        if (dt > 0.5) {
-          lm.velocityLng = (t.lon - lastLng) / dt;
-          lm.velocityLat = (t.lat - lastLat) / dt;
-        }
-      }
-      lm.prevLngLat = [lastLng, lastLat];
-      lm.prevTs = now;
       lm.targetLngLat = [t.lon, t.lat];
       lm.speedMps = t.speed;
       lm.bearing = t.bearing;
@@ -403,25 +391,25 @@ function updateLiveVisibility() {
 }
 
 function runAnimation() {
-  const now = Date.now();
   liveMarkers.forEach(m => {
     if (!m.targetLngLat || !m.currentLngLat) return;
     let [lng, lat] = m.currentLngLat;
-
-    // Predict forward using observed velocity (GPS-derived change rate)
-    const dtSec = m.prevTs ? Math.min((now - m.prevTs) / 1000, 30) : 0;
-    lng += m.velocityLng * (1 / 60); // per frame (~60fps)
-    lat += m.velocityLat * (1 / 60);
-
-    // Soft correction toward latest GPS (only if lagging significantly)
     const [tLng, tLat] = m.targetLngLat;
-    const dLng = tLng - lng;
-    const dLat = tLat - lat;
-    const distDeg = Math.sqrt(dLng*dLng + dLat*dLat);
-    // Lerp factor rises with distance: very close = slow nudge, far = faster catch-up
-    const correction = Math.min(0.02 + distDeg * 0.5, 0.15);
-    lng += dLng * correction;
-    lat += dLat * correction;
+
+    // Critical-damped spring: F = -k*x - c*v
+    const stiffness = 0.05;
+    const damping = 0.36; // 1 - exp(-2*sqrt(0.05)) ≈ critical damping
+
+    const dx = tLng - lng;
+    const dy = tLat - lat;
+
+    m.velLng += dx * stiffness;
+    m.velLat += dy * stiffness;
+    m.velLng *= (1 - damping);
+    m.velLat *= (1 - damping);
+
+    lng += m.velLng;
+    lat += m.velLat;
 
     m.currentLngLat = [lng, lat];
     m.marker.setLngLat([lng, lat]);
