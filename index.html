@@ -330,15 +330,35 @@ function renderDepartures(data) {
 /* =====================  Live Mode  ===================== */
 const liveMarkers = []; // { id, marker, targetLngLat, currentLngLat, line }
 
+// Internal route codes from GTFS-Realtime feed → our line keys
 const GTFS_ROUTE_MAP = {
   'T1': 't1', 'T2': 't2', 'T3': 't3', 'T4': 't4', 'T5': 't5', 'T6': 't6', 'T7': 't7', 'T8': 't8', 'T9': 't9',
   'CCN': 'ccn', 'SCO': 'sco', 'BMT': 'bmt', 'WST': 'wst', 'NRC': 'nrc', 'NRW': 'nrw',
-  'SHL': 'shl', 'STH': 'sth'
+  'SHL': 'shl', 'STH': 'sth',
+  // Internal operator route codes → line mapping
+  'APS': 't8',     // Airport & South Line
+  'ESI': 't4',     // Eastern Suburbs & Illawarra
+  'IWL': 't2',     // Inner West & Leppington
+  'WST': 't1',     // Western (interchange with T1)
+  'NTH': 't9',     // Northern
+  'NSN': 't9',     // North Shore (also T1)
+  'CMB': 't2',     // Cumberland (part of T2)
+  'OLY': 't7',     // Olympic Park (part of T7)
 };
-function routeToLine(routeId) {
-  if (!routeId) return null;
+
+const IGNORED_ROUTES = new Set(['RTTA_DEF', 'RTTA_REV', 'RTTA']);
+
+function routeToLine(routeId, tripId) {
+  if (!routeId) {
+    // Try to infer from trip for NonTimetabled yard trains
+    if (tripId && tripId.startsWith('NonTimetabled')) return null;
+    return null;
+  }
+  // Ignore yard / service trains
+  if (IGNORED_ROUTES.has(routeId)) return null;
+  // Direct prefix match
   for (const [prefix, line] of Object.entries(GTFS_ROUTE_MAP)) {
-    if (routeId.startsWith(prefix)) return line;
+    if (routeId === prefix || routeId.startsWith(prefix + '_')) return line;
   }
   return null;
 }
@@ -357,12 +377,14 @@ function updateLiveMarkers(trainData) {
   const visibleIds = new Set();
   trainData.forEach(t => {
     if (t.lat == null || t.lon == null) return;
-    // Exclude trains way outside metro Sydney
-    if (t.lon < 150.5 || t.lon > 151.6 || t.lat < -34.5 || t.lat > -33.3) return;
-    const line = routeToLine(t.route);
+    // Metro Sydney bounds
+    if (t.lon < 150.7 || t.lon > 151.6 || t.lat < -34.3 || t.lat > -33.5) return;
+    const line = routeToLine(t.route, t.trip);
     if (line && hiddenLines.has(line)) return;
 
-    let lm = liveMarkers.find(m => m.id === t.id);
+    // Stable ID: use tripId since entity.id is just a row number
+    const stableId = t.trip || t.id;
+    let lm = liveMarkers.find(m => m.id === stableId);
     if (!lm) {
       const el = document.createElement('div');
       el.className = 'train-marker';
@@ -370,12 +392,12 @@ function updateLiveMarkers(trainData) {
       el.style.background = color;
       el.style.color = color;
       const marker = new mapboxgl.Marker({ element: el, anchor: 'center' }).setLngLat([t.lon, t.lat]).addTo(map);
-      lm = { id: t.id, marker, line, currentLngLat: [t.lon, t.lat], targetLngLat: [t.lon, t.lat] };
+      lm = { id: stableId, marker, line, currentLngLat: [t.lon, t.lat], targetLngLat: [t.lon, t.lat] };
       liveMarkers.push(lm);
     } else {
       lm.targetLngLat = [t.lon, t.lat];
     }
-    visibleIds.add(t.id);
+    visibleIds.add(stableId);
   });
 
   // Remove disappeared trains

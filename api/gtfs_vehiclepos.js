@@ -41,10 +41,11 @@ module.exports = async (req, res) => {
       const trip = v.trip || {};
       const vehicle = v.vehicle || {};
       trains.push({
-        id: entity.id,
+        id: trip.tripId || entity.id,
         lat: pos.latitude !== undefined ? pos.latitude : null,
         lon: pos.longitude !== undefined ? pos.longitude : null,
         route: trip.routeId || null,
+        routeCode: trip.routeId || null,
         trip: trip.tripId || null,
         timestamp: v.timestamp || null,
         stopId: v.stopId || null,
