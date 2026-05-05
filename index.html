@@ -362,7 +362,14 @@ function updateLiveMarkers(trainData) {
       lm = { id: stableId, marker, line, currentLngLat: [t.lon, t.lat], targetLngLat: [t.lon, t.lat], speedMps: t.speed, bearing: t.bearing, velLng: 0, velLat: 0 };
       liveMarkers.push(lm);
     } else {
-      lm.targetLngLat = [t.lon, t.lat];
+      // Only update target if this data has a newer (or same) timestamp than what we have
+      const prevTs = lm.lastTs || 0;
+      const newTs = t.timestamp || (Date.now() / 1000);
+      const newer = (newTs >= prevTs) || (Math.abs(newTs - prevTs) > 300); // also accept if gap is huge (timestamp rollover edge case)
+      if (newer) {
+        lm.lastTs = newTs;
+        lm.targetLngLat = [t.lon, t.lat];
+      }
       lm.speedMps = t.speed;
       lm.bearing = t.bearing;
     }
@@ -391,32 +398,41 @@ function updateLiveVisibility() {
 }
 
 function runAnimation() {
-  liveMarkers.forEach(m => {
-    if (!m.targetLngLat || !m.currentLngLat) return;
-    let [lng, lat] = m.currentLngLat;
-    const [tLng, tLat] = m.targetLngLat;
+  let lastAnimFrame = performance.now();
 
-    // Critical-damped spring: F = -k*x - c*v
-    const stiffness = 0.05;
-    const damping = 0.36; // 1 - exp(-2*sqrt(0.05)) ≈ critical damping
+  function loop() {
+    const now = performance.now();
+    const dt60 = (now - lastAnimFrame) / (1000 / 60);
+    const dt = Math.min(dt60, 3); // cap at 3 frames when tab is backgrounded
+    lastAnimFrame = now;
 
-    const dx = tLng - lng;
-    const dy = tLat - lat;
+    liveMarkers.forEach(m => {
+      if (!m.targetLngLat || !m.currentLngLat) return;
+      let [lng, lat] = m.currentLngLat;
+      const [tLng, tLat] = m.targetLngLat;
 
-    m.velLng += dx * stiffness;
-    m.velLat += dy * stiffness;
-    m.velLng *= (1 - damping);
-    m.velLat *= (1 - damping);
+      // Discrete critically-damped spring: solved for 60fps-equivalent per frame
+      const stiffness = 0.05;
+      const damping = 0.332; // c² = 4k for discrete semi-implicit Euler
 
-    lng += m.velLng;
-    lat += m.velLat;
+      const dx = tLng - lng;
+      const dy = tLat - lat;
 
-    m.currentLngLat = [lng, lat];
-    m.marker.setLngLat([lng, lat]);
-  });
-  requestAnimationFrame(runAnimation);
+      m.velLng += dx * stiffness * dt;
+      m.velLat += dy * stiffness * dt;
+      m.velLng *= Math.pow(1 - damping, dt);
+      m.velLat *= Math.pow(1 - damping, dt);
+
+      lng += m.velLng * dt;
+      lat += m.velLat * dt;
+
+      m.currentLngLat = [lng, lat];
+      m.marker.setLngLat([lng, lat]);
+    });
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
 }
-requestAnimationFrame(runAnimation);
 
 /* =====================  Live Toggle  ===================== */
 document.getElementById('btnLive').addEventListener('click', () => {
