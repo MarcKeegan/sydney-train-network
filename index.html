@@ -286,6 +286,20 @@ function updateVisibility() {
   linkGroup.children.forEach(mesh => {
     mesh.visible = !hiddenLines.has(mesh.userData.line);
   });
+  // Hide simulated trains on hidden lines
+  trains.forEach(obj => {
+    obj.mesh.visible = !hiddenLines.has(obj.line) && !obj.hidden;
+  });
+  // Hide live markers on hidden lines
+  liveMarkers.forEach(obj => {
+    obj.mesh.visible = !hiddenLines.has(obj.line);
+  });
+  // Hide station labels on hidden lines
+  nodeGroup.children.forEach(mesh => {
+    const nodeLines = (mesh.userData.lines || []);
+    const isHidden = nodeLines.length > 0 && nodeLines.every(l => hiddenLines.has(l));
+    mesh.visible = !isHidden;
+  });
 }
 
 document.getElementById('btnReset').addEventListener('click', () => {
@@ -405,11 +419,9 @@ function updateLiveMarkers(trainData) {
     let marker = liveMarkers.find(m => m.id === t.id);
     if (!marker) {
       const col = new THREE.Color(LINE_COLORS[line] || '#ff00ff');
-      const geo = new THREE.SphereGeometry(0.32, 16, 16);
-      const mat = new THREE.MeshStandardMaterial({ color: col, emissive: col, emissiveIntensity: 3.0, transparent: true, opacity: 0.95 });
+      const geo = new THREE.SphereGeometry(0.32, 12, 12);
+      const mat = new THREE.MeshStandardMaterial({ color: col, emissive: col, emissiveIntensity: 4.5, transparent: true, opacity: 0.95 });
       const mesh = new THREE.Mesh(geo, mat);
-      const light = new THREE.PointLight(col, 1.8, 7.0);
-      mesh.add(light);
       scene.add(mesh);
       marker = { mesh, id: t.id, line };
       liveMarkers.push(marker);
@@ -444,12 +456,10 @@ function spawnTrain(line) {
   const links = lineLinkMap[line];
   if (!links || links.length === 0) return;
   const link = links[Math.floor(Math.random() * links.length)];
-  const geo = new THREE.SphereGeometry(0.24, 16, 16);
+  const geo = new THREE.SphereGeometry(0.24, 12, 12);
   const col = new THREE.Color(LINE_COLORS[line] || '#fff');
-  const mat = new THREE.MeshStandardMaterial({ color: col, emissive: col, emissiveIntensity: 2.0, transparent: true, opacity: 0.95 });
+  const mat = new THREE.MeshStandardMaterial({ color: col, emissive: col, emissiveIntensity: 3.0, transparent: true, opacity: 0.95 });
   const mesh = new THREE.Mesh(geo, mat);
-  const light = new THREE.PointLight(col, 1.2, 5.0);
-  mesh.add(light);
   scene.add(mesh);
   if (trains.length >= 200) {
     const old = trains.shift();
