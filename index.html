@@ -427,7 +427,8 @@ function updateLiveMarkers(trainData) {
       liveMarkers.push(marker);
     }
     marker.mesh.visible = true;
-    marker.mesh.position.copy(pos);
+    // Smooth: store target, lerp in animate (don't snap)
+    marker.targetPos = pos.clone();
     visibleIds.add(t.id);
   });
   for (let i = liveMarkers.length - 1; i >= 0; i--) {
@@ -443,7 +444,7 @@ let liveFetchInterval = null;
 function setLiveMode(enabled) {
   if (enabled) {
     fetchLiveTrains();
-    if (!liveFetchInterval) liveFetchInterval = setInterval(fetchLiveTrains, 15000);
+    if (!liveFetchInterval) liveFetchInterval = setInterval(fetchLiveTrains, 10000);
     // Hide simulated trains when live is active (avoid double dots)
     trains.forEach(t => { t.mesh.visible = false; });
   } else {
@@ -546,6 +547,14 @@ function animate() {
   controls.update();
   updateLabels();
   updateTrains(0.0167);
+  // Smooth lerp live markers toward their latest target positions (0.08 ≈ 1.5s gliding)
+  if (liveOn) {
+    liveMarkers.forEach(m => {
+      if (m.targetPos && m.mesh.visible) {
+        m.mesh.position.lerp(m.targetPos, 0.08);
+      }
+    });
+  }
   renderer.render(scene, camera);
 }
 animate();
