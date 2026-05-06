@@ -137,6 +137,7 @@ async function initMap() {
 
   map.on('load', () => {
     loadNetwork().then(() => showToast('Network loaded'));
+    runAnimation();
   });
 }
 initMap();
