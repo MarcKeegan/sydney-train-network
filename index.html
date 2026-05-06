@@ -538,10 +538,8 @@ function showToast(msg) {
   setTimeout(() => el.classList.remove('show'), 2200);
 }
 
-/* =====================  Init  ===================== */
-map.on('load', () => {
-  loadNetwork().then(() => showToast('Network loaded'));
-});
+/* Init runs inside initMap() above — duplicate map.on('load') removed
+   (it ran before initMap assigned `map`, throwing TypeError) */
 </script>
 </body>
 </html>
